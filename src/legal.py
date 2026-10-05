@@ -5,7 +5,7 @@ ROOT = pathlib.Path('..')
 (ROOT / 'fonts').mkdir(exist_ok=True)
 for f in pathlib.Path('fonts').glob('*.woff2'): shutil.copy(f, ROOT / 'fonts' / f.name)
 
-NAME = 'Ahmet Akan'
+NAME = 'Dr. Ahmet Akan'
 ADDR_DE = 'Heiligenstädter Straße 131–135/5/31<br>1190 Wien, Österreich'
 ADDR_EN = 'Heiligenstädter Straße 131–135/5/31<br>1190 Vienna, Austria'
 MAIL = 'info@europalinguarumviva.eu'
@@ -41,7 +41,6 @@ def page(fname, title, de, en, other):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex">
 <title>{title} · Europa Linguarum Viva</title>
 <style>{CSS}</style>
 </head>
