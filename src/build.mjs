@@ -28,25 +28,37 @@ const EW = 1000, EH = 860;
 const eProj = d3.geoAzimuthalEqualArea().rotate([-10, -52]); // ETRS89-LAEA-like centre
 const frame = { type: 'MultiPoint', coordinates: [[-11, 35], [31, 35], [-24, 64], [42, 66], [10, 71.5], [10, 34]] };
 eProj.fitExtent([[10, 10], [EW - 10, EH - 10]], frame);
-// Fit Europe into the gold ring: the smallest circle around the coasts that must stay fully visible
+// Fit Europe into the gold ring so that its outermost coasts lie on one circle concentric with the ring:
+// west (Iceland, Iberia), north (Norway, Kola), south (Crete, Cyprus) and a soft eastern cut at E_CUT all keep the same gap.
+const E_CUT = 41;
 {
-  const KEY = [[-24.5,65.5],[-22,63.4],[-16,66.6],[-13.5,65.1],[-9.5,38.7],[-9.0,37.0],[-5.6,36.0],[-9.3,43.0],[-10.5,51.6],[-8.2,58.3],
-               [25.8,71.2],[31,70.3],[24,34.9],[26.3,35.2],[29,41],[37.6,55.7],[14.4,35.9]];
-  const pts = KEY.map(c => eProj(c));
-  // minimal enclosing circle (brute force over pairs and triples; small n)
-  const inside = (c, r) => pts.every(p => Math.hypot(p[0]-c[0], p[1]-c[1]) <= r + 1e-6);
-  let best = null;
-  const tryC = (c, r) => { if ((!best || r < best.r) && inside(c, r)) best = {c, r}; };
-  for (let i = 0; i < pts.length; i++) for (let j = i+1; j < pts.length; j++) {
-    const a = pts[i], b = pts[j]; tryC([(a[0]+b[0])/2, (a[1]+b[1])/2], Math.hypot(a[0]-b[0], a[1]-b[1])/2);
-    for (let k = j+1; k < pts.length; k++) { const c = pts[k];
-      const d = 2*(a[0]*(b[1]-c[1]) + b[0]*(c[1]-a[1]) + c[0]*(a[1]-b[1])); if (Math.abs(d) < 1e-9) continue;
-      const ux = ((a[0]**2+a[1]**2)*(b[1]-c[1]) + (b[0]**2+b[1]**2)*(c[1]-a[1]) + (c[0]**2+c[1]**2)*(a[1]-b[1]))/d;
-      const uy = ((a[0]**2+a[1]**2)*(c[0]-b[0]) + (b[0]**2+b[1]**2)*(a[0]-c[0]) + (c[0]**2+c[1]**2)*(b[0]-a[0]))/d;
-      tryC([ux, uy], Math.hypot(a[0]-ux, a[1]-uy)); } }
-  const RING = {cx: 500, cy: 430, r: 405}, CLEAR = 0.85;   // key coasts stay inside 85 % of the ring radius
+  const EUS = new Set('276 040 756 528 056 442 208 578 752 352 826 372 438 234 833 831 832 250 724 620 380 642 498 020 492 674 336 616 203 703 705 191 070 688 499 807 100 804 112 643 440 428 246 233 348 248 300 196 008 470 792 268 051 031'.split(' '));
+  const feats = countries.filter(f => EUS.has(f.id) || ['Kosovo','N. Cyprus'].includes(f.properties.name));
+  const ll = [];
+  for (const f of feats) { const polys = f.geometry.type === 'Polygon' ? [f.geometry.coordinates] : f.geometry.coordinates;
+    for (const poly of polys) { if (d3.geoArea({type:'Polygon', coordinates: poly}) < 6e-5) continue;   // skip islets (Jan Mayen etc.)
+      for (const c of poly[0]) if (c[0] >= -24.6 && c[0] <= E_CUT && c[1] >= 34 && c[1] <= 71.5) ll.push(c); } }
+  for (let la = 34; la <= 71.5; la += 0.5) { const c = [E_CUT, la]; if (feats.some(f => d3.geoContains(f, c))) ll.push(c); }
+  let pts = ll.map(c => eProj(c));
+  // convex hull (monotone chain), then minimal enclosing circle over the hull points
+  pts.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const cr = (o, a, b) => (a[0]-o[0])*(b[1]-o[1]) - (a[1]-o[1])*(b[0]-o[0]);
+  const lo = [], up = [];
+  for (const p of pts) { while (lo.length > 1 && cr(lo[lo.length-2], lo[lo.length-1], p) <= 0) lo.pop(); lo.push(p); }
+  for (const p of [...pts].reverse()) { while (up.length > 1 && cr(up[up.length-2], up[up.length-1], p) <= 0) up.pop(); up.push(p); }
+  const hull = lo.slice(0, -1).concat(up.slice(0, -1));
+  const inside = (c, r) => hull.every(p => Math.hypot(p[0]-c[0], p[1]-c[1]) <= r + 1e-6);
+  // centre = middle of the bounding box (west, east, north and south gaps to the ring pair up);
+  // radius = farthest hull point from that centre, so nothing touches the ring
+  const xs = hull.map(p => p[0]), ys = hull.map(p => p[1]);
+  const c0 = [(Math.min(...xs) + Math.max(...xs))/2, (Math.min(...ys) + Math.max(...ys))/2];
+  const best = {c: c0, r: Math.max(...hull.map(p => Math.hypot(p[0]-c0[0], p[1]-c0[1])))};
+  const RING = {cx: 500, cy: 430, r: 405}, CLEAR = 0.89;   // outermost coasts sit on 86 % of the ring radius, on every side
   const k = RING.r*CLEAR/best.r, t = eProj.translate();
   eProj.scale(eProj.scale()*k).translate([RING.cx + (t[0]-best.c[0])*k, RING.cy + (t[1]-best.c[1])*k]);
+  // the eastern cut as a polyline (lon = E_CUT), used by the page to fade the land out softly
+  RING.cut = Array.from({length: 61}, (_, i) => eProj([E_CUT, 28 + i*0.8])).map(p => p.map(v => +v.toFixed(1)));
+  console.log('ring fit: hull', hull.length, 'r', best.r.toFixed(1), 'k', k.toFixed(3));
   globalThis.__RING = RING;
 }
 const ePath = d3.geoPath(eProj).digits(1);
@@ -57,7 +69,8 @@ const eCountries = [];
 for (const f of countries) {
   if (f.id === '040') continue; // replaced by Statistik Austria outline
   if (!inBox(f) && !['643'].includes(f.id)) continue;
-  const d = ePath(f);
+  const g = f.geometry.type === 'MultiPolygon' ? {...f, geometry: {type: 'MultiPolygon', coordinates: f.geometry.coordinates.filter(P => d3.geoCentroid({type:'Polygon', coordinates: P})[1] < 74)}} : f;
+  const d = ePath(g);
   if (d) eCountries.push({ id: f.id, name: f.properties.name, d });
 }
 const eAustria = ePath(austriaOutline);
