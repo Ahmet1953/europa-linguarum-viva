@@ -1,7 +1,5 @@
 <title>Europa Linguarum Viva</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>/*FONTS*/</style>
 <style>
 /* Layout (after the Manus cover): text column left, luminous relief map right; on phones the map sits on top and the text follows. Austria opens full-stage; Salzburg slides in as a drawer / bottom sheet. Single dark world by design. */
 :root{
@@ -54,7 +52,9 @@ h1 .dot{color:var(--gold)}
 .tlink:hover{color:var(--gold-hi)}
 .arrow-r{display:inline-block;transition:transform .25s}
 .btn:hover .arrow-r,.tlink:hover .arrow-r{transform:translateX(4px)}
-.strata{pointer-events:none;position:absolute;left:clamp(16px,4vw,56px);bottom:18px;z-index:3;display:flex;align-items:center;gap:22px;font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;color:var(--mute);text-transform:uppercase;max-width:calc(100% - 32px)}
+.strata{pointer-events:none;position:absolute;left:clamp(16px,4vw,56px);bottom:18px;z-index:3;display:flex;align-items:center;gap:22px;font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;color:var(--mute);text-transform:uppercase;max-width:calc(100% - 380px)}
+.legal{position:absolute;right:clamp(16px,4vw,56px);bottom:18px;z-index:3;display:flex;gap:10px;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.legal a{color:var(--mute);text-decoration:none}.legal a:hover,.legal a:focus-visible{color:var(--gold-hi)}
 .strata::before{content:"";width:42px;height:2px;background:var(--gold);flex:none}
 .strata span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
@@ -274,8 +274,9 @@ html.intro-on .app{opacity:0}
   .actions{flex-direction:column;align-items:stretch;gap:18px}
   .btn{justify-content:center}
   .tlink{align-self:flex-start}
-  .strata{position:static;justify-content:center;gap:10px;margin:28px 0 0;padding-top:20px;border-top:1px solid rgba(142,154,182,.3);font-size:10.5px;letter-spacing:.12em;flex-wrap:wrap}
+  .strata{position:static;max-width:none;justify-content:center;gap:10px;margin:28px 0 0;padding-top:20px;border-top:1px solid rgba(142,154,182,.3);font-size:10.5px;letter-spacing:.12em;flex-wrap:wrap}
   .strata::before{display:none}
+  .legal{position:static;justify-content:center;margin:14px 0 calc(18px + env(safe-area-inset-bottom,0px));font-size:10.5px}
   .sb-map{padding:4px 4px 64px;overflow:auto;justify-content:flex-start;align-items:flex-start;scrollbar-width:none}
   .sb-map::-webkit-scrollbar{display:none}
   .sb-box{flex:none;width:175%;max-height:none}
@@ -348,6 +349,7 @@ html.intro-on .app{opacity:0}
         </div>
       </div>
       <div class="strata" data-i18n="strata">Country · Language · Regional variety · CEFR A1.1–C2.2</div>
+      <nav class="legal" aria-label="Legal"><a href="impressum.html" data-i18n="impressum">Legal notice</a><span aria-hidden="true">·</span><a href="datenschutz.html" data-i18n="privacy">Privacy</a></nav>
     </section>
 
     <section class="view" id="v-austria" aria-hidden="true">
@@ -419,13 +421,13 @@ const T = {
  en:{introH1:"Europe speaks in layers",introGo:"Explore the atlas →",introSbg:"Salzburg pilot →",lede:"A living, AI-assisted atlas connecting European languages, regional voices and CEFR-aligned pathways for modern life.",
   enterAt:"Explore Austria",sources:"Map data & sources",sourcesH:"Map data",strata:"Country · Language · Regional variety · CEFR A1.1–C2.2",
   austria:"Austria",atSub:"Nine federal states. Salzburg is open in this pilot.",hint:"Choose a federal state",
-  demoChip:"Pilot · source-checked content",dsub:"Federal state",methBtn:"Method & sources",methH:"Method & sources",statusPending:"Checked against sources · expert review pending",statusDone:"Expert-reviewed",srcH:"Sources",entries:"Entries",types:{overview:"Overview","language-layers":"Language layers","standard-vocabulary":"Austrian Standard","first-phrases":"First phrases","dialect-window":"Dialect window","border-story":"Border story","source-spotlight":"Source",culture:"Culture",gau:"Region"},back:"← Back",close:"Close",europe:"Europe",
+  demoChip:"Pilot · source-checked content",dsub:"Federal state",methBtn:"Method & sources",methH:"Method & sources",statusPending:"Checked against sources · expert review pending",statusDone:"Expert-reviewed",srcH:"Sources",entries:"Entries",types:{overview:"Overview","language-layers":"Language layers","standard-vocabulary":"Austrian Standard","first-phrases":"First phrases","dialect-window":"Dialect window","border-story":"Border story","source-spotlight":"Source",culture:"Culture",gau:"Region"},back:"← Back",close:"Close",europe:"Europe",impressum:"Legal notice",privacy:"Privacy",
   soon:s=>`${s}: in preparation.`,toEurope:"← Europe",toAustria:"← Austria",
   austriaLabel:"Austria. Open the federal states",sbSub:{"5":"Six regions. Terrain from the official 20 m elevation model.","7":"Nine districts, East Tyrol included. Terrain from the official 20 m elevation model.","1":"Nine districts between the Leitha Mountains and the Pannonian plain. Terrain from the official 20 m elevation model.","2":"Ten districts, from the Hohe Tauern to the Karawanks. Terrain from the official 20 m elevation model.","4":"Eighteen districts, from the Bohemian Forest to the Dachstein. Terrain from the official 20 m elevation model.","3":"Twenty-four districts around Vienna, from the Waldviertel to the Schneeberg. Terrain from the official 20 m elevation model.","6":"Thirteen districts, from the Dachstein to the Styrian wine hills. Terrain from the official 20 m elevation model.","8":"Four districts between Lake Constance and the Silvretta. Terrain from the official 20 m elevation model.","9":"Twenty-three districts on the Danube, from the Wienerwald to the Marchfeld. Terrain from the official 20 m elevation model."},cardsBtn:"Open the Salzburg cards",sbHint:"Peak heights read from the elevation model · official height in brackets",closeCards:"Close ×",gauSoon:s=>`${s}: regional content follows.`,toSalzburg:"Salzburg",stateLabel:s=>`${s}. Open`,pilot:"PILOT"},
  de:{introH1:"Europa spricht in Schichten",introGo:"Atlas entdecken →",introSbg:"Pilot Salzburg →",lede:"Ein lebendiger, KI-gestützter Atlas, der Europas Sprachen, regionale Stimmen und GER-orientierte Lernwege für das heutige Leben verbindet.",
   enterAt:"Österreich entdecken",sources:"Kartendaten & Quellen",sourcesH:"Kartendaten",strata:"Land · Sprache · Regionale Varietät · GER A1.1–C2.2",
   austria:"Österreich",atSub:"Neun Bundesländer. In diesem Pilot ist Salzburg geöffnet.",hint:"Bundesland wählen",
-  demoChip:"Pilot · quellengeprüfte Inhalte",dsub:"Bundesland",methBtn:"Methode & Quellen",methH:"Methode & Quellen",statusPending:"An Quellen geprüft · Fachprüfung ausstehend",statusDone:"Fachlich geprüft",srcH:"Quellen",entries:"Einträge",types:{overview:"Überblick","language-layers":"Sprachschichten","standard-vocabulary":"Österr. Standard","first-phrases":"Erste Sätze","dialect-window":"Dialektfenster","border-story":"Grenzgeschichte","source-spotlight":"Quelle",culture:"Kultur",gau:"Gau"},back:"← Zurück",close:"Schließen",europe:"Europa",
+  demoChip:"Pilot · quellengeprüfte Inhalte",dsub:"Bundesland",methBtn:"Methode & Quellen",methH:"Methode & Quellen",statusPending:"An Quellen geprüft · Fachprüfung ausstehend",statusDone:"Fachlich geprüft",srcH:"Quellen",entries:"Einträge",types:{overview:"Überblick","language-layers":"Sprachschichten","standard-vocabulary":"Österr. Standard","first-phrases":"Erste Sätze","dialect-window":"Dialektfenster","border-story":"Grenzgeschichte","source-spotlight":"Quelle",culture:"Kultur",gau:"Gau"},back:"← Zurück",close:"Schließen",europe:"Europa",impressum:"Impressum",privacy:"Datenschutz",
   soon:s=>`${s}: in Vorbereitung.`,toEurope:"← Europa",toAustria:"← Österreich",
   austriaLabel:"Österreich. Bundesländer öffnen",sbSub:{"5":"Sechs Regionen. Gelände aus dem amtlichen 20-m-Höhenmodell.","7":"Neun Bezirke, mit Osttirol. Gelände aus dem amtlichen 20-m-Höhenmodell.","1":"Neun Bezirke zwischen Leithagebirge und pannonischer Ebene. Gelände aus dem amtlichen 20-m-Höhenmodell.","2":"Zehn Bezirke, von den Hohen Tauern bis zu den Karawanken. Gelände aus dem amtlichen 20-m-Höhenmodell.","4":"Achtzehn Bezirke, vom Böhmerwald bis zum Dachstein. Gelände aus dem amtlichen 20-m-Höhenmodell.","3":"Vierundzwanzig Bezirke rund um Wien, vom Waldviertel bis zum Schneeberg. Gelände aus dem amtlichen 20-m-Höhenmodell.","6":"Dreizehn Bezirke, vom Dachstein bis ins steirische Weinland. Gelände aus dem amtlichen 20-m-Höhenmodell.","8":"Vier Bezirke zwischen Bodensee und Silvretta. Gelände aus dem amtlichen 20-m-Höhenmodell.","9":"Dreiundzwanzig Bezirke an der Donau, vom Wienerwald bis ins Marchfeld. Gelände aus dem amtlichen 20-m-Höhenmodell."},cardsBtn:"Salzburg-Karten öffnen",sbHint:"Gipfelhöhen aus dem Höhenmodell · amtliche Höhe in Klammern",closeCards:"Schließen ×",gauSoon:s=>`${s}: regionale Inhalte folgen.`,toSalzburg:"Salzburg",stateLabel:s=>`${s}. Öffnen`,pilot:"PILOT"}
 };

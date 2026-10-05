@@ -15,6 +15,8 @@ A living atlas of Europe's languages and regional voices. Interactive relief map
 | `src/build.mjs` → `src/geo.json` | Map geometry: Europe, Austria, the nine federal states and their districts. |
 | `src/sart.py`, `src/art.py`, `src/art_at.py` → `src/art_*.webp` | Relief artwork rendered from elevation data. |
 | `src/assemble.py`, `src/build_site.py` | Put everything into one page and write `index.html`. |
+| `src/legal.py` → `impressum.html`, `datenschutz.html` | Legal notice and privacy page (German and English). |
+| `src/fonts/`, `fonts/` | EB Garamond and IBM Plex Mono, self-hosted (no request to Google). |
 | `src/tests/` | Browser tests for desktop and phone (Playwright). |
 
 ## Content rules
@@ -31,6 +33,7 @@ A living atlas of Europe's languages and regional voices. Interactive relief map
 - Boundaries of states, districts and municipalities: Statistik Austria (2021), via GeoJSON-TopoJSON-Austria by Flooh Perlot, CC BY 4.0.
 - Countries: Natural Earth via world-atlas (public domain).
 - Rivers, lakes and towns: Natural Earth (public domain).
+- Fonts: EB Garamond and IBM Plex Mono, SIL Open Font License, via Fontsource.
 - Village coordinates: GeoNames via all-the-cities (CC BY 4.0) and Wikipedia.
 - Language sources: listed in `src/content/sources.json` and on the site's "Method & sources" page.
 
