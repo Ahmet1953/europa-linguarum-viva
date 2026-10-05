@@ -68,7 +68,9 @@ h1 .dot{color:var(--gold)}
 .mapbox{position:relative;height:var(--mh);width:auto;max-width:none;flex:none;aspect-ratio:1000/860;margin-inline:calc(var(--mh) * -.1105);transform-origin:0 0;will-change:transform}
 .mapbox canvas,.mapbox svg{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain}
 .hit{fill:none;pointer-events:fill;cursor:pointer;stroke:transparent;stroke-width:1.5;vector-effect:non-scaling-stroke;transition:stroke .25s,fill .25s}
-.hit:hover,.hit:focus-visible{stroke:var(--gold-hi);fill:rgba(255,226,170,.12);outline:none;filter:drop-shadow(0 0 6px rgba(245,217,160,.8))}
+.at-zone{fill:transparent;pointer-events:all;cursor:pointer}
+.tag{cursor:pointer}
+.hit:hover,.hit.hov,.hit:focus-visible{stroke:var(--gold-hi);fill:rgba(255,226,170,.12);outline:none;filter:drop-shadow(0 0 6px rgba(245,217,160,.8))}
 .tag{font-family:var(--f-mono);font-size:9px;letter-spacing:.18em;fill:var(--gold-hi);pointer-events:none;text-transform:uppercase}
 
 /* ---- Austria ---- */
@@ -533,9 +535,14 @@ const RING = GEO.ring;
 { const d = el("defs",{},sE); d.innerHTML = '<filter id="ringGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
   el("circle",{cx:RING.cx,cy:RING.cy,r:RING.r+9,class:"ring halo"},sE);
   el("circle",{cx:RING.cx,cy:RING.cy,r:RING.r,class:"ring main"},sE); }
+// Austria is small at this scale: a wider, invisible target around it (and the tag) opens it too
+{ const [x0,y0,x1,y1] = E.austriaBounds, pad = 16;
+  const z = el("rect",{x:x0-pad,y:y0-pad,width:x1-x0+2*pad,height:y1-y0+2*pad,rx:pad,class:"at-zone"},sE);
+  z.addEventListener("click",()=>goAustria());
+  z.addEventListener("mouseenter",()=>atHit.classList.add("hov")); z.addEventListener("mouseleave",()=>atHit.classList.remove("hov")); }
 const atHit = el("path",{d:E.austria,class:"hit",tabindex:"0",role:"button"},sE);
 const vx = E.vienna;
-el("text",{x:vx[0]+9,y:vx[1]-9,class:"tag"},sE).textContent = "AT · PILOT";
+{ const t = el("text",{x:vx[0]+9,y:vx[1]-9,class:"tag"},sE); t.textContent = "AT · PILOT"; t.style.pointerEvents = "all"; t.addEventListener("click",()=>goAustria()); }
 atHit.addEventListener("click",()=>goAustria());
 atHit.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();goAustria();} });
 $("enter-at").onclick = () => goAustria();
