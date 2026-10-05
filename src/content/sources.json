@@ -1,0 +1,62 @@
+{
+ "statistik-2026": {
+  "tier": "A",
+  "kind": "official",
+  "cite": "Statistik Austria (2026): Bevölkerung zu Jahresbeginn 2026. Pressemitteilung, 9.2.2026.",
+  "url": "https://www.statistik.at/fileadmin/announcement/2026/02/20260209Bevoelkerung1.1.2026.pdf"
+ },
+ "zahlenspiegel-2025": {
+  "tier": "A",
+  "kind": "official",
+  "cite": "Land Salzburg, Landesstatistik (2025): Statistik Zahlenspiegel 2025. Stand 1.1.2025.",
+  "url": "https://www.salzburg.gv.at/fileadmin/Dateien/Statistik/Zahlenspiegel/statistik-zahlenspiegel-2025.pdf"
+ },
+ "buelow-2019": {
+  "tier": "A",
+  "kind": "academic",
+  "cite": "Bülow, Lars (2019): Variation und Wandel der Pluralformen von sein in den Dialekten Salzburgs. JournaLIPP 7, 18–38.",
+  "url": "https://lipp.ub.uni-muenchen.de/lipp/article/download/4879/2760/7842"
+ },
+ "sprachatlas-sbg": {
+  "tier": "A",
+  "kind": "academic",
+  "cite": "Scheutz, Hannes (2016/17): Sprachatlas Salzburg. Universität Salzburg, im Rahmen von Salzburg 20.16.",
+  "url": "https://www.sprachatlas.at/salzburg/"
+ },
+ "duden": {
+  "tier": "A",
+  "kind": "dictionary",
+  "cite": "Duden online. Bibliographisches Institut, Berlin. Einträge mit regionaler Kennzeichnung.",
+  "url": "https://www.duden.de/"
+ },
+ "orf-2017": {
+  "tier": "B",
+  "kind": "press",
+  "cite": "ORF Salzburg (10.2.2017): Alte Grenzen Salzburgs in Dialekten zu hören.",
+  "url": "http://html.orf.at/oeka_1_3/sbg/news/stories/2825028/"
+ },
+ "meinbezirk-2017": {
+  "tier": "B",
+  "kind": "press",
+  "cite": "meinbezirk.at (13.2.2017): Salzburgs Dialekte im „Sprachatlas“ vereint.",
+  "url": "https://www.meinbezirk.at/salzburg-stadt/c-lokales/salzburgs-dialekte-im-sprachatlas-vereint_a2021148"
+ },
+ "unesco-784": {
+  "tier": "A",
+  "kind": "official",
+  "cite": "UNESCO World Heritage Centre: Historic Centre of the City of Salzburg (Nr. 784), eingetragen 1996.",
+  "url": "https://whc.unesco.org/en/list/784"
+ },
+ "tsg-mozart": {
+  "tier": "B",
+  "kind": "institution",
+  "cite": "Tourismus Salzburg GmbH, salzburg.info: Mozarts Geburtshaus.",
+  "url": "https://salzburg.info/de/sehenswertes/top10/mozarts-geburtshaus"
+ },
+ "tsg-festspiele": {
+  "tier": "B",
+  "kind": "institution",
+  "cite": "Tourismus Salzburg GmbH, salzburg.info: Salzburger Festspiele – Chronik.",
+  "url": "https://salzburg.info/de/salzburg/salzburger-festspiele/chronik"
+ }
+}

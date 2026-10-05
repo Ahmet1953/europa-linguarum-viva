@@ -1,0 +1,815 @@
+<title>Europa Linguarum Viva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout (after the Manus cover): text column left, luminous relief map right; on phones the map sits on top and the text follows. Austria opens full-stage; Salzburg slides in as a drawer / bottom sheet. Single dark world by design. */
+:root{
+  --night:#06101f; --navy:#0a1730; --navy-2:#11234a;
+  --gold:#e9b766; --gold-hi:#f5d9a0; --ivory:#efe7d6;
+  --mute:#8e9ab6; --line:rgba(233,183,102,.26);
+  --f-serif:"EB Garamond","Cormorant Garamond",Garamond,Georgia,serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{background:var(--night);color:var(--ivory);font-family:var(--f-serif);font-size:18px;overflow:hidden}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
+
+.app{position:relative;height:100%;display:flex;flex-direction:column;background:radial-gradient(120% 90% at 70% 40%,#0c1b38 0,var(--night) 70%)}
+header{position:relative;z-index:6;display:flex;align-items:center;gap:14px;padding:18px clamp(16px,4vw,56px) 8px}
+.logo{display:flex;align-items:center;gap:14px;margin-right:auto;min-width:0}
+.logo svg{flex:none}
+.logo b{font-family:var(--f-mono);font-weight:500;font-size:13px;letter-spacing:.22em;color:var(--ivory);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg{display:flex;gap:2px}
+.seg button{background:none;border:0;padding:6px 8px;font-family:var(--f-mono);font-size:12px;letter-spacing:.16em;color:var(--mute);cursor:pointer;border-bottom:1px solid transparent}
+.seg button[aria-pressed="true"]{color:var(--gold);border-bottom-color:var(--gold)}
+.link{background:none;border:0;padding:6px 0;cursor:pointer;font-family:var(--f-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ivory)}
+.link:hover{color:var(--gold-hi)}
+
+.crumbs{position:relative;z-index:6;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:0 clamp(16px,4vw,56px);min-height:26px;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.crumbs button{background:none;border:0;padding:4px 0;cursor:pointer;color:var(--gold);letter-spacing:inherit;text-transform:inherit;font-family:inherit}
+.crumbs .cur{color:var(--ivory)}
+
+.stage{position:relative;flex:1;min-height:0;overflow:hidden}
+svg path:focus{outline:none}
+.view{position:absolute;inset:0;transition:opacity .7s ease}
+.view[aria-hidden="true"] *{pointer-events:none!important}
+.view[aria-hidden="true"]{opacity:0;pointer-events:none;visibility:hidden;transition:opacity .7s ease,visibility 0s .7s}
+
+/* ---- Europe hero ---- */
+#v-europe{display:grid;grid-template-areas:"copy map";grid-template-columns:minmax(340px,.72fr) minmax(0,1.28fr);align-items:center;padding-inline:clamp(16px,4vw,56px);overflow:hidden}
+.copy{grid-area:copy;position:relative;z-index:3;min-width:0;padding-block:24px}
+.eyebrow{font-family:var(--f-mono);font-size:13px;font-weight:500;letter-spacing:.22em;color:var(--gold);margin:0 0 22px;text-transform:uppercase}
+h1{font-family:var(--f-serif);font-weight:500;font-size:clamp(46px,6.4vw,104px);line-height:.98;letter-spacing:.005em;margin:0;color:var(--ivory);text-shadow:0 0 22px rgba(255,240,215,.22),0 0 2px rgba(255,240,215,.4);text-wrap:balance}
+h1 .dot{color:var(--gold)}
+.lede{font-size:clamp(19px,1.6vw,24px);line-height:1.45;max-width:30ch;margin:26px 0 0;color:var(--ivory)}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 36px;margin-top:34px}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--gold);color:#1a1408;border:0;border-radius:4px;padding:18px 30px;font-family:var(--f-mono);font-weight:500;font-size:13px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;box-shadow:0 0 0 rgba(233,183,102,0);transition:box-shadow .3s,background .3s}
+.btn:hover{background:var(--gold-hi);box-shadow:0 0 34px rgba(233,183,102,.35)}
+.tlink{display:inline-flex;align-items:center;gap:12px;background:none;border:0;padding:8px 0;font-family:var(--f-mono);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--ivory);cursor:pointer}
+.tlink:hover{color:var(--gold-hi)}
+.arrow-r{display:inline-block;transition:transform .25s}
+.btn:hover .arrow-r,.tlink:hover .arrow-r{transform:translateX(4px)}
+.strata{pointer-events:none;position:absolute;left:clamp(16px,4vw,56px);bottom:18px;z-index:3;display:flex;align-items:center;gap:22px;font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;color:var(--mute);text-transform:uppercase;max-width:calc(100% - 32px)}
+.strata::before{content:"";width:42px;height:2px;background:var(--gold);flex:none}
+.strata span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.mapwrap{grid-area:map;position:relative;min-width:0;padding-left:clamp(0px,1.5vw,32px);padding-right:clamp(0px,4vw,80px);height:100%;display:flex;align-items:center;justify-content:flex-start}
+#svg-europe{overflow:visible}
+#svg-state:focus{outline:none}
+.ring{fill:none;pointer-events:none}
+.ring.main{stroke:#ffd76a;stroke-width:2.2;filter:url(#ringGlow);animation:breathe 4.5s ease-in-out infinite}
+.ring.halo{stroke:rgba(255,215,106,.28);stroke-width:1}
+@keyframes breathe{0%,100%{opacity:.82}50%{opacity:1}}
+.mapbox{position:relative;height:98%;width:auto;max-width:none;flex:none;aspect-ratio:1000/860;transform-origin:0 0;will-change:transform}
+.mapbox canvas,.mapbox svg{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain}
+.hit{fill:none;pointer-events:fill;cursor:pointer;stroke:transparent;stroke-width:1.5;vector-effect:non-scaling-stroke;transition:stroke .25s,fill .25s}
+.hit:hover,.hit:focus-visible{stroke:var(--gold-hi);fill:rgba(255,226,170,.12);outline:none;filter:drop-shadow(0 0 6px rgba(245,217,160,.8))}
+.tag{font-family:var(--f-mono);font-size:9px;letter-spacing:.18em;fill:var(--gold-hi);pointer-events:none;text-transform:uppercase}
+
+/* ---- Austria ---- */
+#v-austria{display:flex;flex-direction:column}
+.at-head{position:relative;z-index:3;padding:6px clamp(16px,4vw,56px) 0;display:flex;flex-wrap:wrap;align-items:flex-end;gap:8px 28px}
+.at-head h2{font-family:var(--f-serif);font-weight:500;font-size:clamp(34px,4.4vw,64px);line-height:1;margin:0;letter-spacing:.01em;text-shadow:0 0 18px rgba(255,240,215,.2)}
+.at-head h2 .dot{color:var(--gold)}
+.at-head p{margin:0 0 6px;color:var(--mute);font-size:17px;max-width:40ch}
+.at-map{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:8px clamp(8px,3vw,40px) 44px}
+.at-box{position:relative;width:100%;max-height:100%;aspect-ratio:1000/540}
+.at-box canvas,.at-box svg{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain}
+.state{fill:none;pointer-events:fill;cursor:pointer;stroke:transparent;stroke-width:2;vector-effect:non-scaling-stroke;transition:stroke .25s,fill .25s}
+.state:hover,.state:focus-visible{stroke:var(--gold-hi);fill:rgba(255,226,170,.13);outline:none;filter:drop-shadow(0 0 8px rgba(245,217,160,.85))}
+.state.pilot,.state.open{stroke:rgba(245,217,160,.85)}
+.lbl{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;fill:var(--ivory);text-anchor:middle;pointer-events:none;paint-order:stroke;stroke:rgba(6,16,31,.85);stroke-width:3.5px;stroke-linejoin:round}
+.lbl.pilot{font-family:var(--f-serif);font-size:26px;letter-spacing:.04em;text-transform:none;fill:#fff7e6;stroke-width:5px}
+.pilot-tag{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.22em;fill:var(--gold);text-anchor:middle;pointer-events:none;paint-order:stroke;stroke:rgba(6,16,31,.85);stroke-width:3px}
+.pulse{fill:none;stroke:#fff1d0;stroke-width:1.4;pointer-events:none;transform-box:fill-box;transform-origin:center;animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{from{transform:scale(.5);opacity:.95}to{transform:scale(3);opacity:0}}
+.hint{position:absolute;left:clamp(16px,4vw,56px);right:16px;bottom:16px;z-index:3;display:flex;align-items:center;gap:18px;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.hint::before{content:"";width:42px;height:2px;background:var(--gold);flex:none}
+.toast{position:absolute;left:50%;top:10px;transform:translateX(-50%);z-index:9;background:var(--navy-2);border:1px solid var(--line);border-radius:4px;padding:10px 16px;font-size:16px;max-width:calc(100% - 32px)}
+
+/* ---- Salzburg map ---- */
+#v-salzburg{display:flex;flex-direction:column}
+.sb-map{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:8px clamp(8px,3vw,40px) 44px;transition:padding .6s cubic-bezier(.2,.8,.2,1)}
+.app.drawer-on .sb-map{padding-right:500px}
+.sb-box{position:relative;width:100%;max-height:100%;aspect-ratio:var(--ar,1000/851)}
+.sb-box canvas,.sb-box svg{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain}
+.gau{fill:none;pointer-events:fill;cursor:pointer;stroke:transparent;stroke-width:2;vector-effect:non-scaling-stroke;transition:stroke .25s,fill .25s}
+.gau:hover,.gau:focus-visible{stroke:var(--gold-hi);fill:rgba(255,226,170,.12);outline:none;filter:drop-shadow(0 0 8px rgba(245,217,160,.85))}
+.glbl{font-family:var(--f-serif);font-size:24px;fill:#fff7e6;text-anchor:middle;pointer-events:none;paint-order:stroke;stroke:rgba(6,16,31,.8);stroke-width:5px;stroke-linejoin:round;letter-spacing:.02em}
+.glbl.small{font-size:15px}
+.peak{pointer-events:none;transition:opacity .4s}
+.places-on .peak{opacity:.18}
+.places-on text[data-gau]{opacity:.3;transition:opacity .4s}
+.nbstate{fill:transparent;stroke:none;cursor:pointer;transition:fill .25s}
+.stborder{fill:none;stroke:rgba(233,183,102,.42);stroke-width:1;vector-effect:non-scaling-stroke;pointer-events:none}
+.nbstate:hover,.nbstate:focus-visible{fill:rgba(233,183,102,.10);outline:none}
+.natborder{fill:none;stroke:rgba(245,217,160,.7);stroke-width:1.6;stroke-dasharray:7 3 1.5 3;vector-effect:non-scaling-stroke;pointer-events:none}
+.frontier{fill:none;stroke:rgba(142,154,182,.35);stroke-width:1;stroke-dasharray:4 4;vector-effect:non-scaling-stroke;pointer-events:none}
+.stub{fill:none;stroke-width:2;stroke-linecap:round;vector-effect:non-scaling-stroke;filter:url(#stubGlow);pointer-events:none}
+.stub.fx{stroke-dasharray:6 4}
+.nblbl{font-family:var(--f-mono);font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;fill:#ffe7b0;text-anchor:middle;dominant-baseline:middle;cursor:pointer;paint-order:stroke;stroke:rgba(6,16,31,.85);stroke-width:4px;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(255,210,140,.75));transition:fill .2s}
+.nblbl:hover,.nblbl:focus-visible{fill:#fff;outline:none;text-decoration:underline}
+.dlbl{font-family:var(--f-serif);font-size:17px;fill:#ffe7b0;text-anchor:middle;dominant-baseline:middle;cursor:pointer;paint-order:stroke;stroke:rgba(6,16,31,.85);stroke-width:4px;filter:drop-shadow(0 0 5px rgba(255,210,140,.6))}
+.dlbl:hover,.dlbl:focus-visible{fill:#fff;outline:none;text-decoration:underline}
+.ctylbl{font-family:var(--f-serif);font-style:italic;font-size:21px;letter-spacing:.06em;fill:#ffe7b0;text-anchor:middle;dominant-baseline:middle;pointer-events:none;paint-order:stroke;stroke:rgba(6,16,31,.85);stroke-width:4px;filter:drop-shadow(0 0 6px rgba(255,210,140,.6))}
+.vnum{font-family:var(--f-serif);font-size:26px;font-weight:500;fill:#fff7e6;text-anchor:middle;pointer-events:none;paint-order:stroke;stroke:rgba(6,16,31,.85);stroke-width:5px;stroke-linejoin:round}
+.vname{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;fill:var(--gold-hi);text-anchor:middle;pointer-events:none;paint-order:stroke;stroke:rgba(6,16,31,.85);stroke-width:3.5px;stroke-linejoin:round}
+.vienna-hole{fill:rgba(233,183,102,.06);stroke:var(--gold);stroke-width:1.4;stroke-dasharray:5 4;vector-effect:non-scaling-stroke;cursor:pointer;transition:fill .25s}
+.vienna-hole:hover,.vienna-hole:focus-visible{fill:rgba(233,183,102,.22);outline:none}
+.glbl.vienna-lbl{fill:var(--gold-hi);font-style:italic}
+.peak path{fill:#fff7e6;stroke:rgba(6,16,31,.8);stroke-width:1.2}
+.peak text{font-family:var(--f-mono);font-size:13px;letter-spacing:.08em;fill:#fff7e6;paint-order:stroke;stroke:rgba(6,16,31,.85);stroke-width:3.5px;stroke-linejoin:round}
+.peak text.h{fill:var(--gold-hi);font-size:12px}
+.sb-btn{padding:12px 18px;font-size:12px}
+.app.drawer-on .sb-btn{visibility:hidden}
+
+/* ---- Salzburg drawer ---- */
+.drawer{position:absolute;z-index:8;top:0;right:0;bottom:0;width:min(460px,100%);background:linear-gradient(180deg,rgba(12,26,54,.97),rgba(6,16,31,.985));border-left:1px solid var(--line);display:flex;flex-direction:column;transform:translateX(105%);transition:transform .6s cubic-bezier(.2,.8,.2,1);box-shadow:-40px 0 80px rgba(0,0,0,.45)}
+.drawer.open{transform:none}
+.dhead{display:flex;align-items:flex-start;gap:12px;padding:22px 24px 6px}
+.dhead .eyebrow{margin:0 0 10px;font-size:11.5px}
+.dhead h2{font-family:var(--f-serif);font-weight:500;font-size:44px;margin:0;line-height:1;text-shadow:0 0 18px rgba(255,240,215,.2)}
+.dhead h2 .dot{color:var(--gold)}
+.dhead small{display:block;margin-top:8px;font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;color:var(--mute);text-transform:uppercase}
+.close{margin-left:auto;flex:none}
+.track{flex:1;min-height:0;display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:14px 24px 8px;padding:0;scrollbar-width:none;overscroll-behavior-x:contain}
+.track::-webkit-scrollbar{display:none}
+.card{box-sizing:border-box;flex:0 0 100%;scroll-snap-align:start;min-width:0;overflow-y:auto;border:1px solid var(--line);border-radius:6px;padding:22px;position:relative;background:linear-gradient(160deg,rgba(17,35,74,.65),rgba(10,23,48,.6))}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(90% 50% at 20% 0,rgba(233,183,102,.12),transparent 70%)}
+.chip{display:inline-block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.card h3{font-family:var(--f-serif);font-weight:500;font-size:28px;line-height:1.1;margin:10px 0 14px;text-wrap:balance}
+.card p{line-height:1.5;margin:0 0 12px;font-size:17px}
+.card .meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cefr{font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;padding:3px 7px;border:1px solid rgba(233,183,102,.45);border-radius:3px;color:var(--gold-hi)}
+.card h4{font-family:var(--f-mono);font-weight:500;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 10px}
+.card i{color:var(--gold-hi)}
+.note{color:var(--mute);font-size:15px!important}
+.gap{border-left:2px solid var(--coral,#f08a6a);padding-left:12px;color:var(--mute);font-size:15px!important}
+.views{margin:16px 0 4px;padding:14px;border:1px solid rgba(233,183,102,.3);border-radius:5px;background:rgba(233,183,102,.05)}
+.views>div{display:grid;gap:2px;padding:9px 0 9px 12px;border-left:2px solid var(--teal,#2fb5c4);margin:6px 0}
+.views>.view-b{border-left-color:var(--coral,#f08a6a)}
+.views b{font-family:var(--f-mono);font-weight:500;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-hi)}
+.views span{font-size:16.5px}
+.card blockquote{margin:14px 0;padding:4px 0 4px 16px;border-left:2px solid var(--gold);font-family:var(--f-serif);font-size:20px;line-height:1.35}
+.card blockquote cite{display:block;margin-top:8px;font-family:var(--f-mono);font-style:normal;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.vdot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:1px;box-shadow:0 0 6px currentColor}.vdot.a{background:#2fb5c4;color:#2fb5c4}.vdot.ai{background:#f08a6a;color:#f08a6a}
+.plc{opacity:0;transition:opacity .45s;pointer-events:none}
+.plc.on{opacity:1}
+.plc circle{stroke:#fff8ea;stroke-width:1.6;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 6px rgba(255,240,215,.9))}
+.plc rect{fill:#e9b766;stroke:#fff8ea;stroke-width:1.4;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 6px rgba(255,210,140,.9))}
+.plc:not(.a):not(.ai) circle{fill:#e9b766}
+#places[data-mode="seid"] rect{display:none}
+#places[data-mode="atlas"] circle,#places[data-mode="atlas"] .vv{display:none}
+#places[data-mode="gau"] .plc[data-atlas="1"] circle,#places[data-mode="gau"] .plc[data-atlas="1"] .vv{display:none}
+#places[data-mode="atlas"] text{font-size:12px}
+.plc.a circle{fill:#2fb5c4}.plc.ai circle{fill:#f08a6a}
+.plc text{font-family:var(--f-mono);font-size:14.5px;letter-spacing:.06em;fill:#fff8ea;paint-order:stroke;stroke:rgba(4,10,22,.85);stroke-width:4px;stroke-linejoin:round}
+.plc text tspan{fill:var(--gold-hi)}
+.srcs{margin-top:18px;padding-top:12px;border-top:1px solid rgba(233,183,102,.22)}
+.status{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-hi)}
+.status i{width:8px;height:8px;border-radius:50%;background:#e9b766;box-shadow:0 0 8px #e9b766;flex:none}
+.status.ok i{background:#53d6a0;box-shadow:0 0 8px #53d6a0}
+.srcs ol{margin:10px 0 0;padding-left:18px;font-size:13.5px;line-height:1.45;color:var(--mute)}
+.srcs li{margin:0 0 6px}
+.srcs a{color:var(--ink,#f3ead8);overflow-wrap:anywhere}
+.loc{display:block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.04em}
+.tier{font-family:var(--f-mono);font-style:normal;font-size:9.5px;padding:1px 5px;border-radius:2px;margin-left:6px;border:1px solid currentColor}
+.tier.A{color:#53d6a0}.tier.B{color:#e9b766}
+.elinks{font-size:13px;margin:4px 0 0;color:var(--mute)}
+.elinks a{color:var(--gold-hi)}
+.mlink{background:none;border:0;padding:0;margin-top:8px;cursor:pointer;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-hi);text-decoration:underline;text-underline-offset:3px}
+.meth ol.steps{padding-left:20px;margin:6px 0 0}
+.meth ol.steps li{margin:0 0 8px;line-height:1.5;font-size:16px}
+.bib{list-style:none;padding:0;margin:6px 0 0}
+.bib li{padding:7px 0;border-top:1px solid rgba(233,183,102,.12);font-size:15px;line-height:1.45}
+.bib a{color:var(--gold-hi);word-break:break-word}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin:6px 0 14px}
+.kv dt{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);padding-top:5px}
+.kv dd{margin:0;font-size:18px;font-variant-numeric:tabular-nums}
+.pairs{width:100%;border-collapse:collapse;font-size:17px}
+.pairs th{font-family:var(--f-mono);font-weight:500;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);text-align:left;padding:0 0 6px}
+.pairs td{padding:8px 0;border-top:1px solid rgba(233,183,102,.14)}
+.pairs td:first-child{color:var(--gold-hi)}
+.phrase{padding:10px 0;border-top:1px solid rgba(233,183,102,.14)}
+.phrase b{display:block;font-weight:500;color:var(--gold-hi);font-size:19px}
+.phrase span{color:var(--mute);font-size:16px}
+.gmap{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:10px 14px;border:1px solid var(--line);border-radius:4px;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-hi);text-decoration:none}
+.gmap:hover{border-color:var(--gold);background:rgba(233,183,102,.08)}
+.dnav{display:flex;align-items:center;gap:10px;padding:10px 24px calc(18px + env(safe-area-inset-bottom,0px))}
+.dots{display:flex;gap:7px;margin:0 auto}
+.dots i{width:7px;height:2px;background:var(--mute);opacity:.6;transition:all .3s}
+.dots i.on{background:var(--gold);opacity:1;width:26px}
+.arrow{width:42px;height:42px;border-radius:4px;border:1px solid var(--line);background:none;cursor:pointer;color:var(--gold-hi);font-size:17px}
+.arrow:disabled{opacity:.3;cursor:default}
+
+/* ---- sources ---- */
+.sheet{position:absolute;inset:0;z-index:10;background:rgba(3,8,18,.78);display:flex;align-items:center;justify-content:center;padding:16px}
+.sheet .box{background:var(--navy);border:1px solid var(--line);border-radius:6px;max-width:680px;width:100%;max-height:100%;overflow:auto;padding:24px}
+.sheet h2{font-family:var(--f-serif);font-weight:500;margin:0 0 6px;font-size:32px}
+.src{padding:14px 0;border-top:1px solid rgba(233,183,102,.16)}
+.src h4{margin:0 0 6px;font-family:var(--f-mono);font-weight:500;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.src p{margin:0 0 4px;line-height:1.5;font-size:16.5px}
+.src code{font-family:var(--f-mono);font-size:12px;color:var(--mute);word-break:break-all}
+.src a{color:var(--gold-hi)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:6px}
+.legend span{display:inline-flex;align-items:center;gap:7px;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.legend i{width:12px;height:12px;border-radius:2px;display:inline-block}
+
+/* ---- phones ---- */
+@media (max-width:820px){
+  body{font-size:17px}
+  header{padding:14px 16px 6px}
+  .logo b{font-size:12px;letter-spacing:.18em}
+  .crumbs{padding:0 16px}
+  #v-europe{display:block;overflow-y:auto;}
+  #v-europe{padding-inline:16px;-webkit-overflow-scrolling:touch}
+  .mapwrap{height:auto;margin:0 -16px;padding-right:0}
+  .mapbox{width:calc(100% - 24px);height:auto;margin:14px auto 8px;max-height:none}
+  .copy{padding-block:0 76px}
+  .eyebrow{color:var(--ivory);font-weight:400;margin-bottom:16px;font-size:12px}
+  h1{font-size:clamp(46px,14vw,72px)}
+  .lede{font-size:19px}
+  .actions{flex-direction:column;align-items:stretch;gap:18px}
+  .btn{justify-content:center}
+  .tlink{align-self:flex-start}
+  .strata{position:static;justify-content:center;gap:10px;margin:28px 0 0;padding-top:20px;border-top:1px solid rgba(142,154,182,.3);font-size:10.5px;letter-spacing:.12em;flex-wrap:wrap}
+  .strata::before{display:none}
+  .sb-map{padding:4px 4px 64px;overflow:auto;justify-content:flex-start;align-items:flex-start;scrollbar-width:none}
+  .sb-map::-webkit-scrollbar{display:none}
+  .sb-box{flex:none;width:175%;max-height:none}
+  .app.drawer-on .sb-map{padding-right:4px}
+  .glbl{font-size:30px}
+  .glbl.small{font-size:20px}
+  .nblbl{font-size:14px}
+  .dlbl{font-size:20px}
+  .ctylbl{font-size:22px}
+  .vnum{font-size:32px}
+  .vname{font-size:13px}
+  .peak text{font-size:16px}
+  .peak text.h{font-size:15px}
+  .at-map{padding:4px 0 56px;overflow-x:auto;justify-content:flex-start;scrollbar-width:none;overscroll-behavior-x:contain}
+  .at-map::-webkit-scrollbar{display:none}
+  .at-box{flex:none;width:230%;max-height:none;margin-inline:8px}
+  .lbl{font-size:12px}
+  .lbl.pilot{font-size:30px}
+  .pilot-tag{font-size:10.5px}
+  .drawer{top:auto;left:0;width:100%;height:min(76%,640px);border-left:0;border-top:1px solid var(--line);border-radius:14px 14px 0 0;transform:translateY(105%)}
+  .drawer.open{transform:none}
+  .dhead h2{font-size:38px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="app" id="app">
+  <header>
+    <div class="logo">
+      <svg width="40" height="30" viewBox="0 0 40 30" aria-hidden="true"><g fill="none" stroke="#e9b766" stroke-width="3" stroke-linecap="round"><path d="M2 5c6-4 12 4 18 0s12-4 18 0"/><path d="M2 15c6-4 12 4 18 0s12-4 18 0"/><path d="M2 25c6-4 12 4 18 0s12-4 18 0"/></g></svg>
+      <b>EUROPA LINGUARUM VIVA</b>
+    </div>
+    <div class="seg" role="group" aria-label="Interface language">
+      <button id="lang-en" aria-pressed="true">EN</button>
+      <button id="lang-de" aria-pressed="false">DE</button>
+    </div>
+  </header>
+  <nav class="crumbs" id="crumbs" aria-label="Breadcrumb"></nav>
+
+  <div class="stage" id="stage">
+    <section class="view" id="v-europe">
+      <div class="mapwrap" id="mapwrap">
+        <div class="mapbox" id="mapbox">
+          <canvas id="cv-europe" width="2000" height="1720" aria-hidden="true"></canvas>
+          <svg id="svg-europe" viewBox="0 0 1000 860" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+      </div>
+      <div class="copy">
+        <p class="eyebrow">Europa Linguarum Viva</p>
+        <h1>EUROPE SPEAKS IN LAYERS<span class="dot">.</span></h1>
+        <p class="lede" data-i18n="lede">A living, AI-assisted atlas connecting European languages, regional voices and CEFR-aligned pathways for modern life.</p>
+        <div class="actions">
+          <button class="btn" id="enter-at"><span data-i18n="enterAt">Explore Austria</span><span class="arrow-r" aria-hidden="true">→</span></button>
+          <button class="tlink" id="open-src"><span data-i18n="sources">Map data &amp; sources</span><span class="arrow-r" aria-hidden="true">→</span></button>
+        </div>
+      </div>
+      <div class="strata" data-i18n="strata">Country · Language · Regional variety · CEFR A1.1–C2.2</div>
+    </section>
+
+    <section class="view" id="v-austria" aria-hidden="true">
+      <div class="at-head">
+        <h2><span data-i18n="austria">Austria</span><span class="dot">.</span></h2>
+        <p data-i18n="atSub">Nine federal states. Salzburg is open in this pilot.</p>
+      </div>
+      <div class="at-map">
+        <div class="at-box">
+          <canvas id="cv-austria" width="2000" height="1080" aria-hidden="true"></canvas>
+          <svg id="svg-austria" viewBox="0 0 1000 540" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+      </div>
+      <div class="hint" data-i18n="hint">Choose a state · Salzburg is the pilot</div>
+    </section>
+
+    <section class="view" id="v-salzburg" aria-hidden="true">
+      <div class="at-head">
+        <h2><span id="st-title">Salzburg</span><span class="dot">.</span></h2>
+        <p id="st-sub">Six regions. Terrain from the official 20 m elevation model.</p>
+        <button class="btn sb-btn" id="sb-cards"><span data-i18n="cardsBtn">Open the Salzburg cards</span><span class="arrow-r" aria-hidden="true">→</span></button>
+      </div>
+      <div class="sb-map">
+        <div class="sb-box" id="st-box">
+          <canvas id="cv-state" width="2000" height="1702" aria-hidden="true"></canvas>
+          <svg id="svg-state" tabindex="-1" viewBox="0 0 1000 851" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+      </div>
+      <div class="hint" data-i18n="sbHint">Peak heights read from the elevation model · official height in brackets</div>
+    </section>
+
+    <div class="toast" id="toast" hidden></div>
+
+    <aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="d-title">
+      <div class="dhead">
+        <div><p class="eyebrow" data-i18n="demoChip">Pilot · demo content</p><h2 id="d-title">Salzburg<span class="dot">.</span></h2><small data-i18n="dsub">Federal state</small><button class="mlink" id="d-meth" data-i18n="methBtn">Method &amp; sources</button></div>
+        <button class="link close" id="d-close" data-i18n="closeCards">Close ×</button>
+      </div>
+      <div class="track" id="track"></div>
+      <div class="dnav">
+        <button class="arrow" id="prev" aria-label="Previous card">←</button>
+        <div class="dots" id="dots"></div>
+        <button class="arrow" id="next" aria-label="Next card">→</button>
+      </div>
+    </aside>
+
+    <div class="sheet" id="meth" hidden role="dialog" aria-modal="true" aria-labelledby="meth-h">
+      <div class="box meth">
+        <div style="display:flex;align-items:flex-start;gap:12px"><h2 id="meth-h" data-i18n="methH">Method &amp; sources</h2><button class="link" id="meth-close" style="margin-left:auto" data-i18n="close">Close</button></div>
+        <div id="meth-body"></div>
+      </div>
+    </div>
+
+    <div class="sheet" id="src" hidden role="dialog" aria-modal="true" aria-labelledby="src-h">
+      <div class="box">
+        <div style="display:flex;align-items:flex-start;gap:12px"><h2 id="src-h" data-i18n="sourcesH">Map data</h2><button class="link" id="src-close" style="margin-left:auto" data-i18n="close">Close</button></div>
+        <div id="src-body"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const GEO = /*GEO*/null;
+const RELIEF = {europe:"/*REL_E*/", austria:"/*REL_A*/", /*REL_STATES*/};
+/*CONTENT*/
+const NS = "http://www.w3.org/2000/svg";
+const T = {
+ en:{lede:"A living, AI-assisted atlas connecting European languages, regional voices and CEFR-aligned pathways for modern life.",
+  enterAt:"Explore Austria",sources:"Map data & sources",sourcesH:"Map data",strata:"Country · Language · Regional variety · CEFR A1.1–C2.2",
+  austria:"Austria",atSub:"Nine federal states. Salzburg is open in this pilot.",hint:"Choose a federal state",
+  demoChip:"Pilot · source-checked content",dsub:"Federal state",methBtn:"Method & sources",methH:"Method & sources",statusPending:"Checked against sources · expert review pending",statusDone:"Expert-reviewed",srcH:"Sources",entries:"Entries",types:{overview:"Overview","language-layers":"Language layers","standard-vocabulary":"Austrian Standard","first-phrases":"First phrases","dialect-window":"Dialect window","border-story":"Border story","source-spotlight":"Source",culture:"Culture",gau:"Region"},back:"← Back",close:"Close",europe:"Europe",
+  soon:s=>`${s}: in preparation.`,toEurope:"← Europe",toAustria:"← Austria",
+  austriaLabel:"Austria. Open the federal states",sbSub:{"5":"Six regions. Terrain from the official 20 m elevation model.","7":"Nine districts, East Tyrol included. Terrain from the official 20 m elevation model.","1":"Nine districts between the Leitha Mountains and the Pannonian plain. Terrain from the official 20 m elevation model.","2":"Ten districts, from the Hohe Tauern to the Karawanks. Terrain from the official 20 m elevation model.","4":"Eighteen districts, from the Bohemian Forest to the Dachstein. Terrain from the official 20 m elevation model.","3":"Twenty-four districts around Vienna, from the Waldviertel to the Schneeberg. Terrain from the official 20 m elevation model.","6":"Thirteen districts, from the Dachstein to the Styrian wine hills. Terrain from the official 20 m elevation model.","8":"Four districts between Lake Constance and the Silvretta. Terrain from the official 20 m elevation model.","9":"Twenty-three districts on the Danube, from the Wienerwald to the Marchfeld. Terrain from the official 20 m elevation model."},cardsBtn:"Open the Salzburg cards",sbHint:"Peak heights read from the elevation model · official height in brackets",closeCards:"Close ×",gauSoon:s=>`${s}: regional content follows.`,toSalzburg:"Salzburg",stateLabel:s=>`${s}. Open`,pilot:"PILOT"},
+ de:{lede:"Ein lebendiger, KI-gestützter Atlas, der Europas Sprachen, regionale Stimmen und GER-orientierte Lernwege für das heutige Leben verbindet.",
+  enterAt:"Österreich entdecken",sources:"Kartendaten & Quellen",sourcesH:"Kartendaten",strata:"Land · Sprache · Regionale Varietät · GER A1.1–C2.2",
+  austria:"Österreich",atSub:"Neun Bundesländer. In diesem Pilot ist Salzburg geöffnet.",hint:"Bundesland wählen",
+  demoChip:"Pilot · quellengeprüfte Inhalte",dsub:"Bundesland",methBtn:"Methode & Quellen",methH:"Methode & Quellen",statusPending:"An Quellen geprüft · Fachprüfung ausstehend",statusDone:"Fachlich geprüft",srcH:"Quellen",entries:"Einträge",types:{overview:"Überblick","language-layers":"Sprachschichten","standard-vocabulary":"Österr. Standard","first-phrases":"Erste Sätze","dialect-window":"Dialektfenster","border-story":"Grenzgeschichte","source-spotlight":"Quelle",culture:"Kultur",gau:"Gau"},back:"← Zurück",close:"Schließen",europe:"Europa",
+  soon:s=>`${s}: in Vorbereitung.`,toEurope:"← Europa",toAustria:"← Österreich",
+  austriaLabel:"Österreich. Bundesländer öffnen",sbSub:{"5":"Sechs Regionen. Gelände aus dem amtlichen 20-m-Höhenmodell.","7":"Neun Bezirke, mit Osttirol. Gelände aus dem amtlichen 20-m-Höhenmodell.","1":"Neun Bezirke zwischen Leithagebirge und pannonischer Ebene. Gelände aus dem amtlichen 20-m-Höhenmodell.","2":"Zehn Bezirke, von den Hohen Tauern bis zu den Karawanken. Gelände aus dem amtlichen 20-m-Höhenmodell.","4":"Achtzehn Bezirke, vom Böhmerwald bis zum Dachstein. Gelände aus dem amtlichen 20-m-Höhenmodell.","3":"Vierundzwanzig Bezirke rund um Wien, vom Waldviertel bis zum Schneeberg. Gelände aus dem amtlichen 20-m-Höhenmodell.","6":"Dreizehn Bezirke, vom Dachstein bis ins steirische Weinland. Gelände aus dem amtlichen 20-m-Höhenmodell.","8":"Vier Bezirke zwischen Bodensee und Silvretta. Gelände aus dem amtlichen 20-m-Höhenmodell.","9":"Dreiundzwanzig Bezirke an der Donau, vom Wienerwald bis ins Marchfeld. Gelände aus dem amtlichen 20-m-Höhenmodell."},cardsBtn:"Salzburg-Karten öffnen",sbHint:"Gipfelhöhen aus dem Höhenmodell · amtliche Höhe in Klammern",closeCards:"Schließen ×",gauSoon:s=>`${s}: regionale Inhalte folgen.`,toSalzburg:"Salzburg",stateLabel:s=>`${s}. Öffnen`,pilot:"PILOT"}
+};
+/* dominant language family per country (simplified, country level) */
+const FAM = {
+ ger:{c:"#f0a443",en:"Germanic",de:"Germanisch",ids:"276 040 756 528 056 442 208 578 752 352 826 372 438 234 833 831 832"},
+ rom:{c:"#ef6f55",en:"Romance",de:"Romanisch",ids:"250 724 620 380 642 498 020 492 674 336"},
+ sla:{c:"#3f9db0",en:"Slavic",de:"Slawisch",ids:"616 203 703 705 191 070 688 499 807 100 804 112 643"},
+ bal:{c:"#7fb59a",en:"Baltic",de:"Baltisch",ids:"440 428"},
+ ura:{c:"#86b0c8",en:"Uralic",de:"Uralisch",ids:"246 233 348 248"},
+ oth:{c:"#d9d2c6",en:"Other (Greek, Albanian, Maltese, Turkic …)",de:"Andere (Griechisch, Albanisch, Maltesisch, Turksprachen …)",ids:"300 196 008 470 792 268 051 031"}
+};
+const famOf = {}; for (const k in FAM) FAM[k].ids.split(" ").forEach(id => famOf[id] = k);
+const STATE_COL = {"8":"#f0a443","7":"#d9d2c6","5":"#ef6f55","2":"#3f9db0","6":"#7fb59a","4":"#3f9db0","3":"#f0a443","9":"#ef6f55","1":"#d9d2c6"};
+
+const SRC = {
+ en:`<div class="src"><h4>Borders · Europe</h4><p>Natural Earth, Admin-0 Countries 1:50m, v4.1.0, public domain, via <code>world-atlas@2.0.2</code>. Natural Earth draws de facto boundaries.</p><p><a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">naturalearthdata.com</a> · <a href="https://github.com/topojson/world-atlas" target="_blank" rel="noopener">github.com/topojson/world-atlas</a></p></div>
+<div class="src"><h4>Borders · Austrian federal states</h4><p>Statistik Austria open data, boundaries as of 1 January 2021 (OGDEXT_GEM_1), CC BY 4.0; converted and simplified (99.5 %) by Flooh Perlot, CC BY 4.0. File <code>2021/simplified-99.5/laender_995_topo.json</code>. Austria's outline on the Europe map is the merged outline of these nine states.</p><p><a href="https://data.statistik.gv.at/web/meta.jsp?dataset=OGDEXT_GEM_1" target="_blank" rel="noopener">data.statistik.gv.at</a> · <a href="https://github.com/ginseng666/GeoJSON-TopoJSON-Austria" target="_blank" rel="noopener">github.com/ginseng666/GeoJSON-TopoJSON-Austria</a></p></div>
+<div class="src"><h4>Terrain · Austria</h4><p>Digitales Geländemodell (DGM) Österreich, 10 m, CC BY 4.0 (data.gv.at), used here as the terrain-RGB overview published in <a href="https://github.com/syncpoint/terrain-rgb" target="_blank" rel="noopener">syncpoint/terrain-rgb</a> (about 220 m per pixel). Checked against known heights: Vienna Stephansplatz 172 m (true 171 m), Innsbruck 574 m (574 m), Bregenz 398 m (398 m). At this resolution summits are smoothed by a few hundred metres.</p></div>
+<div class="src"><h4>Recording places · Salzburg</h4><p>The 32 places of the Sprachatlas Salzburg (names read from its Dialektvergleich map) and the DiÖ places cited by Bülow 2019. Positions are village points from GeoNames (via all-the-cities, CC BY 4.0) or Wikipedia; St. Georgen, St. Koloman and Lessach are placed at the centre of their municipality. The atlas itself publishes no coordinates, so positions are approximate.</p></div><div class="src"><h4>Terrain · Salzburg</h4><p>DGM Österreich 10 m (CC BY 4.0, data.gv.at / Land Kärnten), cut to Salzburg plus a 2 km margin and resampled to 20 m in MGI Austria Lambert (EPSG:31287). Checked against official heights: Großvenediger 3652 m (official 3657), Kitzsteinhorn 3198 (3203), Hochkönig 2939 (2941), Gaisberg 1286 (1287), Salzburg Residenzplatz 424 (424), Zeller See 750 (750). The region (Gau) borders are the six political districts 501–506 of Statistik Austria.</p></div>
+<div class="src"><h4>Terrain · Tyrol</h4><p>Same model and method, Tyrol plus a 2 km margin at 20 m. Checked: Großglockner 3792 m (official 3798), Wildspitze 3761 (3768), Weißkugel 3731 (3738), Zugspitze 2954 (2962), Innsbruck Maria-Theresien-Straße 576 (574), Lienz Hauptplatz 673 (673), Achensee 928 (929). Borders: political districts 701–709, East Tyrol (Lienz) included.</p></div>
+<div class="src"><h4>Terrain · Burgenland and Carinthia</h4><p>Same model and method. Burgenland checked: Geschriebenstein 882 m (official 884), Eisenstadt 180 (182), Neusiedler See at Podersdorf 116 (115). Carinthia checked: Großglockner 3792 (3798), Hochalmspitze 3351 (3360), Dobratsch 2162 (2166), Wörthersee 440 (439), Klagenfurt Neuer Platz 444 (446). The 2 km margin has no data on the Hungarian, Slovak, Italian and Slovenian side; the Hungarian part of Lake Neusiedl is therefore not shown. In low-lying states (Burgenland, Upper and Lower Austria) colours are stretched over the state’s own height range, so their hills stay visible; in the Alpine states colour follows absolute height.</p></div>
+<div class="src"><h4>Terrain · Upper and Lower Austria</h4><p>Same model and method. Upper Austria checked: Hoher Dachstein 2986 m (official 2995), Großer Priel 2512 (2515), Plöckenstein 1372 (1379), Traunsee 422 (422), Attersee 469 (469), Linz Hauptplatz 259 (266). Lower Austria checked: Schneeberg 2074 (2076), Ötscher 1891 (1893), Jauerling 960 (960), St. Pölten 272 (267), Krems 197 (203). Vienna is a separate state and appears as an open area inside Lower Austria; clicking it opens Vienna.</p></div>
+<div class="src"><h4>Terrain · Styria, Vorarlberg and Vienna</h4><p>Same model and method. Styria checked: Hoher Dachstein 2986 m (official 2995), Hochgolling 2858 (2862), Hochschwab 2276 (2277), Schöckl 1443 (1445), Graz Hauptplatz 351 (353), Leoben Hauptplatz 541 (541), Grundlsee 708 (709). Vorarlberg checked: Piz Buin 3307 (3312), Schesaplana 2961 (2965), Lake Constance at Bregenz 395 (396), Feldkirch 457 (458). Vienna checked: Hermannskogel 542 (542, the city’s highest point), Kahlenberg 484 (484), Stephansplatz 172 (171). Vienna’s 23 districts are numbered as in official use; Vienna’s colours are stretched over its own height range (148–582 m including the margin).</p></div>
+<div class="src"><h4>Terrain · Europe</h4><p>Colour bands: ETOPO1 elevation at 10 arc-minutes, public domain (via fatiando-data). Surface texture: Natural Earth shaded relief, 2 arc-minutes. Lighting is computed from the elevation (sun from the north-west, 2.6× vertical exaggeration in Austria).</p></div>
+<div class="src"><h4>Colours</h4><p>Colour follows height: deep teal lowlands, cyan hills, amber uplands, coral mountains, ivory summits. On the Europe map a soft second layer tints each country by its dominant language family (simplified, country level).</p><div class="legend">${Object.values(FAM).map(f=>`<span><i style="background:${f.c}"></i>${f.en}</span>`).join("")}</div></div>
+<div class="src"><h4>Rivers, lakes, city lights</h4><p>Natural Earth 1:10m. Every light is a real town. Fine gold lines in Austria are the real municipal and district boundaries (Statistik Austria 2021).</p></div>
+<div class="src"><h4>One geometry for picture and click</h4><p>The glowing picture and the click areas are drawn from the same SVG path strings, in the same projection (Lambert azimuthal equal-area; Europe centred 10° E 52° N as in EPSG:3035, Austria centred 13.33° E 47.6° N). The Manus cover images serve only as a style reference; no border or relief is traced from them.</p></div>`,
+ de:`<div class="src"><h4>Grenzen · Europa</h4><p>Natural Earth, Admin-0 Countries 1:50m, v4.1.0, gemeinfrei, über <code>world-atlas@2.0.2</code>. Natural Earth zeigt De-facto-Grenzen.</p><p><a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">naturalearthdata.com</a> · <a href="https://github.com/topojson/world-atlas" target="_blank" rel="noopener">github.com/topojson/world-atlas</a></p></div>
+<div class="src"><h4>Grenzen · Bundesländer</h4><p>Statistik Austria Open Data, Stand 1. Jänner 2021 (OGDEXT_GEM_1), CC BY 4.0; umgewandelt und vereinfacht (99,5 %) von Flooh Perlot, CC BY 4.0. Datei <code>2021/simplified-99.5/laender_995_topo.json</code>. Österreichs Umriss auf der Europakarte ist die Vereinigung dieser neun Länder.</p><p><a href="https://data.statistik.gv.at/web/meta.jsp?dataset=OGDEXT_GEM_1" target="_blank" rel="noopener">data.statistik.gv.at</a> · <a href="https://github.com/ginseng666/GeoJSON-TopoJSON-Austria" target="_blank" rel="noopener">github.com/ginseng666/GeoJSON-TopoJSON-Austria</a></p></div>
+<div class="src"><h4>Gelände · Österreich</h4><p>Digitales Geländemodell (DGM) Österreich, 10 m, CC BY 4.0 (data.gv.at), hier als Terrain-RGB-Übersicht aus <a href="https://github.com/syncpoint/terrain-rgb" target="_blank" rel="noopener">syncpoint/terrain-rgb</a> (rund 220 m pro Pixel). Geprüft an bekannten Höhen: Wien Stephansplatz 172 m (tatsächlich 171 m), Innsbruck 574 m (574 m), Bregenz 398 m (398 m). Bei dieser Auflösung sind Gipfel um einige hundert Meter geglättet.</p></div>
+<div class="src"><h4>Aufnahmeorte · Salzburg</h4><p>Die 32 Orte des Sprachatlas Salzburg (Namen von seiner Dialektvergleich-Karte abgelesen) und die bei Bülow 2019 genannten DiÖ-Orte. Positionen: Ortspunkte aus GeoNames (über all-the-cities, CC BY 4.0) oder Wikipedia; St. Georgen, St. Koloman und Lessach in der Mitte ihrer Gemeinde. Der Atlas selbst veröffentlicht keine Koordinaten; die Positionen sind daher Näherungen.</p></div><div class="src"><h4>Gelände · Salzburg</h4><p>DGM Österreich 10 m (CC BY 4.0, data.gv.at / Land Kärnten), auf Salzburg mit 2 km Rand zugeschnitten und auf 20 m in MGI Austria Lambert (EPSG:31287) umgerechnet. Geprüft an amtlichen Höhen: Großvenediger 3652 m (amtlich 3657), Kitzsteinhorn 3198 (3203), Hochkönig 2939 (2941), Gaisberg 1286 (1287), Salzburg Residenzplatz 424 (424), Zeller See 750 (750). Die Gaue sind die sechs politischen Bezirke 501–506 von Statistik Austria.</p></div>
+<div class="src"><h4>Gelände · Tirol</h4><p>Gleiches Modell und Verfahren, Tirol mit 2 km Rand in 20 m. Geprüft: Großglockner 3792 m (amtlich 3798), Wildspitze 3761 (3768), Weißkugel 3731 (3738), Zugspitze 2954 (2962), Innsbruck Maria-Theresien-Straße 576 (574), Lienz Hauptplatz 673 (673), Achensee 928 (929). Grenzen: politische Bezirke 701–709, mit Osttirol (Lienz).</p></div>
+<div class="src"><h4>Gelände · Burgenland und Kärnten</h4><p>Gleiches Modell und Verfahren. Burgenland geprüft: Geschriebenstein 882 m (amtlich 884), Eisenstadt 180 (182), Neusiedler See bei Podersdorf 116 (115). Kärnten geprüft: Großglockner 3792 (3798), Hochalmspitze 3351 (3360), Dobratsch 2162 (2166), Wörthersee 440 (439), Klagenfurt Neuer Platz 444 (446). Im 2-km-Rand fehlen Daten auf ungarischer, slowakischer, italienischer und slowenischer Seite; der ungarische Teil des Neusiedler Sees wird daher nicht gezeigt. In niedrigen Ländern (Burgenland, Ober- und Niederösterreich) sind die Farben über den eigenen Höhenbereich gestreckt, damit ihr Hügelland sichtbar bleibt; in den Alpenländern folgt die Farbe der absoluten Höhe.</p></div>
+<div class="src"><h4>Gelände · Ober- und Niederösterreich</h4><p>Gleiches Modell und Verfahren. Oberösterreich geprüft: Hoher Dachstein 2986 m (amtlich 2995), Großer Priel 2512 (2515), Plöckenstein 1372 (1379), Traunsee 422 (422), Attersee 469 (469), Linz Hauptplatz 259 (266). Niederösterreich geprüft: Schneeberg 2074 (2076), Ötscher 1891 (1893), Jauerling 960 (960), St. Pölten 272 (267), Krems 197 (203). Wien ist ein eigenes Bundesland und erscheint als offene Fläche in Niederösterreich; ein Klick darauf öffnet Wien.</p></div>
+<div class="src"><h4>Gelände · Steiermark, Vorarlberg und Wien</h4><p>Gleiches Modell und Verfahren. Steiermark geprüft: Hoher Dachstein 2986 m (amtlich 2995), Hochgolling 2858 (2862), Hochschwab 2276 (2277), Schöckl 1443 (1445), Graz Hauptplatz 351 (353), Leoben Hauptplatz 541 (541), Grundlsee 708 (709). Vorarlberg geprüft: Piz Buin 3307 (3312), Schesaplana 2961 (2965), Bodensee bei Bregenz 395 (396), Feldkirch 457 (458). Wien geprüft: Hermannskogel 542 (542, höchster Punkt der Stadt), Kahlenberg 484 (484), Stephansplatz 172 (171). Die 23 Wiener Bezirke sind wie amtlich nummeriert; Wiens Farben sind über den eigenen Höhenbereich gestreckt (148–582 m einschließlich Rand).</p></div>
+<div class="src"><h4>Gelände · Europa</h4><p>Farbbänder: ETOPO1-Höhen mit 10 Bogenminuten, gemeinfrei (über fatiando-data). Oberflächentextur: Natural-Earth-Schummerung, 2 Bogenminuten. Die Beleuchtung wird aus den Höhen berechnet (Licht aus Nordwest, 2,6-fache Überhöhung in Österreich).</p></div>
+<div class="src"><h4>Farben</h4><p>Die Farbe folgt der Höhe: tieftürkise Ebenen, cyanfarbene Hügel, bernsteinfarbenes Bergland, korallenrote Gebirge, elfenbeinweiße Gipfel. Auf der Europakarte färbt eine weiche zweite Schicht jedes Land nach seiner vorherrschenden Sprachfamilie (vereinfacht, auf Staatsebene).</p><div class="legend">${Object.values(FAM).map(f=>`<span><i style="background:${f.c}"></i>${f.de}</span>`).join("")}</div></div>
+<div class="src"><h4>Flüsse, Seen, Stadtlichter</h4><p>Natural Earth 1:10m. Jeder Lichtpunkt ist ein realer Ort. Die feinen Goldlinien in Österreich sind die realen Gemeinde- und Bezirksgrenzen (Statistik Austria 2021).</p></div>
+<div class="src"><h4>Eine Geometrie für Bild und Klick</h4><p>Leuchtbild und Klickflächen entstehen aus denselben SVG-Pfaden in derselben Projektion (flächentreue Azimutalprojektion nach Lambert; Europa zentriert auf 10° O 52° N wie EPSG:3035, Österreich auf 13,33° O 47,6° N). Die Manus-Coverbilder dienen nur als Stilvorlage; keine Grenze und kein Relief ist aus ihnen übernommen.</p></div>`
+};
+
+let lang = "en", view = "europe", card = 0;
+const $ = id => document.getElementById(id);
+const el = (tag, attrs={}, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); parent && parent.appendChild(n); return n; };
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const loadImg = src => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => r(null); i.src = src; });
+const rgba = (hex,a) => { const n = parseInt(hex.slice(1),16); return `rgba(${n>>16},${n>>8&255},${n&255},${a})`; };
+
+/* ---------- painter: one routine for both maps ---------- */
+function canFilter(ctx){ ctx.filter = "blur(2px)"; const ok = ctx.filter === "blur(2px)"; ctx.filter = "none"; return ok; }
+function paint(cv, o){
+  const ctx = cv.getContext("2d"), S = cv.width / o.w;
+  ctx.setTransform(S,0,0,S,0,0); ctx.clearRect(0,0,o.w,o.h);
+  const blur = canFilter(ctx);
+  const land = new Path2D(); o.shapes.forEach(s => land.addPath(s.p));
+  // 1 relief artwork: real elevation, pre-lit, same projection as the paths
+  if (o.art) ctx.drawImage(o.art, 0, 0, o.w, o.h);
+  ctx.save(); ctx.clip(land);
+  // 2 optional thematic layer (language families), soft and translucent so terrain stays readable
+  if (o.layer) { ctx.globalCompositeOperation = "soft-light"; ctx.globalAlpha = o.layer; if (blur) ctx.filter = "blur(10px)";
+    o.shapes.forEach(s => { ctx.fillStyle = s.col; ctx.fill(s.p); }); ctx.filter = "none"; ctx.globalAlpha = 1; }
+  ctx.globalCompositeOperation = "source-over";
+  // 3 lakes
+  if (o.lakes) { ctx.fillStyle = "rgba(6,16,36,.92)"; ctx.fill(new Path2D(o.lakes)); ctx.strokeStyle = "rgba(140,225,240,.5)"; ctx.lineWidth = .4; ctx.stroke(new Path2D(o.lakes)); }
+  // 4 rivers as threads of light
+  ctx.globalCompositeOperation = "lighter";
+  if (o.rivers) { const r = new Path2D(o.rivers); ctx.strokeStyle = o.riverCol; ctx.lineWidth = o.riverW; ctx.shadowColor = "rgba(120,230,255,.9)"; ctx.shadowBlur = 5*S; ctx.stroke(r); ctx.shadowBlur = 0; }
+  // 5 municipal / district networks
+  if (o.fine) { ctx.strokeStyle = "rgba(255,226,170,.13)"; ctx.lineWidth = .3; ctx.stroke(new Path2D(o.fine)); }
+  if (o.mid) { ctx.strokeStyle = "rgba(255,214,150,.26)"; ctx.lineWidth = .5; ctx.stroke(new Path2D(o.mid)); }
+  // 6 borders, glowing
+  ctx.strokeStyle = o.borderCol; ctx.lineWidth = o.borderW; ctx.shadowColor = "rgba(255,190,100,.95)"; ctx.shadowBlur = o.borderGlow*S;
+  o.shapes.forEach(s => ctx.stroke(s.p)); ctx.shadowBlur = 0;
+  ctx.restore();
+  // 7 arcs
+  if (o.arcs) { ctx.save(); ctx.globalCompositeOperation = "lighter"; ctx.strokeStyle = "rgba(245,217,160,.38)"; ctx.lineWidth = .6; ctx.shadowColor = "rgba(255,210,140,.8)"; ctx.shadowBlur = 3*S; ctx.stroke(new Path2D(o.arcs)); ctx.restore(); }
+  // 8 city lights (only on drawn land)
+  ctx.save(); ctx.globalCompositeOperation = "lighter";
+  for (const c of o.cities) {
+    if (!ctx.isPointInPath(land, c[0]*S, c[1]*S)) continue;
+    const r = Math.max(.6,(c[2]-o.popBase)*o.popK) * (c[3]===1 ? 1.5 : 1);
+    const gr = ctx.createRadialGradient(c[0],c[1],0,c[0],c[1],r*4);
+    gr.addColorStop(0,"rgba(255,250,232,1)"); gr.addColorStop(.16,"rgba(255,210,140,.8)"); gr.addColorStop(1,"rgba(255,140,50,0)");
+    ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(c[0],c[1],r*4,0,7); ctx.fill();
+  }
+  ctx.restore();
+  // 9 elliptical vignette: the map dissolves into the night instead of meeting a frame edge
+  if (o.fade) { ctx.save(); ctx.globalCompositeOperation = "destination-in";
+    ctx.translate(o.fade.cx, o.fade.cy);
+    const gr = ctx.createRadialGradient(0,0,o.fade.r*.88,0,0,o.fade.r*.995);
+    gr.addColorStop(0,"rgba(0,0,0,1)"); gr.addColorStop(1,"rgba(0,0,0,0)");
+    ctx.fillStyle = gr; ctx.fillRect(-o.w, -o.w, o.w*2, o.w*2); ctx.restore(); }
+}
+
+/* ---------- Europe ---------- */
+const E = GEO.europe;
+const eShapes = E.countries.filter(c => famOf[c.id] || c.name==="Kosovo" || c.name==="N. Cyprus").map(c => ({p:new Path2D(c.d), col: (FAM[famOf[c.id]]||FAM.oth).c}));
+eShapes.push({p:new Path2D(E.austria), col:FAM.ger.c});
+const sE = $("svg-europe");
+const RING = GEO.ring;
+{ const d = el("defs",{},sE); d.innerHTML = '<filter id="ringGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+  el("circle",{cx:RING.cx,cy:RING.cy,r:RING.r+9,class:"ring halo"},sE);
+  el("circle",{cx:RING.cx,cy:RING.cy,r:RING.r,class:"ring main"},sE); }
+const atHit = el("path",{d:E.austria,class:"hit",tabindex:"0",role:"button"},sE);
+const vx = E.vienna;
+el("text",{x:vx[0]+9,y:vx[1]-9,class:"tag"},sE).textContent = "AT · PILOT";
+atHit.addEventListener("click",()=>goAustria());
+atHit.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();goAustria();} });
+$("enter-at").onclick = () => goAustria();
+
+/* ---------- Austria ---------- */
+const A = GEO.austria;
+const aShapes = A.states.map(s => ({p:new Path2D(s.d), col:STATE_COL[s.iso]}));
+const sA = $("svg-austria"), gL = el("g",{}), stateEls = {};
+{ // neighbouring countries: where their borders meet Austria, and their names
+  const defs = el("defs",{},sA);
+  defs.innerHTML = '<filter id="stubGlowA" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+  (A.stubs||[]).forEach((st, i) => { const pts = st.d.slice(1).split("L").map(q => q.split(",").map(Number)); const a = pts[0], b = pts[pts.length-1];
+    const gid = `astub${i}`, gr = el("linearGradient",{id:gid,gradientUnits:"userSpaceOnUse",x1:a[0],y1:a[1],x2:b[0],y2:b[1]},defs);
+    el("stop",{offset:"0","stop-color":"#ffe7b0","stop-opacity":"1"},gr); el("stop",{offset:"0.55","stop-color":"#f5d9a0","stop-opacity":".75"},gr); el("stop",{offset:"1","stop-color":"#e9b766","stop-opacity":"0"},gr);
+    el("path",{d:st.d,class:"stub fx",stroke:`url(#${gid})`,style:"filter:url(#stubGlowA)"},sA); });
+  for (const c of (A.cl||[])) el("text",{x:c.x,y:c.y,class:"ctylbl","data-cty":c.id},sA);
+}
+for (const s of A.states) {
+  const pilot = s.iso==="5";
+  const p = el("path",{d:s.d,class:"state"+(pilot?" pilot":GEO.states[s.iso]?" open":""),tabindex:"0",role:"button"},sA);
+  stateEls[s.iso] = p;
+  const act = () => GEO.states[s.iso] ? goState(s.iso) : toast(T[lang].soon(lang==="de"?s.de:s.en));
+  p.addEventListener("click",act);
+  p.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();act();} });
+}
+sA.appendChild(gL);
+for (const s of A.states) {
+  const pilot = s.iso==="5";
+  if (pilot) el("circle",{cx:s.capXY[0],cy:s.capXY[1],r:5,class:"pulse"},gL);
+  let x = s.cx, y = s.cy;
+  if (s.iso==="9") { x = s.capXY[0]+34; y = s.capXY[1]-12; }
+  if (s.iso==="5") { x = s.cx+4; y = s.cy+30; }
+  if (s.iso==="1") { x = s.cx+2; y = s.cy+26; }
+  if (s.iso==="3") { x = s.capXY[0]-14; y = s.capXY[1]-52; }
+  el("text",{x,y,class:"lbl"+(pilot?" pilot":""),"data-iso":s.iso},gL);
+  if (pilot) el("text",{x,y:y+18,class:"pilot-tag"},gL).textContent = "· PILOT ·";
+}
+
+/* ---------- State maps (generic) ---------- */
+let cur = "5";
+const sS = $("svg-state"); let gauEls = {};
+const stateArt = {};
+async function buildState(code){
+  cur = code; const SB = GEO.states[code];
+  const st = A.states.find(x=>x.iso===code);
+  sS.setAttribute("viewBox",`0 0 ${SB.w} ${SB.h}`); sS.innerHTML = ""; gauEls = {};
+  $("st-box").style.setProperty("--ar", `${SB.w}/${SB.h}`);
+  const cv = $("cv-state"); cv.width = SB.w*2; cv.height = SB.h*2;
+  // context: the first ~2 cm of every border that leaves the state, fading out
+  { const defs = el("defs",{},sS);
+    defs.innerHTML = '<filter id="stubGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+    SB.stubs.forEach((st, i) => { const pts = st.d.slice(1).split("L").map(q => q.split(",").map(Number)); const a = pts[0], b = pts[pts.length-1];
+      const gid = `stub${cur}_${i}`, gr = el("linearGradient",{id:gid,gradientUnits:"userSpaceOnUse",x1:a[0],y1:a[1],x2:b[0],y2:b[1]},defs);
+      el("stop",{offset:"0","stop-color":"#ffe7b0","stop-opacity":"1"},gr); el("stop",{offset:"0.55","stop-color":"#f5d9a0","stop-opacity":".75"},gr); el("stop",{offset:"1","stop-color":"#e9b766","stop-opacity":"0"},gr);
+      el("path",{d:st.d,class:"stub"+(st.k==="fx"?" fx":""),stroke:`url(#${gid})`},sS); }); }
+  for (const g of SB.gaue) {
+    const p = el("path",{d:g.d,class:"gau",tabindex:"0",role:"button"},sS); gauEls[g.iso] = p;
+    el("title",{},p);
+    const act = () => { const i = cur==="5" ? CONTENT.cards.findIndex(c=>c.gau===g.iso) : -1; if (i>=0) openCards(i); else toast(T[lang].gauSoon(lang==="de"?g.de:g.en)); };
+    p.addEventListener("click",act);
+    p.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();act();} });
+  }
+  const gl = el("g",{},sS);
+  for (const n of SB.nbl) { const t = el("text",{x:n.x,y:n.y,class:"nblbl",tabindex:"0",role:"button","data-nbl":n.iso},sS);
+    t.addEventListener("click",()=>goState(n.iso));
+    t.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();goState(n.iso);} }); }
+  for (const d of (SB.dl || [])) { const t = el("text",{x:d.x,y:d.y,class:"dlbl",tabindex:"0",role:"button","aria-label":d.name},sS); t.textContent = d.name;
+    t.addEventListener("click",()=>goState("3"));
+    t.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();goState("3");} }); }
+  for (const c of SB.countries.filter(c => SB.cl.some(x => x.id === c.id))) el("text",{x:c.lx,y:c.ly,class:"ctylbl","data-cty":c.id},gl);
+  if (SB.numbered) for (const g of SB.gaue) {
+    const big = Math.max(...SB.gaue.map(x=>x.a));
+    const gx = g.cx + (g.iso==="921" ? 24 : 0);
+    el("text",{x:gx,y:g.cy+(g.a > big*0.1 ? -2 : 7),class:"vnum"},gl).textContent = g.n;
+    if (g.a > big*0.1) el("text",{x:gx,y:g.cy+15,class:"vname","data-gau":g.iso},gl);
+  }
+  if (!SB.numbered) for (const g of SB.gaue) {
+    let x = g.cx, y = g.cy, cls = "glbl";
+    const big = Math.max(...SB.gaue.map(x=>x.a));
+    if (g.a < 800 || g.a < big*0.06) continue;
+    if (g.a < 4000 || g.a < big*0.14) cls += " small";
+    if (g.iso==="501") { x = SB.city[0]-64; y = SB.city[1]+22; cls += " small"; }
+    if (g.iso==="503") { x = g.cx+10; y = g.cy-30; }
+    if (g.iso==="701") { x = SB.city[0]-30; y = SB.city[1]+24; cls += " small"; }
+    if (g.iso==="703") { y = g.cy+34; }
+    if (g.iso==="201") { x = SB.city[0]+6; y = SB.city[1]+22; }
+    if (g.iso==="202") { y = g.cy+18; }
+    if (g.iso==="204") { y = g.cy+40; }
+    if (g.iso==="207") { x = g.cx-40; y = g.cy-34; }
+    if (g.iso==="202") continue;
+    if (g.iso==="617") { x = g.cx-14; y = g.cy-20; }
+    if (g.iso==="622") { x = g.cx+18; y = g.cy+26; }
+    if (g.iso==="612") { x = g.cx+20; y = g.cy+34; }
+    if (g.iso==="621") { y = g.cy+26; }
+    el("text",{x,y,class:cls,"data-gau":g.iso},gl);
+  }
+  if (SB.vienna) {
+    const vh = el("path",{d:SB.vienna,class:"vienna-hole",tabindex:"0",role:"button","aria-label":lang==="de"?"Wien öffnen":"Open Vienna"},sS);
+    vh.addEventListener("click",()=>goState("9"));
+    vh.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();goState("9");} });
+    el("text",{x:SB.viennaC[0],y:SB.viennaC[1]+5,class:"glbl small vienna-lbl"},gl).textContent = lang==="de" ? "Wien" : "Vienna";
+  }
+  for (const pk of SB.peaks) {
+    const g = el("g",{class:"peak"},gl);
+    el("path",{d:`M${pk.x},${pk.y-5}l4.5,8h-9z`},g);
+    const tx = pk.left ? pk.x-8 : pk.x+8, an = pk.left ? "end" : "start";
+    el("text",{x:tx,y:pk.y-2,"text-anchor":an},g).textContent = pk.name;
+    el("text",{x:tx,y:pk.y+11,class:"h","text-anchor":an},g).textContent = `${pk.dgm} m (${pk.official})`;
+  }
+  $("sb-cards").hidden = code !== "5";
+  stateLabels();
+  if (!stateArt[code]) stateArt[code] = await loadImg(RELIEF["st"+code]);
+  if (cur !== code) return;
+  paint(cv,{w:SB.w,h:SB.h,shapes:SB.gaue.map(g=>({p:new Path2D(g.d),col:"#000"})),art:stateArt[code],fine:SB.gemeinden,
+    lakes:SB.lakes,rivers:SB.rivers,riverCol:"rgba(170,235,250,.75)",riverW:1.1,
+    borderCol:"rgba(255,220,150,.9)",borderW:1.3,borderGlow:8,
+    cities:[[SB.city[0],SB.city[1],cur==="9"?4.7:5.4,1]],popBase:4,popK:2.2});
+}
+function stateLabels(){
+  const SB = GEO.states[cur], st = A.states.find(x=>x.iso===cur);
+  $("st-title").textContent = lang==="de" ? st.de : st.en;
+  $("st-sub").textContent = T[lang].sbSub[cur] || "";
+  for (const n of SB.nbl) { const st = A.states.find(x=>x.iso===n.iso), nm = lang==="de"?st.de:st.en;
+    const t = sS.querySelector(`text[data-nbl="${n.iso}"]`); if (t) { t.textContent = nm; t.setAttribute("aria-label", (lang==="de"?"Öffnen: ":"Open ")+nm); } }
+  for (const c of SB.countries) { const t = sS.querySelector(`text[data-cty="${c.id}"]`); if (t) t.textContent = lang==="de"?c.de:c.en; }
+  for (const g of SB.gaue) { const nm = lang==="de"?g.de:g.en; const t = sS.querySelector(`text[data-gau="${g.iso}"]`); if (t) t.textContent = nm; if (gauEls[g.iso]) { const lb = g.n ? `${g.n}. ${nm}` : nm; gauEls[g.iso].setAttribute("aria-label", lb); const tt = gauEls[g.iso].querySelector("title"); if (tt) tt.textContent = lb; } }
+}
+async function render(){
+  const [rE, rA] = await Promise.all([loadImg(RELIEF.europe), loadImg(RELIEF.austria)]);
+  paint($("cv-europe"),{w:1000,h:860,shapes:eShapes,art:rE,layer:.42,fade:RING,
+    lakes:E.lakes,rivers:E.rivers,riverCol:"rgba(150,225,245,.32)",riverW:.45,
+    borderCol:"rgba(255,226,170,.38)",borderW:.45,borderGlow:2.5,
+    arcs:E.arcs,cities:E.cities,popBase:4.9,popK:.8});
+  paint($("cv-austria"),{w:1000,h:540,shapes:aShapes,art:rA,fine:A.gemeinden,mid:A.bezirke,
+    lakes:A.lakes,rivers:A.rivers,riverCol:"rgba(170,235,250,.7)",riverW:.9,
+    borderCol:"rgba(255,220,150,.9)",borderW:1.2,borderGlow:8,
+    cities:A.cities.map(c=>[c[0],c[1],c[2],0]),popBase:3.6,popK:1.3});
+}
+
+function labels(){
+  for (const s of A.states) {
+    const nm = lang==="de" ? s.de : s.en;
+    sA.querySelector(`text[data-iso="${s.iso}"]`).textContent = nm;
+    stateEls[s.iso].setAttribute("aria-label",T[lang].stateLabel(nm));
+  }
+  atHit.setAttribute("aria-label",T[lang].austriaLabel);
+  for (const c of (A.cl||[])) { const n = sA.querySelector(`text[data-cty="${c.id}"]`); if (n) n.textContent = lang==="de" ? c.de : c.en; }
+  if (view==="salzburg") stateLabels();
+}
+
+/* ---------- transitions ---------- */
+function zoomTarget(){
+  const box = $("mapbox"), w = box.offsetWidth, h = box.offsetHeight;
+  const wrap = $("v-europe").getBoundingClientRect(), b = box.getBoundingClientRect();
+  const [x0,y0,x1,y1] = E.austriaBounds, k = w/1000;
+  const aw = (x1-x0)*k, ah = (y1-y0)*k;
+  const s = Math.min(wrap.width*.8/aw, wrap.height*.6/ah);
+  const cx = (x0+x1)/2*k, cy = (y0+y1)/2*k;
+  const tx = wrap.left + wrap.width/2 - b.left - cx*s, ty = wrap.top + wrap.height/2 - b.top - cy*s;
+  return `translate(${tx}px,${ty}px) scale(${s})`;
+}
+let busy = false;
+function goAustria(){
+  if (busy || view!=="europe") return; busy = true;
+  const box = $("mapbox"), copy = document.querySelector(".copy");
+  const ms = reduced ? 0 : 1100;
+  box.style.transition = `transform ${ms}ms cubic-bezier(.6,0,.25,1)`;
+  copy.style.transition = "opacity .4s"; copy.style.opacity = 0;
+  box.style.transform = zoomTarget();
+  setTimeout(() => { show("austria"); busy = false; }, ms*.75);
+}
+function goEurope(){
+  if (busy) return; busy = true;
+  show("europe");
+  const box = $("mapbox"), copy = document.querySelector(".copy");
+  requestAnimationFrame(() => { box.style.transform = ""; copy.style.opacity = 1; });
+  setTimeout(() => { busy = false; }, reduced ? 0 : 1000);
+}
+function centreSalzburg(){
+  const m = document.querySelector(".at-map"); if (m.scrollWidth <= m.clientWidth) return;
+  const s = A.states.find(s=>s.iso==="5"), box = document.querySelector(".at-box");
+  m.scrollLeft = box.offsetLeft + s.cx/1000*box.offsetWidth - m.clientWidth/2;
+}
+function show(v){
+  view = v; if (v==="austria") requestAnimationFrame(centreSalzburg);
+  if (v!=="salzburg") closeDrawer();
+  $("v-europe").setAttribute("aria-hidden", v!=="europe");
+  $("v-austria").setAttribute("aria-hidden", v!=="austria");
+  $("v-salzburg").setAttribute("aria-hidden", v!=="salzburg");
+  crumbs();
+  const f = v==="europe" ? atHit : v==="austria" ? stateEls[cur] : (cur==="5" ? $("sb-cards") : sS);
+  setTimeout(()=>f.focus({preventScroll:true}), 700);
+}
+function centreSbMap(){ const m = document.querySelector(".sb-map"); if (m.scrollWidth > m.clientWidth) { m.scrollLeft = (m.scrollWidth - m.clientWidth)*0.45; m.scrollTop = (m.scrollHeight - m.clientHeight)*0.35; } }
+function goState(code){ if (code !== "5") closeDrawer(); buildState(code); drawPlaces(); show("salzburg"); requestAnimationFrame(centreSbMap); if (code==="5" && innerWidth > 820) setTimeout(openCards, 500); }
+function backToAustria(){ show("austria"); }
+$("sb-cards").onclick = () => openCards();
+$("d-meth").onclick = () => openMeth();
+
+/* ---------- Salzburg cards ---------- */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function cardHTML(c, i, n){
+  const L = T[lang], body = c.body[lang];
+  const srcs = c.sources.map(s => { const S = SOURCES[s.id]; return `<li><a href="${esc(S.url)}" target="_blank" rel="noopener">${esc(S.cite)}</a><em class="tier ${S.tier}">${S.tier}</em><span class="loc">${esc(s.locator)}</span></li>`; }).join("");
+  const links = c.links ? `<p class="elinks">${L.entries}: ${c.links.map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(decodeURIComponent(u.split("/").pop()))}</a>`).join(" · ")}</p>` : "";
+  const st = c.expert_review ? `<div class="status ok"><i></i>${L.statusDone}</div>` : `<div class="status"><i></i>${L.statusPending}</div>`;
+  return `<div class="meta"><span class="chip">${String(i+1).padStart(2,"0")} / ${n} · ${L.types[c.type]||c.type}</span>${c.cefr?`<span class="cefr">${lang==="de"?"GER":"CEFR"} ${c.cefr}</span>`:""}</div><h3>${c.h[lang]}</h3>${body}<footer class="srcs">${st}<ol>${srcs}</ol>${links}</footer>`;
+}
+function renderCards(){
+  const tr = $("track"); tr.innerHTML = ""; const cs = CONTENT.cards, n = cs.length;
+  cs.forEach((c,i) => {
+    const a = document.createElement("article");
+    a.className = "card"; a.id = "card-"+c.id; a.setAttribute("aria-label",`${i+1} / ${n}: ${c.h[lang]}`);
+    a.innerHTML = cardHTML(c, i, n);
+    tr.appendChild(a);
+  });
+  $("dots").innerHTML = cs.map(()=>"<i></i>").join("");
+  goCard(card,false);
+}
+function goCard(i, smooth=true){
+  const n = CONTENT.cards.length; card = Math.max(0,Math.min(n-1,i));
+  const tr = $("track"), c = tr.children[card];
+  if (c) tr.scrollTo({left:c.offsetLeft - tr.children[0].offsetLeft, behavior: smooth&&!reduced?"smooth":"auto"});
+  syncDots();
+}
+function drawPlaces(){
+  const SB = GEO.states[cur]; if (!SB.places || !SB.places.length) return;
+  const g = el("g",{id:"places","data-mode":"atlas"},sS);
+  for (const p of SB.places) {
+    const left = p.x > SB.w*0.72 || ["Hüttschlag","Maria Alm","Petting","Teisendorf","St. Martin","Elsbethen","Muhr","Fusch","Surheim","Schönau am Königssee"].includes(p.n);
+    const below = p.n==="Lasaberg/Tamsweg";
+    const n = el("g",{class:`plc ${p.v||""}`,"data-g":p.g,"data-atlas":p.atlas?"1":"","data-v":p.v||""},g);
+    if (p.atlas) el("rect",{x:p.x-5,y:p.y-5,width:10,height:10,rx:2,class:"sq"},n);
+    if (p.v) el("circle",{cx:p.x,cy:p.y,r:7,class:"ci"},n);
+    const tx = below ? el("text",{x:p.x,y:p.y+20,"text-anchor":"middle"},n) : el("text",{x:p.x+(left?-11:11),y:p.y+4.5,"text-anchor":left?"end":"start"},n);
+    tx.appendChild(document.createTextNode(p.n));
+    if (p.v) { const ts = el("tspan",{class:"vv"},tx); ts.textContent = " · " + p.v; }
+  }
+}
+function updatePlaces(){
+  const box = document.getElementById("places"); if (!box) return;
+  const c = CONTENT.cards[card], open = $("drawer").classList.contains("open") && cur==="5" && c;
+  let mode = "atlas", show = () => false;
+  if (open && c.id==="sbg-seid") { mode = "seid"; show = n => !!n.dataset.v; }
+  else if (open && c.id==="sbg-atlas") show = n => !!n.dataset.atlas;
+  else if (open && c.id==="sbg-border") show = n => n.dataset.g==="BY";
+  else if (open && c.gau) { mode = "gau"; show = n => n.dataset.g===c.gau; }
+  box.setAttribute("data-mode", mode);
+  let any = false; box.querySelectorAll(".plc").forEach(n => { const on = !!open && show(n); any = any || on; n.classList.toggle("on", on); });
+  sS.classList.toggle("places-on", any);
+}
+function syncDots(){
+  updatePlaces();
+  [...$("dots").children].forEach((d,i)=>d.classList.toggle("on",i===card));
+  $("prev").disabled = card===0; $("next").disabled = card===CONTENT.cards.length-1;
+}
+$("track").addEventListener("scroll",()=>{
+  const tr = $("track"), w = (tr.children[0]?.offsetWidth||1)+14;
+  const i = Math.round(tr.scrollLeft/w); if (i!==card) { card = i; syncDots(); }
+},{passive:true});
+$("prev").onclick = () => goCard(card-1);
+$("next").onclick = () => goCard(card+1);
+function openCards(at){
+  card = typeof at==="number" ? at : 0; renderCards();
+  if (typeof at==="number") requestAnimationFrame(()=>goCard(at,false));
+  $("drawer").classList.add("open"); $("drawer").setAttribute("aria-hidden","false"); $("app").classList.add("drawer-on");
+  setTimeout(()=>$("d-close").focus({preventScroll:true}),350);
+}
+function closeDrawer(refocus){
+  const wasOpen = $("drawer").classList.contains("open");
+  $("drawer").classList.remove("open"); $("drawer").setAttribute("aria-hidden","true"); $("app").classList.remove("drawer-on"); updatePlaces();
+  if (refocus && wasOpen && view==="salzburg") $("sb-cards").focus({preventScroll:true});
+}
+$("d-close").onclick = () => closeDrawer(true);
+
+/* ---------- chrome ---------- */
+function crumbs(){
+  const t = T[lang], c = $("crumbs"); c.innerHTML = "";
+  const add = (txt, fn, cls) => { const b = document.createElement(fn?"button":"span"); b.textContent = txt; if (cls) b.className = cls; if (fn) b.onclick = fn; c.appendChild(b); };
+  if (view==="europe") return;
+  if (view==="austria") { add(t.toEurope, goEurope); add("/"); add(t.austria, null, "cur"); return; }
+  add(t.toEurope, goEurope); add("/"); add(t.austria, backToAustria); add("/"); { const st = A.states.find(x=>x.iso===cur); add(lang==="de"?st.de:st.en, null, "cur"); }
+}
+let tt;
+function toast(msg){ const t = $("toast"); t.textContent = msg; t.hidden = false; clearTimeout(tt); tt = setTimeout(()=>t.hidden=true,2600); }
+function setLang(l){
+  lang = l; document.documentElement.lang = l;
+  $("lang-en").setAttribute("aria-pressed",l==="en"); $("lang-de").setAttribute("aria-pressed",l==="de");
+  document.querySelectorAll("[data-i18n]").forEach(n => { const v = T[l][n.dataset.i18n]; if (typeof v==="string") n.textContent = v; });
+  $("src-body").innerHTML = SRC[l];
+  labels(); crumbs();
+  if ($("drawer").classList.contains("open")) renderCards();
+  if (!$("meth").hidden) openMeth();
+}
+$("lang-en").onclick = () => setLang("en");
+$("lang-de").onclick = () => setLang("de");
+const METH = {
+ en:{intro:"This pilot tests whether a language atlas can be both vivid and academically reliable. These are the rules every card follows.",
+  steps:["Every statement is tied to a published source, with an exact locator: page, entry or paragraph.","Dialect forms appear only as spelled in the source. Nothing is reconstructed from memory or from AI knowledge.","Where sources disagree, both views are shown side by side and recorded as an open question.","Learners at A1–B1 are taught Austrian Standard German; dialect cards are for recognition, not imitation.","Recordings and images are linked, never copied, unless their licence allows reuse."],
+  statusH:"Review status",status:"All cards are currently checked against their sources. None has yet been reviewed by a dialectologist, so every card says so. The label changes only after a specialist has read it.",
+  aiH:"Use of AI",ai:"Research and drafting are assisted by an AI model (Claude, Anthropic). Quotations and figures were checked against the cited texts. A specialist’s reading of the original publications is still pending.",
+  openH:"Open questions",bibH:"Bibliography",tierA:"A · academic, official or dictionary",tierB:"B · press and institutions, used for context",
+  invite:"Corrections and contributions from dialectologists and Germanists are very welcome."},
+ de:{intro:"Dieses Pilotprojekt prüft, ob ein Sprachatlas zugleich anschaulich und wissenschaftlich verlässlich sein kann. Diese Regeln gelten für jede Karte.",
+  steps:["Jede Aussage ist an eine veröffentlichte Quelle gebunden, mit genauer Fundstelle: Seite, Eintrag oder Absatz.","Dialektformen erscheinen nur in der Schreibung der Quelle. Nichts wird aus dem Gedächtnis oder aus KI-Wissen rekonstruiert.","Wo Quellen sich widersprechen, stehen beide Sichten nebeneinander und werden als offene Frage geführt.","Auf A1–B1 wird österreichisches Standarddeutsch gelernt; Dialektkarten dienen dem Erkennen, nicht dem Nachahmen.","Tonaufnahmen und Bilder werden verlinkt, nicht kopiert, außer ihre Lizenz erlaubt die Nachnutzung."],
+  statusH:"Prüfstatus",status:"Alle Karten sind derzeit an ihren Quellen geprüft. Keine ist bisher von einer Dialektologin oder einem Dialektologen begutachtet; jede Karte sagt das offen. Die Kennzeichnung ändert sich erst nach fachlicher Durchsicht.",
+  aiH:"Einsatz von KI",ai:"Recherche und Entwurf werden von einem KI-Modell (Claude, Anthropic) unterstützt. Zitate und Zahlen wurden an den angegebenen Texten geprüft. Die Lektüre der Originalpublikationen durch eine Fachperson steht noch aus.",
+  openH:"Offene Fragen",bibH:"Literatur und Quellen",tierA:"A · wissenschaftlich, amtlich oder Wörterbuch",tierB:"B · Presse und Institutionen, als Kontext",
+  invite:"Korrekturen und Beiträge von Dialektologinnen, Dialektologen und Germanist:innen sind sehr willkommen."}};
+function openMeth(){
+  const M = METH[lang], bib = tier => Object.values(SOURCES).filter(s=>s.tier===tier).map(s=>`<li>${esc(s.cite)}<br><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.url)}</a></li>`).join("");
+  $("meth-body").innerHTML = `<p style="line-height:1.5">${M.intro}</p><div class="src"><ol class="steps">${M.steps.map(s=>`<li>${s}</li>`).join("")}</ol></div>
+  <div class="src"><h4>${M.statusH}</h4><p>${M.status}</p><div class="status" style="margin-top:8px"><i></i>${T[lang].statusPending}</div></div>
+  <div class="src"><h4>${M.aiH}</h4><p>${M.ai}</p></div>
+  <div class="src"><h4>${M.openH}</h4>${CONTENT.open_questions.map(q=>`<p>${q[lang]}</p>`).join("")}</div>
+  <div class="src"><h4>${M.bibH}</h4><p class="note">${M.tierA}</p><ul class="bib">${bib("A")}</ul><p class="note" style="margin-top:12px">${M.tierB}</p><ul class="bib">${bib("B")}</ul></div>
+  <div class="src"><p>${M.invite}</p></div>`;
+  $("meth").hidden = false; $("meth-close").focus();
+}
+$("meth-close").onclick = () => { $("meth").hidden = true; if ($("drawer").classList.contains("open")) $("d-meth").focus(); };
+$("meth").addEventListener("click",e=>{ if (e.target.id==="meth") $("meth").hidden = true; });
+$("open-src").onclick = () => { $("src").hidden = false; $("src-close").focus(); };
+$("src-close").onclick = () => { $("src").hidden = true; $("open-src").focus(); };
+$("src").addEventListener("click",e=>{ if (e.target.id==="src") $("src").hidden = true; });
+addEventListener("keydown",e=>{
+  if (e.key!=="Escape") return;
+  if (!$("meth").hidden) { $("meth").hidden = true; return; }
+  if (!$("src").hidden) { $("src").hidden = true; return; }
+  if ($("drawer").classList.contains("open")) closeDrawer(true); else if (view==="salzburg") backToAustria(); else if (view==="austria") goEurope();
+});
+addEventListener("resize",()=>{ if (view!=="europe") { const b=$("mapbox"); b.style.transition="none"; b.style.transform=zoomTarget(); } });
+setLang("en");
+render();
+</script>

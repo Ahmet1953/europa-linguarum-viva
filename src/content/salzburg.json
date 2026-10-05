@@ -1,0 +1,509 @@
+{
+ "state": "5",
+ "updated": "2026-10-03",
+ "cards": [
+  {
+   "id": "sbg-overview",
+   "level": "state",
+   "type": "overview",
+   "cefr": null,
+   "h": {
+    "en": "Land Salzburg",
+    "de": "Land Salzburg"
+   },
+   "body": {
+    "en": "<dl class=\"kv\"><dt>Capital</dt><dd>Salzburg</dd>\n<dt>Population</dt><dd>573,748 <small>(1 Jan 2026)</small></dd>\n<dt>Area</dt><dd>7,154.5 km²</dd>\n<dt>Municipalities</dt><dd>119</dd>\n<dt>Regions</dt><dd>Six political districts, known locally as the <i>Gaue</i>: City of Salzburg, Flachgau, Tennengau, Pongau, Pinzgau, Lungau</dd>\n<dt>Neighbours</dt><dd>Bavaria (DE), Upper Austria, Styria, Carinthia, Tyrol; South Tyrol (IT) along the main Alpine ridge</dd></dl>\n<p class=\"note\">Tap a region on the map to open its card.</p>",
+    "de": "<dl class=\"kv\"><dt>Hauptstadt</dt><dd>Salzburg</dd>\n<dt>Bevölkerung</dt><dd>573.748 <small>(1.1.2026)</small></dd>\n<dt>Fläche</dt><dd>7.154,5 km²</dd>\n<dt>Gemeinden</dt><dd>119</dd>\n<dt>Regionen</dt><dd>Sechs politische Bezirke, im Land <i>Gaue</i> genannt: Stadt Salzburg, Flachgau, Tennengau, Pongau, Pinzgau, Lungau</dd>\n<dt>Nachbarn</dt><dd>Bayern (DE), Oberösterreich, Steiermark, Kärnten, Tirol; Südtirol (IT) am Alpenhauptkamm</dd></dl>\n<p class=\"note\">Eine Region auf der Karte antippen, um ihre Karte zu öffnen.</p>"
+   },
+   "sources": [
+    {
+     "id": "statistik-2026",
+     "locator": "Tabelle Bundesländer, 1.1.2026",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "zahlenspiegel-2025",
+     "locator": "Fläche 7.154,5 km²; 119 Ortsgemeinden; 6 politische Bezirke; Stand 1.1.2025",
+     "checked": "2026-10-03"
+    }
+   ],
+   "status": "source-verified",
+   "expert_review": null,
+   "produced_by": "claude-opus-5-5",
+   "verified_by": [],
+   "text_tr": null
+  },
+  {
+   "id": "sbg-layers",
+   "level": "state",
+   "type": "language-layers",
+   "cefr": "B1",
+   "h": {
+    "en": "A transition zone",
+    "de": "Ein Übergangsgebiet"
+   },
+   "body": {
+    "en": "<p>Salzburg lies between two large Bavarian dialect areas: <b>Central Bavarian</b> in the north and <b>Southern Bavarian</b> in the south. Above the dialects sits Austrian Standard German, used in school, media and offices.</p>\n<p>Lars Bülow (University of Salzburg) describes it this way: the Flachgau is West Central Bavarian, the Lungau is dominated by Southern Bavarian features, and the regions in between form a South-Central Bavarian transition zone.</p>\n<div class=\"views\"><h4>Open question: where does the Pinzgau belong?</h4>\n<div class=\"view-a\"><b>View 1 · Bülow 2019</b><span>Transition zone, together with Tennengau and Pongau.</span></div>\n<div class=\"view-b\"><b>View 2 · Scheutz, reported by ORF 2017</b><span>Southern Bavarian, together with the Lungau.</span></div>\n<p class=\"note\">Both views are shown until a dialectologist settles it. Scheutz also notes that very old forms survive in the <i>Oberpinzgau</i>, which may explain the difference.</p></div>",
+    "de": "<p>Salzburg liegt zwischen zwei großen bairischen Dialekträumen: dem <b>Mittelbairischen</b> im Norden und dem <b>Südbairischen</b> im Süden. Darüber liegt das österreichische Standarddeutsch in Schule, Medien und Ämtern.</p>\n<p>Lars Bülow (Universität Salzburg) schreibt: „Im Norden Salzburgs (im Flachgau) finden sich westmittelbairische Dialekte, ganz im Südosten (im Lungau) dominieren südbairische Dialektmerkmale, und die Gebiete dazwischen (Tennengau, Pongau und Pinzgau) zählen zum südmittelbairischen Übergangsgebiet.“</p>\n<div class=\"views\"><h4>Offene Frage: Wohin gehört der Pinzgau?</h4>\n<div class=\"view-a\"><b>Sicht 1 · Bülow 2019</b><span>Übergangsgebiet, mit Tennengau und Pongau.</span></div>\n<div class=\"view-b\"><b>Sicht 2 · Scheutz, laut ORF 2017</b><span>Südbairisch, mit dem Lungau.</span></div>\n<p class=\"note\">Beide Sichten bleiben stehen, bis eine Dialektologin oder ein Dialektologe entscheidet. Scheutz verweist zudem auf sehr alte Formen im <i>Oberpinzgau</i>, was den Unterschied erklären könnte.</p></div>"
+   },
+   "sources": [
+    {
+     "id": "buelow-2019",
+     "locator": "S. 19",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "orf-2017",
+     "locator": "Absatz „Einflüsse aus unterschiedlichen Richtungen“",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "meinbezirk-2017",
+     "locator": "Zitat Scheutz zu Lungau und Oberpinzgau",
+     "checked": "2026-10-03"
+    }
+   ],
+   "status": "source-verified",
+   "open_question": "pinzgau-classification",
+   "expert_review": null,
+   "produced_by": "claude-opus-5-5",
+   "verified_by": [],
+   "text_tr": null
+  },
+  {
+   "id": "sbg-words",
+   "level": "state",
+   "type": "standard-vocabulary",
+   "cefr": "A2",
+   "h": {
+    "en": "Austrian words, carefully labelled",
+    "de": "Österreichische Wörter, genau gekennzeichnet"
+   },
+   "body": {
+    "en": "<p>Standard German has national varieties. These words are standard in Austria. The right-hand column shows exactly how the Duden labels each one.</p>\n<table class=\"pairs\"><thead><tr><th>Word</th><th>In Germany</th><th>Duden label</th></tr></thead><tbody>\n<tr><td>der Jänner</td><td>Januar</td><td>Austrian, more rarely South German</td></tr>\n<tr><td>die Marille</td><td>Aprikose</td><td>Austrian, otherwise regional</td></tr>\n<tr><td>der Topfen</td><td>Quark</td><td>Bavarian, Austrian</td></tr>\n<tr><td>das Sackerl</td><td>Beutel, Tüte</td><td>Bavarian, Austrian</td></tr>\n<tr><td>der Verlängerte</td><td>—</td><td>Austrian: coffee made with double the water</td></tr>\n<tr><td>der Paradeiser</td><td>Tomate</td><td><b>South and East Austrian</b></td></tr></tbody></table>\n<p class=\"note\">The last row is a reminder that “Austrian” is not one block: the Duden marks <i>Paradeiser</i> as south and east Austrian, so it is not presented here as a Salzburg word.</p>",
+    "de": "<p>Das Standarddeutsche hat nationale Varietäten. Diese Wörter sind in Österreich standardsprachlich. Die rechte Spalte zeigt genau, wie der Duden sie kennzeichnet.</p>\n<table class=\"pairs\"><thead><tr><th>Wort</th><th>In Deutschland</th><th>Duden-Kennzeichnung</th></tr></thead><tbody>\n<tr><td>der Jänner</td><td>Januar</td><td>österreichisch, seltener süddeutsch</td></tr>\n<tr><td>die Marille</td><td>Aprikose</td><td>österreichisch, sonst landschaftlich</td></tr>\n<tr><td>der Topfen</td><td>Quark</td><td>bayrisch, österreichisch</td></tr>\n<tr><td>das Sackerl</td><td>Beutel, Tüte</td><td>bayrisch, österreichisch</td></tr>\n<tr><td>der Verlängerte</td><td>—</td><td>österreichisch: mit der doppelten Menge Wasser zubereiteter Kaffee</td></tr>\n<tr><td>der Paradeiser</td><td>Tomate</td><td><b>süd- und ostösterreichisch</b></td></tr></tbody></table>\n<p class=\"note\">Die letzte Zeile erinnert daran, dass „österreichisch“ kein Block ist: Der Duden kennzeichnet <i>Paradeiser</i> als süd- und ostösterreichisch; es wird hier daher nicht als Salzburger Wort ausgegeben.</p>"
+   },
+   "sources": [
+    {
+     "id": "duden",
+     "locator": "Jänner, Marille, Topfen, Sackerl, Verlängerter, Paradeiser",
+     "checked": "2026-10-03"
+    }
+   ],
+   "links": [
+    "https://www.duden.de/rechtschreibung/Jaenner",
+    "https://www.duden.de/rechtschreibung/Marille",
+    "https://www.duden.de/rechtschreibung/Topfen",
+    "https://www.duden.de/rechtschreibung/Sackerl",
+    "https://www.duden.de/rechtschreibung/Verlaengerter",
+    "https://www.duden.de/rechtschreibung/Paradeiser"
+   ],
+   "status": "source-verified",
+   "expert_review": null,
+   "produced_by": "claude-opus-5-5",
+   "verified_by": [],
+   "text_tr": null
+  },
+  {
+   "id": "sbg-phrases",
+   "level": "state",
+   "type": "first-phrases",
+   "cefr": "A1",
+   "h": {
+    "en": "First phrases",
+    "de": "Erste Sätze"
+   },
+   "body": {
+    "en": "<p>A1 learners learn Austrian Standard German. The dialect is something to recognise, not to imitate.</p>\n<div class=\"phrase\"><b>Grüß Gott!</b><span>Hello. Duden: Austrian, otherwise regional greeting</span></div>\n<div class=\"phrase\"><b>Servus!</b><span>Hi / bye among friends. Duden: especially Bavarian, Austrian</span></div>\n<div class=\"phrase\"><b>Einen Verlängerten, bitte.</b><span>A coffee lengthened with hot water, please.</span></div>\n<div class=\"phrase\"><b>Wo ist die Getreidegasse, bitte?</b><span>Where is Getreidegasse, please?</span></div>\n<div class=\"phrase\"><b>Danke, auf Wiedersehen!</b><span>Thank you, goodbye!</span></div>",
+    "de": "<p>Auf A1 wird österreichisches Standarddeutsch gelernt. Den Dialekt soll man erkennen, nicht nachahmen.</p>\n<div class=\"phrase\"><b>Grüß Gott!</b><span>Duden: österreichische, sonst landschaftliche Grußformel</span></div>\n<div class=\"phrase\"><b>Servus!</b><span>Freundschaftlicher Gruß. Duden: besonders bayrisch, österreichisch</span></div>\n<div class=\"phrase\"><b>Einen Verlängerten, bitte.</b><span>Kaffee mit der doppelten Menge Wasser</span></div>\n<div class=\"phrase\"><b>Wo ist die Getreidegasse, bitte?</b><span>Nach dem Weg fragen</span></div>\n<div class=\"phrase\"><b>Danke, auf Wiedersehen!</b><span>Sich verabschieden</span></div>"
+   },
+   "sources": [
+    {
+     "id": "duden",
+     "locator": "Gott (Wendung „grüß Gott“), servus, Verlängerter",
+     "checked": "2026-10-03"
+    }
+   ],
+   "links": [
+    "https://www.duden.de/rechtschreibung/Gott",
+    "https://www.duden.de/rechtschreibung/servus",
+    "https://www.duden.de/rechtschreibung/Verlaengerter"
+   ],
+   "status": "source-verified",
+   "expert_review": null,
+   "produced_by": "claude-opus-5-5",
+   "verified_by": [],
+   "text_tr": null
+  },
+  {
+   "id": "sbg-seid",
+   "level": "state",
+   "type": "dialect-window",
+   "cefr": "B2",
+   "h": {
+    "en": "One vowel, five villages",
+    "de": "Ein Vokal, fünf Orte"
+   },
+   "body": {
+    "en": "<p>How do Salzburg dialects say <i>ihr seid</i> (“you are”, plural)? Bülow studies whether the stem vowel is a simple <b>a</b> or the diphthong <b>ai</b>, for example <i>(es) hadds</i> vs. <i>haidds</i>.</p>\n<table class=\"pairs\"><thead><tr><th>Place</th><th>Region</th><th>Vowel</th></tr></thead><tbody>\n<tr><td>Berndorf</td><td>Flachgau</td><td><i class=\"vdot a\"></i>a only</td></tr>\n<tr><td>Maria Alm</td><td>Pinzgau</td><td><i class=\"vdot a\"></i>a only</td></tr>\n<tr><td>Rußbach</td><td>Tennengau</td><td><i class=\"vdot ai\"></i>ai preferred</td></tr>\n<tr><td>Hüttschlag</td><td>Pongau</td><td><i class=\"vdot ai\"></i>ai preferred</td></tr>\n<tr><td>Lessach</td><td>Lungau</td><td><i class=\"vdot ai\"></i>ai preferred</td></tr></tbody></table>\n<p>Data: speakers recorded by the project <i>Deutsch in Österreich</i> (DiÖ), as analysed by Bülow.</p>\n<p>Change over time: among older rural speakers interviewed for the Sprachatlas in 2016/17, the simple <b>a</b> makes up only 62.5% of the Flachgau examples, while in the Lungau the diphthong now appears in 100% of cases.</p>\n<p>Three of these five places, Maria Alm, Rußbach and Hüttschlag, are also recording places of the Sprachatlas: two independent studies meet in the same villages.</p><p class=\"note\">For recognition (B2 and above), not for production.</p>",
+    "de": "<p>Wie heißt <i>ihr seid</i> in Salzburger Dialekten? Bülow untersucht, ob der Stammvokal ein einfaches <b>a</b> oder der Diphthong <b>ai</b> ist, z. B. <i>(es) hadds</i> vs. <i>haidds</i>.</p>\n<table class=\"pairs\"><thead><tr><th>Ort</th><th>Gau</th><th>Vokal</th></tr></thead><tbody>\n<tr><td>Berndorf</td><td>Flachgau</td><td><i class=\"vdot a\"></i>nur a</td></tr>\n<tr><td>Maria Alm</td><td>Pinzgau</td><td><i class=\"vdot a\"></i>nur a</td></tr>\n<tr><td>Rußbach</td><td>Tennengau</td><td><i class=\"vdot ai\"></i>ai bevorzugt</td></tr>\n<tr><td>Hüttschlag</td><td>Pongau</td><td><i class=\"vdot ai\"></i>ai bevorzugt</td></tr>\n<tr><td>Lessach</td><td>Lungau</td><td><i class=\"vdot ai\"></i>ai bevorzugt</td></tr></tbody></table>\n<p>Daten: Gewährspersonen des Projekts <i>Deutsch in Österreich</i> (DiÖ), ausgewertet von Bülow.</p>\n<p>Wandel: „Im Flachgau macht der Monophthong bei den NORM/Fs, die 2016/17 für den Sprachatlas Salzburg befragt wurden, nur noch 62,5% der Belege aus, während im Lungau nun in 100% der Fälle der Diphthong erscheint.“</p>\n<p>Drei dieser fünf Orte, Maria Alm, Rußbach und Hüttschlag, sind auch Aufnahmeorte des Sprachatlas: Zwei unabhängige Studien treffen sich in denselben Dörfern.</p><p class=\"note\">Zum Erkennen (ab B2), nicht zum Nachsprechen.</p>"
+   },
+   "sources": [
+    {
+     "id": "buelow-2019",
+     "locator": "S. 18 (Variable), S. 29 (62,5 %), S. 30 (Ortspunkte DiÖ)",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "sprachatlas-sbg",
+     "locator": "Dialektvergleich-Karte: Ortsnamen der 32 Aufnahmeorte (per Mouseover gelesen, 5.10.2026)",
+     "checked": "2026-10-03"
+    }
+   ],
+   "status": "source-verified",
+   "expert_review": null,
+   "produced_by": "claude-opus-5-5",
+   "verified_by": [],
+   "text_tr": null
+  },
+  {
+   "id": "sbg-border",
+   "level": "state",
+   "type": "border-story",
+   "cefr": "B2",
+   "h": {
+    "en": "A border the dialect remembers",
+    "de": "Eine Grenze, die der Dialekt erinnert"
+   },
+   "body": {
+    "en": "<p>Until the Napoleonic Wars, the towns between Piding and Tittmoning, now in Bavaria, belonged to the Archbishopric of Salzburg.</p>\n<p>When Hannes Scheutz recorded speakers for the Sprachatlas, he found a surprise: in the Bavarian towns of <b>Teisendorf</b>, <b>Surheim</b> and <b>Schönau</b>, the old Salzburg base dialect had survived <i>better</i> than on Salzburg’s own territory.</p>\n<p>A state border is not a language border, and a language can keep a border that no longer exists.</p><p>All three towns are recording places of the Sprachatlas, together with Petting. The map shows the four Bavarian places as squares.</p><a class=\"gmap\" href=\"https://www.sprachatlas.at/salzburg/data/atlas.html\" target=\"_blank\" rel=\"noopener\">Listen in the Sprachatlas <span aria-hidden=\"true\">↗</span></a>",
+    "de": "<p>Bis zu den napoleonischen Kriegen gehörten die heute bayerischen Orte zwischen Piding und Tittmoning zum Erzstift Salzburg.</p>\n<p>Bei den Aufnahmen für den Sprachatlas fand Hannes Scheutz eine Überraschung: In den bayerischen Orten <b>Teisendorf</b>, <b>Surheim</b> und <b>Schönau</b> hatte sich die Salzburger Grundmundart <i>besser</i> erhalten als auf Salzburger Gebiet.</p>\n<p>Eine Staatsgrenze ist keine Sprachgrenze, und eine Sprache kann eine Grenze bewahren, die es nicht mehr gibt.</p><p>Alle drei Orte sind Aufnahmeorte des Sprachatlas, dazu Petting. Die Karte zeigt die vier bayerischen Orte als Quadrate.</p><a class=\"gmap\" href=\"https://www.sprachatlas.at/salzburg/data/atlas.html\" target=\"_blank\" rel=\"noopener\">Im Sprachatlas anhören <span aria-hidden=\"true\">↗</span></a>"
+   },
+   "sources": [
+    {
+     "id": "orf-2017",
+     "locator": "Absatz „Mundart in bayrischen Orten am ursprünglichsten“",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "sprachatlas-sbg",
+     "locator": "Dialektvergleich-Karte: Ortsnamen der 32 Aufnahmeorte (per Mouseover gelesen, 5.10.2026)",
+     "checked": "2026-10-03"
+    }
+   ],
+   "status": "source-verified",
+   "note": "Press report (tier B); the primary source is the Sprachatlas itself.",
+   "expert_review": null,
+   "produced_by": "claude-opus-5-5",
+   "verified_by": [],
+   "text_tr": null
+  },
+  {
+   "id": "sbg-atlas",
+   "level": "state",
+   "type": "source-spotlight",
+   "cefr": "B1",
+   "h": {
+    "en": "Listen: the Salzburg language atlas",
+    "de": "Hören: der Sprachatlas Salzburg"
+   },
+   "body": {
+    "en": "<p>In 2016/17 Hannes Scheutz recorded the dialects of 32 places, including some in neighbouring Bavaria. At each place he interviewed one older and one younger speaker and worked through a questionnaire of about 500 questions.</p>\n<p>The atlas lets you compare places and generations by ear. We link to it rather than copy it: the recordings belong to the atlas.</p>\n<p><b>The 32 places on our map</b> (squares): Flachgau 8, Tennengau 4, Pongau 3, Pinzgau 9, Lungau 4, Bavaria 4. Not one lies inside the city of Salzburg.</p><blockquote>“For documenting original dialect landscapes it is high time, sometimes already five minutes past twelve.”<cite>Hannes Scheutz, 2017 (translated)</cite></blockquote>\n<a class=\"gmap\" href=\"https://www.sprachatlas.at/salzburg/\" target=\"_blank\" rel=\"noopener\">Open the Sprachatlas Salzburg <span aria-hidden=\"true\">↗</span></a><a class=\"gmap\" href=\"https://www.sprachatlas.at/salzburg/data/generationen.html\" target=\"_blank\" rel=\"noopener\">Compare the generations <span aria-hidden=\"true\">↗</span></a>",
+    "de": "<p>2016/17 nahm Hannes Scheutz die Dialekte von 32 Orten auf, einige davon im benachbarten Bayern. An jedem Ort befragte er eine ältere und eine jüngere Person mit einem Fragebogen von rund 500 Fragen.</p>\n<p>Im Atlas lassen sich Orte und Generationen hörend vergleichen. Wir verlinken, statt zu kopieren: Die Aufnahmen gehören dem Atlas.</p>\n<p><b>Die 32 Orte auf unserer Karte</b> (Quadrate): Flachgau 8, Tennengau 4, Pongau 3, Pinzgau 9, Lungau 4, Bayern 4. Keiner liegt in der Stadt Salzburg selbst.</p><blockquote>„Für eine Dokumentation ursprünglicher Dialektlandschaften ist es höchste Zeit, manchmal auch bereits fünf Minuten nach Zwölf.“<cite>Hannes Scheutz, 2017</cite></blockquote>\n<a class=\"gmap\" href=\"https://www.sprachatlas.at/salzburg/\" target=\"_blank\" rel=\"noopener\">Sprachatlas Salzburg öffnen <span aria-hidden=\"true\">↗</span></a><a class=\"gmap\" href=\"https://www.sprachatlas.at/salzburg/data/generationen.html\" target=\"_blank\" rel=\"noopener\">Generationen vergleichen <span aria-hidden=\"true\">↗</span></a>"
+   },
+   "sources": [
+    {
+     "id": "sprachatlas-sbg",
+     "locator": "Einführung: 32 Aufnahmeorte",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "orf-2017",
+     "locator": "ältere und jüngere Generation; rund 500 Fragen",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "meinbezirk-2017",
+     "locator": "Zitat Scheutz",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "sprachatlas-sbg",
+     "locator": "Dialektvergleich-Karte: Ortsnamen der 32 Aufnahmeorte (per Mouseover gelesen, 5.10.2026)",
+     "checked": "2026-10-03"
+    }
+   ],
+   "status": "source-verified",
+   "expert_review": null,
+   "produced_by": "claude-opus-5-5",
+   "verified_by": [],
+   "text_tr": null
+  },
+  {
+   "id": "sbg-culture",
+   "level": "state",
+   "type": "culture",
+   "cefr": "A2",
+   "h": {
+    "en": "A city of music",
+    "de": "Eine Stadt der Musik"
+   },
+   "body": {
+    "en": "<p>Wolfgang Amadeus Mozart was born on 27 January 1756 in the Hagenauer House at Getreidegasse 9. The Mozarteum Foundation first opened a museum there in 1880.</p>\n<p>The Salzburg Festival began on 22 August 1920 with <i>Jedermann</i> on the Cathedral Square, championed by Max Reinhardt, Hugo von Hofmannsthal and Richard Strauss.</p>\n<p>The historic centre has been a UNESCO World Heritage Site since 1996.</p>\n<a class=\"gmap\" href=\"https://www.google.com/maps/search/?api=1&query=Mozarts+Geburtshaus,+Getreidegasse+9,+Salzburg\" target=\"_blank\" rel=\"noopener\">Mozart’s birthplace in Google Maps <span aria-hidden=\"true\">↗</span></a>",
+    "de": "<p>Wolfgang Amadeus Mozart wurde am 27. Jänner 1756 im Hagenauer Haus in der Getreidegasse 9 geboren. 1880 eröffnete die Internationale Stiftung Mozarteum dort erstmals ein Museum.</p>\n<p>Die Salzburger Festspiele begannen am 22. August 1920 mit dem <i>Jedermann</i> auf dem Domplatz, getragen von Max Reinhardt, Hugo von Hofmannsthal und Richard Strauss.</p>\n<p>Die Altstadt ist seit 1996 UNESCO-Welterbe.</p>\n<a class=\"gmap\" href=\"https://www.google.com/maps/search/?api=1&query=Mozarts+Geburtshaus,+Getreidegasse+9,+Salzburg\" target=\"_blank\" rel=\"noopener\">Mozarts Geburtshaus in Google Maps <span aria-hidden=\"true\">↗</span></a>"
+   },
+   "sources": [
+    {
+     "id": "tsg-mozart",
+     "locator": "Geburtsdatum, Adresse, Museum 1880",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "tsg-festspiele",
+     "locator": "Eintrag 1920",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "unesco-784",
+     "locator": "Inscription 1996",
+     "checked": "2026-10-03"
+    }
+   ],
+   "status": "source-verified",
+   "expert_review": null,
+   "produced_by": "claude-opus-5-5",
+   "verified_by": [],
+   "text_tr": null
+  },
+  {
+   "id": "gau-501",
+   "level": "gau",
+   "gau": "501",
+   "type": "gau",
+   "cefr": null,
+   "h": {
+    "en": "City of Salzburg",
+    "de": "Stadt Salzburg"
+   },
+   "body": {
+    "en": "<p>The state capital is its own district, surrounded by the Flachgau.</p>\n<p>The sources used here give the city no separate dialect classification. It lies in the north, the area Bülow calls West Central Bavarian.</p>\n<p>The Sprachatlas has no recording place inside the city; the nearest are Anthering and Elsbethen in the Flachgau.</p><p class=\"gap\">Content gap: a source on present-day urban speech in Salzburg is still missing. Suggestions welcome.</p>",
+    "de": "<p>Die Landeshauptstadt ist ein eigener Bezirk, umgeben vom Flachgau.</p>\n<p>Die hier verwendeten Quellen ordnen die Stadt dialektal nicht gesondert ein. Sie liegt im Norden, den Bülow als westmittelbairisch beschreibt.</p>\n<p>Der Sprachatlas hat keinen Aufnahmeort in der Stadt selbst; am nächsten liegen Anthering und Elsbethen im Flachgau.</p><p class=\"gap\">Inhaltslücke: Eine Quelle zur heutigen Stadtsprache Salzburgs fehlt noch. Hinweise willkommen.</p>"
+   },
+   "sources": [
+    {
+     "id": "buelow-2019",
+     "locator": "S. 19",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "sprachatlas-sbg",
+     "locator": "Dialektvergleich-Karte: Ortsnamen der 32 Aufnahmeorte (per Mouseover gelesen, 5.10.2026)",
+     "checked": "2026-10-03"
+    }
+   ],
+   "status": "source-verified",
+   "expert_review": null,
+   "produced_by": "claude-opus-5-5",
+   "verified_by": [],
+   "text_tr": null
+  },
+  {
+   "id": "gau-503",
+   "level": "gau",
+   "gau": "503",
+   "type": "gau",
+   "cefr": null,
+   "h": {
+    "en": "Flachgau",
+    "de": "Flachgau"
+   },
+   "body": {
+    "en": "<dl class=\"kv\"><dt>Dialect area</dt><dd>West Central Bavarian (Bülow); Central Bavarian (Scheutz)</dd><dt>Recorded place</dt><dd>Berndorf (DiÖ)</dd></dl>\n<p>Scheutz: in the north, influences from eastern Austria are clearly audible, and the old Salzburg forms have been overlaid on a large scale.</p>\n<p>In Berndorf, <i>ihr seid</i> is heard only with a simple <b>a</b>. Among older speakers in 2016/17, that form makes up 62.5% of Flachgau examples.</p><p><b>Sprachatlas recording places (8):</b> Dorfbeuern, St. Georgen, Seekirchen, Anthering, Elsbethen, Faistenau, Fuschl, Strobl. Shown as squares on the map; each place has an older and a younger speaker.</p><a class=\"gmap\" href=\"https://www.sprachatlas.at/salzburg/data/atlas.html\" target=\"_blank\" rel=\"noopener\">Listen in the Sprachatlas <span aria-hidden=\"true\">↗</span></a>",
+    "de": "<dl class=\"kv\"><dt>Dialektraum</dt><dd>westmittelbairisch (Bülow); mittelbairisch (Scheutz)</dd><dt>Aufnahmeort</dt><dd>Berndorf (DiÖ)</dd></dl>\n<p>Scheutz: „Im Norden sehen wir eine großflächige Überformung der Altsalzburger Formen durch ostösterreichische Einflüsse.“</p>\n<p>In Berndorf erscheint bei <i>ihr seid</i> ausschließlich der Monophthong <b>a</b>; bei den älteren Befragten 2016/17 macht er im Flachgau 62,5 % der Belege aus.</p><p><b>Aufnahmeorte des Sprachatlas (8):</b> Dorfbeuern, St. Georgen, Seekirchen, Anthering, Elsbethen, Faistenau, Fuschl, Strobl. Auf der Karte als Quadrate; je Ort eine ältere und eine jüngere Gewährsperson.</p><a class=\"gmap\" href=\"https://www.sprachatlas.at/salzburg/data/atlas.html\" target=\"_blank\" rel=\"noopener\">Im Sprachatlas anhören <span aria-hidden=\"true\">↗</span></a>"
+   },
+   "sources": [
+    {
+     "id": "buelow-2019",
+     "locator": "S. 19, 29, 30",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "orf-2017",
+     "locator": "Flachgau mittelbairisch",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "meinbezirk-2017",
+     "locator": "Zitat Scheutz",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "sprachatlas-sbg",
+     "locator": "Dialektvergleich-Karte: Ortsnamen der 32 Aufnahmeorte (per Mouseover gelesen, 5.10.2026)",
+     "checked": "2026-10-03"
+    }
+   ],
+   "status": "source-verified",
+   "expert_review": null,
+   "produced_by": "claude-opus-5-5",
+   "verified_by": [],
+   "text_tr": null
+  },
+  {
+   "id": "gau-502",
+   "level": "gau",
+   "gau": "502",
+   "type": "gau",
+   "cefr": null,
+   "h": {
+    "en": "Tennengau",
+    "de": "Tennengau"
+   },
+   "body": {
+    "en": "<dl class=\"kv\"><dt>Dialect area</dt><dd>South-Central Bavarian transition zone (Bülow)</dd><dt>Recorded place</dt><dd>Rußbach (DiÖ)</dd></dl>\n<p>In Rußbach, speakers prefer the diphthong <b>ai</b> in <i>ihr seid</i>.</p><p><b>Sprachatlas recording places (4):</b> Dürrnberg/Hallein, St. Koloman, Abtenau, Rußbach. Shown as squares on the map; each place has an older and a younger speaker.</p><a class=\"gmap\" href=\"https://www.sprachatlas.at/salzburg/data/atlas.html\" target=\"_blank\" rel=\"noopener\">Listen in the Sprachatlas <span aria-hidden=\"true\">↗</span></a>",
+    "de": "<dl class=\"kv\"><dt>Dialektraum</dt><dd>südmittelbairisches Übergangsgebiet (Bülow)</dd><dt>Aufnahmeort</dt><dd>Rußbach (DiÖ)</dd></dl>\n<p>In Rußbach bevorzugen die Gewährspersonen bei <i>ihr seid</i> den Diphthong <b>ai</b>.</p><p><b>Aufnahmeorte des Sprachatlas (4):</b> Dürrnberg/Hallein, St. Koloman, Abtenau, Rußbach. Auf der Karte als Quadrate; je Ort eine ältere und eine jüngere Gewährsperson.</p><a class=\"gmap\" href=\"https://www.sprachatlas.at/salzburg/data/atlas.html\" target=\"_blank\" rel=\"noopener\">Im Sprachatlas anhören <span aria-hidden=\"true\">↗</span></a>"
+   },
+   "sources": [
+    {
+     "id": "buelow-2019",
+     "locator": "S. 19, 30",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "sprachatlas-sbg",
+     "locator": "Dialektvergleich-Karte: Ortsnamen der 32 Aufnahmeorte (per Mouseover gelesen, 5.10.2026)",
+     "checked": "2026-10-03"
+    }
+   ],
+   "status": "source-verified",
+   "expert_review": null,
+   "produced_by": "claude-opus-5-5",
+   "verified_by": [],
+   "text_tr": null
+  },
+  {
+   "id": "gau-504",
+   "level": "gau",
+   "gau": "504",
+   "type": "gau",
+   "cefr": null,
+   "h": {
+    "en": "Pongau",
+    "de": "Pongau"
+   },
+   "body": {
+    "en": "<dl class=\"kv\"><dt>Dialect area</dt><dd>South-Central Bavarian transition zone (Bülow)</dd><dt>Recorded place</dt><dd>Hüttschlag (DiÖ)</dd></dl>\n<p>In Hüttschlag, speakers prefer the diphthong <b>ai</b> in <i>ihr seid</i>.</p><p><b>Sprachatlas recording places (3):</b> Mühlbach, Forstau, Hüttschlag. Shown as squares on the map; each place has an older and a younger speaker.</p><a class=\"gmap\" href=\"https://www.sprachatlas.at/salzburg/data/atlas.html\" target=\"_blank\" rel=\"noopener\">Listen in the Sprachatlas <span aria-hidden=\"true\">↗</span></a>",
+    "de": "<dl class=\"kv\"><dt>Dialektraum</dt><dd>südmittelbairisches Übergangsgebiet (Bülow)</dd><dt>Aufnahmeort</dt><dd>Hüttschlag (DiÖ)</dd></dl>\n<p>In Hüttschlag bevorzugen die Gewährspersonen bei <i>ihr seid</i> den Diphthong <b>ai</b>.</p><p><b>Aufnahmeorte des Sprachatlas (3):</b> Mühlbach, Forstau, Hüttschlag. Auf der Karte als Quadrate; je Ort eine ältere und eine jüngere Gewährsperson.</p><a class=\"gmap\" href=\"https://www.sprachatlas.at/salzburg/data/atlas.html\" target=\"_blank\" rel=\"noopener\">Im Sprachatlas anhören <span aria-hidden=\"true\">↗</span></a>"
+   },
+   "sources": [
+    {
+     "id": "buelow-2019",
+     "locator": "S. 19, 30",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "sprachatlas-sbg",
+     "locator": "Dialektvergleich-Karte: Ortsnamen der 32 Aufnahmeorte (per Mouseover gelesen, 5.10.2026)",
+     "checked": "2026-10-03"
+    }
+   ],
+   "status": "source-verified",
+   "expert_review": null,
+   "produced_by": "claude-opus-5-5",
+   "verified_by": [],
+   "text_tr": null
+  },
+  {
+   "id": "gau-506",
+   "level": "gau",
+   "gau": "506",
+   "type": "gau",
+   "cefr": null,
+   "h": {
+    "en": "Pinzgau",
+    "de": "Pinzgau"
+   },
+   "body": {
+    "en": "<dl class=\"kv\"><dt>Dialect area</dt><dd><b>Sources differ:</b> transition zone (Bülow) · Southern Bavarian (Scheutz, ORF)</dd><dt>Recorded place</dt><dd>Maria Alm (DiÖ)</dd></dl>\n<p>Scheutz: in the Lungau and the <b>Oberpinzgau</b>, remnants of very old dialect forms survive, often strikingly similar to the southernmost inner-Alpine Bavarian dialects, such as those of South Tyrol.</p>\n<p>In Maria Alm, <i>ihr seid</i> is heard only with a simple <b>a</b>, as in the Flachgau.</p><p><b>Sprachatlas recording places (9):</b> Unken, St. Martin, Maria Alm, Maishofen, Taxenbach, Fusch, Rauris, Stuhlfelden, Wald. Shown as squares on the map; each place has an older and a younger speaker.</p><a class=\"gmap\" href=\"https://www.sprachatlas.at/salzburg/data/atlas.html\" target=\"_blank\" rel=\"noopener\">Listen in the Sprachatlas <span aria-hidden=\"true\">↗</span></a>",
+    "de": "<dl class=\"kv\"><dt>Dialektraum</dt><dd><b>Quellen uneinig:</b> Übergangsgebiet (Bülow) · südbairisch (Scheutz, ORF)</dd><dt>Aufnahmeort</dt><dd>Maria Alm (DiÖ)</dd></dl>\n<p>Scheutz: „Im Lungau und Oberpinzgau finden wir noch Reste ganz alter Dialektformen, die vielfach frappierende Ähnlichkeiten mit den südlichsten inneralpinen bairischen Dialekten, zum Beispiel Südtirol, aufweisen.“</p>\n<p>In Maria Alm erscheint bei <i>ihr seid</i> ausschließlich der Monophthong <b>a</b>, wie im Flachgau.</p><p><b>Aufnahmeorte des Sprachatlas (9):</b> Unken, St. Martin, Maria Alm, Maishofen, Taxenbach, Fusch, Rauris, Stuhlfelden, Wald. Auf der Karte als Quadrate; je Ort eine ältere und eine jüngere Gewährsperson.</p><a class=\"gmap\" href=\"https://www.sprachatlas.at/salzburg/data/atlas.html\" target=\"_blank\" rel=\"noopener\">Im Sprachatlas anhören <span aria-hidden=\"true\">↗</span></a>"
+   },
+   "sources": [
+    {
+     "id": "buelow-2019",
+     "locator": "S. 19, 30",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "orf-2017",
+     "locator": "Pinzgau südbairisch",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "meinbezirk-2017",
+     "locator": "Zitat Scheutz",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "sprachatlas-sbg",
+     "locator": "Dialektvergleich-Karte: Ortsnamen der 32 Aufnahmeorte (per Mouseover gelesen, 5.10.2026)",
+     "checked": "2026-10-03"
+    }
+   ],
+   "status": "source-verified",
+   "open_question": "pinzgau-classification",
+   "expert_review": null,
+   "produced_by": "claude-opus-5-5",
+   "verified_by": [],
+   "text_tr": null
+  },
+  {
+   "id": "gau-505",
+   "level": "gau",
+   "gau": "505",
+   "type": "gau",
+   "cefr": null,
+   "h": {
+    "en": "Lungau",
+    "de": "Lungau"
+   },
+   "body": {
+    "en": "<dl class=\"kv\"><dt>Dialect area</dt><dd>Southern Bavarian (Bülow and Scheutz agree)</dd><dt>Recorded place</dt><dd>Lessach (DiÖ)</dd></dl>\n<p>Scheutz hears a strong linguistic link to Tyrol and South Tyrol here, with remnants of very old dialect forms.</p>\n<p>In Lessach, speakers prefer the diphthong <b>ai</b> in <i>ihr seid</i>. Among older speakers in 2016/17, the diphthong appears in 100% of Lungau examples.</p><p><b>Sprachatlas recording places (4):</b> Zederhaus, Muhr, Mariapfarr, Lasaberg/Tamsweg. Shown as squares on the map; each place has an older and a younger speaker.</p><a class=\"gmap\" href=\"https://www.sprachatlas.at/salzburg/data/atlas.html\" target=\"_blank\" rel=\"noopener\">Listen in the Sprachatlas <span aria-hidden=\"true\">↗</span></a>",
+    "de": "<dl class=\"kv\"><dt>Dialektraum</dt><dd>südbairisch (Bülow und Scheutz übereinstimmend)</dd><dt>Aufnahmeort</dt><dd>Lessach (DiÖ)</dd></dl>\n<p>Scheutz hört hier eine starke sprachliche Verbindung zu Tirol und Südtirol, mit Resten ganz alter Dialektformen.</p>\n<p>In Lessach bevorzugen die Gewährspersonen bei <i>ihr seid</i> den Diphthong <b>ai</b>; bei den älteren Befragten 2016/17 erscheint er im Lungau in 100 % der Fälle.</p><p><b>Aufnahmeorte des Sprachatlas (4):</b> Zederhaus, Muhr, Mariapfarr, Lasaberg/Tamsweg. Auf der Karte als Quadrate; je Ort eine ältere und eine jüngere Gewährsperson.</p><a class=\"gmap\" href=\"https://www.sprachatlas.at/salzburg/data/atlas.html\" target=\"_blank\" rel=\"noopener\">Im Sprachatlas anhören <span aria-hidden=\"true\">↗</span></a>"
+   },
+   "sources": [
+    {
+     "id": "buelow-2019",
+     "locator": "S. 19, 29, 30",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "orf-2017",
+     "locator": "Lungau südbairisch",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "meinbezirk-2017",
+     "locator": "Zitat Scheutz",
+     "checked": "2026-10-03"
+    },
+    {
+     "id": "sprachatlas-sbg",
+     "locator": "Dialektvergleich-Karte: Ortsnamen der 32 Aufnahmeorte (per Mouseover gelesen, 5.10.2026)",
+     "checked": "2026-10-03"
+    }
+   ],
+   "status": "source-verified",
+   "expert_review": null,
+   "produced_by": "claude-opus-5-5",
+   "verified_by": [],
+   "text_tr": null
+  }
+ ],
+ "open_questions": [
+  {
+   "id": "pinzgau-classification",
+   "en": "Is the Pinzgau Southern Bavarian (Scheutz, reported by ORF 2017) or part of the South-Central Bavarian transition zone (Bülow 2019)?",
+   "de": "Ist der Pinzgau südbairisch (Scheutz, laut ORF 2017) oder Teil des südmittelbairischen Übergangsgebiets (Bülow 2019)?"
+  }
+ ]
+}

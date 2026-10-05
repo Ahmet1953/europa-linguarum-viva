@@ -1,0 +1,6 @@
+node_modules/
+src/europa-linguarum-viva.html
+src/test.html
+*.tif
+*.bak*
+__pycache__/
