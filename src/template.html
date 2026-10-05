@@ -126,6 +126,16 @@ h1 .dot{color:var(--gold)}
 .sb-btn{padding:12px 18px;font-size:12px}
 .app.drawer-on .sb-btn{visibility:hidden}
 
+/* ---- opening: the cover image shrinks into the Europe ring ---- */
+#intro{position:fixed;inset:0;z-index:60;background:#06101f;cursor:pointer;overflow:hidden;transition:background-color .9s ease .5s}
+#intro img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 50%;transform-origin:50% 50%;
+  transition:transform 2.1s cubic-bezier(.65,0,.25,1),opacity 1.1s ease 1.1s,border-radius 2.1s ease;will-change:transform}
+#intro.go{background-color:rgba(6,16,31,0);pointer-events:none}
+.app{transition:opacity .9s ease}
+html.intro-on .app{opacity:0}
+#intro.go img{opacity:0;border-radius:50%}
+#intro.skip img{transition:opacity .35s ease;opacity:0}
+#intro.skip{transition:background-color .35s;background-color:rgba(6,16,31,0)}
 /* ---- Salzburg drawer ---- */
 .drawer{position:absolute;z-index:8;top:0;right:0;bottom:0;width:min(460px,100%);background:linear-gradient(180deg,rgba(12,26,54,.97),rgba(6,16,31,.985));border-left:1px solid var(--line);display:flex;flex-direction:column;transform:translateX(105%);transition:transform .6s cubic-bezier(.2,.8,.2,1);box-shadow:-40px 0 80px rgba(0,0,0,.45)}
 .drawer.open{transform:none}
@@ -263,6 +273,7 @@ h1 .dot{color:var(--gold)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
+<div id="intro" aria-hidden="true"><img alt="" src="/*INTRO*/"></div>
 <div class="app" id="app">
   <header>
     <div class="logo">
@@ -812,4 +823,26 @@ addEventListener("keydown",e=>{
 addEventListener("resize",()=>{ if (view!=="europe") { const b=$("mapbox"); b.style.transition="none"; b.style.transform=zoomTarget(); } });
 setLang("en");
 render();
+/* ---------- opening ---------- */
+(() => {
+  const box = $("intro"); if (!box) return;
+  const root = document.documentElement;
+  const done = () => { root.classList.remove("intro-on"); box.remove(); };
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduced || /nointro/.test(location.search + location.hash)) { done(); return; }
+  root.classList.add("intro-on");
+  let gone = false;
+  const skip = () => { if (gone) return; gone = true; box.classList.add("skip"); setTimeout(done, 400); };
+  box.addEventListener("click", skip); addEventListener("keydown", skip, {once:true});
+  const img = box.querySelector("img");
+  (img.decode ? img.decode() : Promise.resolve()).catch(()=>{}).then(() => setTimeout(() => { if (gone) return;
+    // fly into the gold ring of the Europe view
+    const r = ($("mapbox") || document.body).getBoundingClientRect(), vw = innerWidth, vh = innerHeight;
+    const s = Math.max(.12, Math.min(r.width / vw, r.height / vh) * .82);
+    const dx = (r.left + r.width/2) - vw/2, dy = (r.top + r.height/2) - vh/2;
+    box.querySelector("img").style.transform = `translate(${dx}px,${dy}px) scale(${s})`;
+    box.classList.add("go"); gone = true;
+    setTimeout(() => root.classList.remove("intro-on"), 1300); setTimeout(done, 2400);
+  }, 1600));
+})();
 </script>

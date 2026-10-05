@@ -7,7 +7,7 @@ async def run(name,w,h,m):
     async with async_playwright() as p:
         b=await p.chromium.launch(); pg=await b.new_page(viewport={'width':w,'height':h},is_mobile=m,has_touch=m)
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)))
-        await pg.goto('file:///root/viva/test.html');await pg.wait_for_timeout(2500)
+        await pg.goto('file:///root/viva/test.html?nointro');await pg.wait_for_timeout(2500)
         await pg.click('#enter-at');await pg.wait_for_timeout(1200)
         await pg.evaluate('goState("5")');await pg.wait_for_timeout(1500)
         if m: await pg.click('#sb-cards');await pg.wait_for_timeout(800)

@@ -9,7 +9,7 @@ async def run(name,w,h,mobile):
     async with async_playwright() as p:
         b=await p.chromium.launch(); pg=await b.new_page(viewport={'width':w,'height':h},is_mobile=mobile,has_touch=mobile)
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)))
-        await pg.goto('file:///root/viva/test.html');await pg.wait_for_timeout(3000)
+        await pg.goto('file:///root/viva/test.html?nointro');await pg.wait_for_timeout(3000)
         await pg.click('#enter-at');await pg.wait_for_timeout(1600)
         for c in CODES:
             if mobile: await pg.evaluate('document.querySelector(".at-map").scrollLeft=0')
