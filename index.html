@@ -26,7 +26,14 @@ button{font:inherit;color:inherit}
 header{position:relative;z-index:6;display:flex;align-items:center;gap:14px;padding:18px clamp(16px,4vw,56px) 8px}
 .logo{display:flex;align-items:center;gap:14px;margin-right:auto;min-width:0}
 .logo svg{flex:none}
-.logo b{font-family:var(--f-mono);font-weight:500;font-size:13px;letter-spacing:.22em;color:var(--ivory);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.logo b{font-family:var(--f-mono);font-weight:500;font-size:13px;letter-spacing:.22em;color:var(--ivory);white-space:nowrap}
+.vkid{display:inline-block;width:.86em;height:1.3em;vertical-align:-.2em;margin-right:.08em;overflow:visible}
+.vkid svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 2px rgba(255,205,130,.75)) drop-shadow(0 0 6px rgba(240,138,106,.35))}
+.vk-fig{transform-origin:10px 22px;animation:vkJoy 3.6s ease-in-out infinite}
+@keyframes vkJoy{0%,70%,100%{transform:none}78%{transform:translateY(-.7px) scaleX(1.04)}86%{transform:none}}
+.vk-s1,.vk-s2{opacity:0;animation:vkTw 3.6s ease-in-out infinite}.vk-s2{animation-delay:.5s}
+@keyframes vkTw{0%,66%,100%{opacity:0}76%{opacity:1}88%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.vk-fig,.vk-s1,.vk-s2{animation:none}.vk-s1,.vk-s2{opacity:.8}}
 .seg{display:flex;gap:2px}
 .seg button{background:none;border:0;padding:6px 8px;font-family:var(--f-mono);font-size:12px;letter-spacing:.16em;color:var(--mute);cursor:pointer;border-bottom:1px solid transparent}
 .seg button[aria-pressed="true"]{color:var(--gold);border-bottom-color:var(--gold)}
@@ -268,7 +275,9 @@ html.intro-on .app{opacity:0}
 @media (max-width:820px){
   body{font-size:17px}
   header{padding:14px 16px 6px}
-  .logo b{font-size:12px;letter-spacing:.18em}
+  .logo b{font-size:12px;letter-spacing:.18em;white-space:normal;line-height:1.35}
+  .logo b > span{display:block;white-space:nowrap}
+  #v-europe .eyebrow{display:none}
   .crumbs{padding:0 16px}
   #v-europe{display:block;overflow-y:auto;container-type:normal}
   #v-europe{padding-inline:16px;-webkit-overflow-scrolling:touch}
@@ -310,11 +319,12 @@ html.intro-on .app{opacity:0}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="vkG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe7b0"/><stop offset=".35" stop-color="#e9b766"/><stop offset=".7" stop-color="#f08a6a"/><stop offset="1" stop-color="#2fb5c4"/></linearGradient><radialGradient id="vkH" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#fff6e0"/><stop offset="1" stop-color="#f0a85a"/></radialGradient></defs></svg>
 <section id="intro" aria-label="Europa Linguarum Viva">
   <div class="i-lang"><button type="button" data-l="en">EN</button><button type="button" data-l="de">DE</button></div>
   <div class="i-stage">
   <div class="i-copy">
-    <p class="i-eyebrow">Europa Linguarum Viva</p>
+    <p class="i-eyebrow">Europa Linguarum <span class="vkid" role="img" aria-label="V"><svg viewBox="0 0 20 28" aria-hidden="true"><g class="vk-fig"><path d="M10 21.5 3.4 5.2M10 21.5 16.6 5.2" stroke="url(#vkG)" stroke-width="2.7" stroke-linecap="round" fill="none"/><path d="M10 21.8 7.8 26.4M10 21.8 12.2 26.4" stroke="url(#vkG)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".75"/><circle cx="3.1" cy="4.3" r="1.75" fill="url(#vkG)"/><circle cx="16.9" cy="4.3" r="1.75" fill="url(#vkG)"/><circle cx="10" cy="10.2" r="2.7" fill="url(#vkH)"/></g><path class="vk-s1" d="M1 0.6l.45 1.2 1.2.45-1.2.45L1 3.9.55 2.7-.65 2.25.55 1.8z" fill="#fff4d6"/><path class="vk-s2" d="M19 .4l.4 1 1 .4-1 .4-.4 1-.4-1-1-.4 1-.4z" fill="#bff3f7"/></svg></span>iva</p>
     <h1 class="i-h1" data-i="h1">Europe speaks in layers<span class="dot">.</span></h1>
     <p class="i-lede" data-i="lede"></p>
     <div class="i-actions">
@@ -329,7 +339,7 @@ html.intro-on .app{opacity:0}
   <header>
     <div class="logo">
       <svg width="40" height="30" viewBox="0 0 40 30" aria-hidden="true"><g fill="none" stroke="#e9b766" stroke-width="3" stroke-linecap="round"><path d="M2 5c6-4 12 4 18 0s12-4 18 0"/><path d="M2 15c6-4 12 4 18 0s12-4 18 0"/><path d="M2 25c6-4 12 4 18 0s12-4 18 0"/></g></svg>
-      <b>EUROPA LINGUARUM VIVA</b>
+      <b><span>EUROPA LINGUARUM</span> <span><span class="vkid" role="img" aria-label="V"><svg viewBox="0 0 20 28" aria-hidden="true"><g class="vk-fig"><path d="M10 21.5 3.4 5.2M10 21.5 16.6 5.2" stroke="url(#vkG)" stroke-width="2.7" stroke-linecap="round" fill="none"/><path d="M10 21.8 7.8 26.4M10 21.8 12.2 26.4" stroke="url(#vkG)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".75"/><circle cx="3.1" cy="4.3" r="1.75" fill="url(#vkG)"/><circle cx="16.9" cy="4.3" r="1.75" fill="url(#vkG)"/><circle cx="10" cy="10.2" r="2.7" fill="url(#vkH)"/></g><path class="vk-s1" d="M1 0.6l.45 1.2 1.2.45-1.2.45L1 3.9.55 2.7-.65 2.25.55 1.8z" fill="#fff4d6"/><path class="vk-s2" d="M19 .4l.4 1 1 .4-1 .4-.4 1-.4-1-1-.4 1-.4z" fill="#bff3f7"/></svg></span>IVA</span></b>
     </div>
     <div class="seg" role="group" aria-label="Interface language">
       <button id="lang-en" aria-pressed="true">EN</button>
@@ -347,7 +357,7 @@ html.intro-on .app{opacity:0}
         </div>
       </div>
       <div class="copy">
-        <p class="eyebrow">Europa Linguarum Viva</p>
+        <p class="eyebrow">Europa Linguarum <span class="vkid" role="img" aria-label="V"><svg viewBox="0 0 20 28" aria-hidden="true"><g class="vk-fig"><path d="M10 21.5 3.4 5.2M10 21.5 16.6 5.2" stroke="url(#vkG)" stroke-width="2.7" stroke-linecap="round" fill="none"/><path d="M10 21.8 7.8 26.4M10 21.8 12.2 26.4" stroke="url(#vkG)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".75"/><circle cx="3.1" cy="4.3" r="1.75" fill="url(#vkG)"/><circle cx="16.9" cy="4.3" r="1.75" fill="url(#vkG)"/><circle cx="10" cy="10.2" r="2.7" fill="url(#vkH)"/></g><path class="vk-s1" d="M1 0.6l.45 1.2 1.2.45-1.2.45L1 3.9.55 2.7-.65 2.25.55 1.8z" fill="#fff4d6"/><path class="vk-s2" d="M19 .4l.4 1 1 .4-1 .4-.4 1-.4-1-1-.4 1-.4z" fill="#bff3f7"/></svg></span>iva</p>
         <h1 style="text-transform:uppercase"><span data-i18n="introH1">Europe speaks in layers</span><span class="dot">.</span></h1>
         <p class="lede" data-i18n="lede">A living, AI-assisted atlas connecting European languages, regional voices and CEFR-aligned pathways for modern life.</p>
         <div class="actions">
@@ -528,7 +538,20 @@ function paint(cv, o){
   if (o.cut) { ctx.save(); ctx.globalCompositeOperation = "destination-out"; if (blur) ctx.filter = "blur(34px)";
     const q = new Path2D(); o.cut.forEach((p,i) => i ? q.lineTo(p[0],p[1]) : q.moveTo(p[0],p[1]));
     q.lineTo(o.w*3, -o.h*3); q.lineTo(o.w*3, o.h*3); q.closePath();
-    ctx.fillStyle = "#000"; ctx.fill(q); ctx.restore(); }
+    ctx.fillStyle = "#000"; ctx.fill(q); ctx.restore();
+    // 8c the land beyond the cut comes back as a quiet dot pattern, so the ring is not empty there
+    if (o.eastLand) {
+      const L = document.createElement("canvas"); L.width = cv.width; L.height = cv.height;
+      const c = L.getContext("2d"); c.setTransform(S,0,0,S,0,0);
+      const st = 6, pc = document.createElement("canvas"); pc.width = pc.height = st*S;
+      const pg = pc.getContext("2d"); pg.fillStyle = "rgba(140,215,228,1)"; pg.beginPath(); pg.arc(st*S/2, st*S/2, .85*S, 0, 7); pg.fill();
+      const pat = c.createPattern(pc, "repeat"); if (pat.setTransform) pat.setTransform(new DOMMatrix().scale(1/S));
+      c.fillStyle = pat; c.fill(o.eastLand);
+      c.strokeStyle = "rgba(233,183,102,.35)"; c.lineWidth = .45; c.stroke(o.eastLand);
+      c.globalCompositeOperation = "destination-in"; if (blur) c.filter = "blur(34px)";
+      c.fillStyle = "#000"; c.fill(q);
+      ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.globalAlpha = .5; ctx.drawImage(L, 0, 0); ctx.restore();
+    } }
   // 9 elliptical vignette: the map dissolves into the night instead of meeting a frame edge
   if (o.fade) { ctx.save(); ctx.globalCompositeOperation = "destination-in";
     ctx.translate(o.fade.cx, o.fade.cy);
@@ -539,6 +562,7 @@ function paint(cv, o){
 
 /* ---------- Europe ---------- */
 const E = GEO.europe;
+const eAll = new Path2D(); E.countries.forEach(c => eAll.addPath(new Path2D(c.d)));
 const eShapes = E.countries.filter(c => famOf[c.id] || c.name==="Kosovo" || c.name==="N. Cyprus").map(c => ({p:new Path2D(c.d), col: (FAM[famOf[c.id]]||FAM.oth).c}));
 eShapes.push({p:new Path2D(E.austria), col:FAM.ger.c});
 const sE = $("svg-europe");
@@ -683,7 +707,7 @@ function stateLabels(){
 }
 async function render(){
   const [rE, rA] = await Promise.all([loadImg(RELIEF.europe), loadImg(RELIEF.austria)]);
-  paint($("cv-europe"),{w:1000,h:860,shapes:eShapes,art:rE,layer:.42,fade:RING,cut:RING.cut,
+  paint($("cv-europe"),{w:1000,h:860,shapes:eShapes,art:rE,layer:.42,fade:RING,cut:RING.cut,eastLand:eAll,
     lakes:E.lakes,rivers:E.rivers,riverCol:"rgba(150,225,245,.32)",riverW:.45,
     borderCol:"rgba(255,226,170,.38)",borderW:.45,borderGlow:2.5,
     arcs:E.arcs,cities:E.cities,popBase:4.9,popK:.8});
