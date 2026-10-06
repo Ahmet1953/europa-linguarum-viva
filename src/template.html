@@ -264,6 +264,23 @@ html.intro-on .app{opacity:0}
 .legend span{display:inline-flex;align-items:center;gap:7px;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
 .legend i{width:12px;height:12px;border-radius:2px;display:inline-block}
 
+
+/* ---- big glowing brand in the dark space above the headline (Europe view + opening) ---- */
+.app header .logo{transition:opacity .6s ease,visibility .6s}
+.app.on-eu header .logo{opacity:0;visibility:hidden}
+.brand{position:absolute;left:0;top:-120px;display:flex;align-items:center;gap:.6em;white-space:nowrap;font-size:clamp(17px,1.85vw,30px);pointer-events:none}
+.brand .br-waves{width:2.1em;height:1.6em;flex:none;overflow:visible;filter:drop-shadow(0 0 5px rgba(255,214,150,.6))}
+.brand b{font-family:var(--f-mono);font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#f8dca0;
+  text-shadow:0 0 6px rgba(255,220,160,.55),0 0 20px rgba(240,165,90,.35);animation:brGlow 4.5s ease-in-out infinite}
+.brand .vkid{width:.95em;height:1.4em;vertical-align:-.26em}
+@keyframes brGlow{0%,100%{color:#f3cf8a;text-shadow:0 0 5px rgba(255,220,160,.45),0 0 16px rgba(240,165,90,.25)}50%{color:#fff1cf;text-shadow:0 0 8px rgba(255,228,175,.75),0 0 26px rgba(240,170,95,.45)}}
+#intro .i-brand{opacity:0;animation:iUp .9s ease .3s forwards}
+@media (max-width:820px){
+  .brand{position:static;font-size:clamp(14px,4.4vw,19px);margin:4px 0 18px;white-space:normal;flex-wrap:nowrap}
+  .brand b{white-space:nowrap}
+}
+@media (prefers-reduced-motion:reduce){.brand b{animation:none}}
+
 /* ---- phones ---- */
 @media (max-width:820px){
   body{font-size:17px}
@@ -312,12 +329,12 @@ html.intro-on .app{opacity:0}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="vkG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe7b0"/><stop offset=".35" stop-color="#e9b766"/><stop offset=".7" stop-color="#f08a6a"/><stop offset="1" stop-color="#2fb5c4"/></linearGradient><radialGradient id="vkH" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#fff6e0"/><stop offset="1" stop-color="#f0a85a"/></radialGradient></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="brW" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e9b766"/><stop offset=".5" stop-color="#fff0c8"/><stop offset="1" stop-color="#e9b766"/></linearGradient><linearGradient id="vkG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe7b0"/><stop offset=".35" stop-color="#e9b766"/><stop offset=".7" stop-color="#f08a6a"/><stop offset="1" stop-color="#2fb5c4"/></linearGradient><radialGradient id="vkH" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#fff6e0"/><stop offset="1" stop-color="#f0a85a"/></radialGradient></defs></svg>
 <section id="intro" aria-label="Europa Linguarum Viva">
   <div class="i-lang"><button type="button" data-l="en">EN</button><button type="button" data-l="de">DE</button></div>
   <div class="i-stage">
   <div class="i-copy">
-    <p class="i-eyebrow">Europa Linguarum <span class="vkid" role="img" aria-label="V"><svg viewBox="0 0 20 28" aria-hidden="true"><g class="vk-fig"><path d="M10 21.5 3.4 5.2M10 21.5 16.6 5.2" stroke="url(#vkG)" stroke-width="2.7" stroke-linecap="round" fill="none"/><path d="M10 21.8 7.8 26.4M10 21.8 12.2 26.4" stroke="url(#vkG)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".75"/><circle cx="3.1" cy="4.3" r="1.75" fill="url(#vkG)"/><circle cx="16.9" cy="4.3" r="1.75" fill="url(#vkG)"/><circle cx="10" cy="10.2" r="2.7" fill="url(#vkH)"/></g><path class="vk-s1" d="M1 0.6l.45 1.2 1.2.45-1.2.45L1 3.9.55 2.7-.65 2.25.55 1.8z" fill="#fff4d6"/><path class="vk-s2" d="M19 .4l.4 1 1 .4-1 .4-.4 1-.4-1-1-.4 1-.4z" fill="#bff3f7"/></svg></span>iva</p>
+    <div class="brand i-brand"><svg class="br-waves" viewBox="0 0 40 30" aria-hidden="true"><g fill="none" stroke="url(#brW)" stroke-width="3" stroke-linecap="round"><path d="M2 5c6-4 12 4 18 0s12-4 18 0"/><path d="M2 15c6-4 12 4 18 0s12-4 18 0"/><path d="M2 25c6-4 12 4 18 0s12-4 18 0"/></g></svg><b>Europa Linguarum <span class="vkid" role="img" aria-label="V"><svg viewBox="0 0 20 28" aria-hidden="true"><g class="vk-fig"><path d="M10 21.5 3.4 5.2M10 21.5 16.6 5.2" stroke="url(#vkG)" stroke-width="2.7" stroke-linecap="round" fill="none"/><path d="M10 21.8 7.8 26.4M10 21.8 12.2 26.4" stroke="url(#vkG)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".75"/><circle cx="3.1" cy="4.3" r="1.75" fill="url(#vkG)"/><circle cx="16.9" cy="4.3" r="1.75" fill="url(#vkG)"/><circle cx="10" cy="10.2" r="2.7" fill="url(#vkH)"/></g><path class="vk-s1" d="M1 0.6l.45 1.2 1.2.45-1.2.45L1 3.9.55 2.7-.65 2.25.55 1.8z" fill="#fff4d6"/><path class="vk-s2" d="M19 .4l.4 1 1 .4-1 .4-.4 1-.4-1-1-.4 1-.4z" fill="#bff3f7"/></svg></span>iva</b></div>
     <h1 class="i-h1" data-i="h1">Europe speaks in layers<span class="dot">.</span></h1>
     <p class="i-lede" data-i="lede"></p>
     <div class="i-actions">
@@ -328,7 +345,7 @@ html.intro-on .app{opacity:0}
   <div class="i-art"><img alt="" src="/*INTRO*/"></div>
   </div>
 </section>
-<div class="app" id="app">
+<div class="app on-eu" id="app">
   <header>
     <div class="logo">
       <svg width="40" height="30" viewBox="0 0 40 30" aria-hidden="true"><g fill="none" stroke="#e9b766" stroke-width="3" stroke-linecap="round"><path d="M2 5c6-4 12 4 18 0s12-4 18 0"/><path d="M2 15c6-4 12 4 18 0s12-4 18 0"/><path d="M2 25c6-4 12 4 18 0s12-4 18 0"/></g></svg>
@@ -350,7 +367,7 @@ html.intro-on .app{opacity:0}
         </div>
       </div>
       <div class="copy">
-        <p class="eyebrow">Europa Linguarum <span class="vkid" role="img" aria-label="V"><svg viewBox="0 0 20 28" aria-hidden="true"><g class="vk-fig"><path d="M10 21.5 3.4 5.2M10 21.5 16.6 5.2" stroke="url(#vkG)" stroke-width="2.7" stroke-linecap="round" fill="none"/><path d="M10 21.8 7.8 26.4M10 21.8 12.2 26.4" stroke="url(#vkG)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".75"/><circle cx="3.1" cy="4.3" r="1.75" fill="url(#vkG)"/><circle cx="16.9" cy="4.3" r="1.75" fill="url(#vkG)"/><circle cx="10" cy="10.2" r="2.7" fill="url(#vkH)"/></g><path class="vk-s1" d="M1 0.6l.45 1.2 1.2.45-1.2.45L1 3.9.55 2.7-.65 2.25.55 1.8z" fill="#fff4d6"/><path class="vk-s2" d="M19 .4l.4 1 1 .4-1 .4-.4 1-.4-1-1-.4 1-.4z" fill="#bff3f7"/></svg></span>iva</p>
+        <div class="brand"><svg class="br-waves" viewBox="0 0 40 30" aria-hidden="true"><g fill="none" stroke="url(#brW)" stroke-width="3" stroke-linecap="round"><path d="M2 5c6-4 12 4 18 0s12-4 18 0"/><path d="M2 15c6-4 12 4 18 0s12-4 18 0"/><path d="M2 25c6-4 12 4 18 0s12-4 18 0"/></g></svg><b>Europa Linguarum <span class="vkid" role="img" aria-label="V"><svg viewBox="0 0 20 28" aria-hidden="true"><g class="vk-fig"><path d="M10 21.5 3.4 5.2M10 21.5 16.6 5.2" stroke="url(#vkG)" stroke-width="2.7" stroke-linecap="round" fill="none"/><path d="M10 21.8 7.8 26.4M10 21.8 12.2 26.4" stroke="url(#vkG)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".75"/><circle cx="3.1" cy="4.3" r="1.75" fill="url(#vkG)"/><circle cx="16.9" cy="4.3" r="1.75" fill="url(#vkG)"/><circle cx="10" cy="10.2" r="2.7" fill="url(#vkH)"/></g><path class="vk-s1" d="M1 0.6l.45 1.2 1.2.45-1.2.45L1 3.9.55 2.7-.65 2.25.55 1.8z" fill="#fff4d6"/><path class="vk-s2" d="M19 .4l.4 1 1 .4-1 .4-.4 1-.4-1-1-.4 1-.4z" fill="#bff3f7"/></svg></span>iva</b></div>
         <h1 style="text-transform:uppercase"><span data-i18n="introH1">Europe speaks in layers</span><span class="dot">.</span></h1>
         <p class="lede" data-i18n="lede">A living, AI-assisted atlas connecting European languages, regional voices and CEFR-aligned pathways for modern life.</p>
         <div class="actions">
@@ -753,7 +770,7 @@ function centreSalzburg(){
   m.scrollLeft = box.offsetLeft + s.cx/1000*box.offsetWidth - m.clientWidth/2;
 }
 function show(v){
-  view = v; if (v==="austria") requestAnimationFrame(centreSalzburg);
+  view = v; $("app").classList.toggle("on-eu", v==="europe"); if (v==="austria") requestAnimationFrame(centreSalzburg);
   if (v!=="salzburg") closeDrawer();
   $("v-europe").setAttribute("aria-hidden", v!=="europe");
   $("v-austria").setAttribute("aria-hidden", v!=="austria");
@@ -863,8 +880,8 @@ function setLang(l){
   if ($("drawer").classList.contains("open")) renderCards();
   if (!$("meth").hidden) openMeth();
 }
-$("lang-en").onclick = () => { setLang("en"); tightCopy(); };
-$("lang-de").onclick = () => { setLang("de"); tightCopy(); };
+$("lang-en").onclick = () => { setLang("en"); tightCopy(); placeBrand(); };
+$("lang-de").onclick = () => { setLang("de"); tightCopy(); placeBrand(); };
 const METH = {
  en:{intro:"This pilot tests whether a language atlas can be both vivid and academically reliable. These are the rules every card follows.",
   steps:["Every statement is tied to a published source, with an exact locator: page, entry or paragraph.","Dialect forms appear only as spelled in the source. Nothing is reconstructed from memory or from AI knowledge.","Where sources disagree, both views are shown side by side and recorded as an open question.","Learners at A1–B1 are taught Austrian Standard German; dialect cards are for recognition, not imitation.","Recordings and images are linked, never copied, unless their licence allows reuse."],
@@ -907,11 +924,22 @@ function tightCopy(){
   for (const el of document.querySelectorAll("#intro .i-copy, #v-europe .copy")) {
     el.style.marginRight = el.style.marginLeft = ""; if (innerWidth <= 820) continue;
     let L = 1e9, R = -1e9; const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
-    while (w.nextNode()) { if (!w.currentNode.textContent.trim()) continue; const rg = document.createRange(); rg.selectNodeContents(w.currentNode);
+    while (w.nextNode()) { if (!w.currentNode.textContent.trim() || w.currentNode.parentElement.closest(".brand")) continue; const rg = document.createRange(); rg.selectNodeContents(w.currentNode);
       for (const r of rg.getClientRects()) if (r.width) { L = Math.min(L, r.left); R = Math.max(R, r.right); } }
     el.querySelectorAll("button").forEach(b => { const r = b.getBoundingClientRect(); if (r.width) { L = Math.min(L, r.left); R = Math.max(R, r.right); } });
     const box = el.getBoundingClientRect(); if (R > -1e9 && box.width) { el.style.marginRight = (R - box.right) + "px"; el.style.marginLeft = (box.left - L) + "px"; } } }
 tightCopy(); setTimeout(tightCopy, 1800); if (document.fonts) document.fonts.ready.then(tightCopy); addEventListener("resize", tightCopy);
+
+/* the brand sits centred in the dark space between the top edge and the headline */
+function placeBrand(){
+  const top = el => { let t = 0; while (el) { t += el.offsetTop; el = el.offsetParent; } return t; };
+  for (const b of document.querySelectorAll(".brand")) {
+    if (innerWidth <= 820) { b.style.top = ""; continue; }
+    const copy = b.parentElement, h = copy.querySelector("h1"); if (!h) continue;
+    const v = copy.closest(".view, .i-stage"), vt = v ? top(v) : 0;
+    const mid = (vt + top(h)) / 2, y = Math.max(vt + 8, mid - b.offsetHeight / 2);
+    b.style.top = (y - top(copy)) + "px"; } }
+placeBrand(); setTimeout(placeBrand, 1800); if (document.fonts) document.fonts.ready.then(placeBrand); addEventListener("resize", placeBrand);
 /* ---------- opening ---------- */
 (() => {
   const box = $("intro"); if (!box) return;
@@ -924,7 +952,7 @@ tightCopy(); setTimeout(tightCopy, 1800); if (document.fonts) document.fonts.rea
     box.querySelector('[data-i="sbg"]').textContent = L.introSbg;
     box.querySelectorAll(".i-lang button").forEach(b => b.setAttribute("aria-pressed", b.dataset.l === lang)); };
   paint();
-  box.querySelectorAll(".i-lang button").forEach(b => b.onclick = () => { setLang(b.dataset.l); paint(); tightCopy(); });
+  box.querySelectorAll(".i-lang button").forEach(b => b.onclick = () => { setLang(b.dataset.l); paint(); tightCopy(); placeBrand(); });
   const done = () => { root.classList.remove("intro-on"); box.remove(); };
   if (/nointro/.test(location.search + location.hash)) { done(); return; }
   root.classList.add("intro-on");
