@@ -1,0 +1,286 @@
+<!doctype html><html lang="en"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Golden Set · Europa Linguarum Viva</title><meta name="description" content="Golden Set: CEFR course content A1.1–C2.2 in six languages. © Dr. Ahmet Akan.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: top language strip -> CEFR block grid -> two-pane (category rail + row table), table scrolls horizontally in its own box */
+:root{
+  --bg:#eef1f5; --surface:#ffffff; --surface-2:#f5f7fa; --fg:#171c26; --muted:#5b6474;
+  --border:#d7dce3; --accent:#32469c; --accent-fg:#ffffff;
+  --lvl-a:#2f7a4f; --lvl-b:#a9791f; --lvl-c:#8a3a7d;
+  --row-hover:#eef2fb; --shadow:0 1px 2px rgba(23,28,38,.06), 0 8px 24px -12px rgba(23,28,38,.12);
+  --font-display:'Spectral', Georgia, serif; --font-body:'Source Sans 3', system-ui, sans-serif; --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11141b; --surface:#171c26; --surface-2:#1c2230; --fg:#e7eaf0; --muted:#9aa3b5;
+    --border:#2b3243; --accent:#7f93e0; --accent-fg:#11141b;
+    --lvl-a:#5fb98a; --lvl-b:#d9ac4b; --lvl-c:#c073b4;
+    --row-hover:#1d2638; --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.5);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11141b; --surface:#171c26; --surface-2:#1c2230; --fg:#e7eaf0; --muted:#9aa3b5;
+  --border:#2b3243; --accent:#7f93e0; --accent-fg:#11141b;
+  --lvl-a:#5fb98a; --lvl-b:#d9ac4b; --lvl-c:#c073b4;
+  --row-hover:#1d2638; --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.5);
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);margin:0;padding-inline:16px;padding-block:18px 32px;min-height:100%}
+h1,h2,h3{font-family:var(--font-display);margin:0;text-wrap:balance}
+.wrap{max-width:1280px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+header.top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;padding-block:4px 2px}
+header.top h1{font-size:clamp(22px,3vw,30px);font-weight:700}
+header.top .sub{color:var(--muted);font-size:13px}
+.lock-note{font-size:12px;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:4px 12px;background:var(--surface)}
+
+.langrow{display:flex;gap:6px;flex-wrap:wrap}
+.langbtn{font-family:var(--font-body);font-weight:600;font-size:13px;border:1px solid var(--border);background:var(--surface);color:var(--fg);border-radius:10px;padding:8px 14px;cursor:pointer;min-width:0}
+.langbtn .code{font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-left:5px}
+.langbtn[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.langbtn[aria-pressed="true"] .code{color:var(--accent-fg);opacity:.75}
+
+.blockgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+@media (max-width:620px){.blockgrid{grid-template-columns:repeat(3,1fr)}}
+.blockbtn{font-family:var(--font-mono);font-size:13px;font-weight:500;border:1px solid var(--border);background:var(--surface);color:var(--fg);border-radius:8px;padding:9px 4px;cursor:pointer;text-align:center;position:relative}
+.blockbtn[aria-pressed="true"]{outline:2px solid var(--accent);outline-offset:-1px;font-weight:700}
+.blockbtn .dot{display:inline-block;width:6px;height:6px;border-radius:999px;margin-right:5px;vertical-align:middle}
+
+.panels{display:flex;gap:14px;align-items:flex-start}
+@media (max-width:760px){.panels{flex-direction:column}}
+.rail{flex:0 0 260px;min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
+@media (max-width:760px){.rail{flex:1 1 auto;width:100%}}
+.rail-head{padding:10px 12px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.rail-head h2{font-size:14px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.rail-head .count{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+.cat-list{list-style:none;margin:0;padding:4px;max-height:560px;overflow:auto}
+.cat-item{border-radius:8px}
+.cat-item button{width:100%;text-align:left;background:none;border:0;padding:9px 10px;cursor:pointer;color:var(--fg);font-family:var(--font-body);font-size:13.5px;border-radius:8px;display:flex;flex-direction:column;gap:2px}
+.cat-item button:hover{background:var(--row-hover)}
+.cat-item button[aria-current="true"]{background:var(--accent);color:var(--accent-fg)}
+.cat-item .n{font-family:var(--font-mono);font-size:11px;color:var(--muted)}
+.cat-item button[aria-current="true"] .n{color:var(--accent-fg);opacity:.8}
+
+.main{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.main-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px}
+.main-head h2{font-size:19px;font-weight:700}
+.main-head .key{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+.search{display:flex;gap:8px;align-items:center}
+.search input{font-family:var(--font-body);font-size:13.5px;border:1px solid var(--border);background:var(--surface);color:var(--fg);border-radius:8px;padding:7px 10px;width:220px;min-width:0}
+.search input:focus{outline:2px solid var(--accent);outline-offset:1px}
+
+.tablebox{background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow:auto;max-height:70vh}
+table{border-collapse:collapse;width:100%;font-size:13px}
+thead th{position:sticky;top:0;background:var(--surface-2);text-align:left;padding:9px 10px;font-weight:600;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--border);white-space:nowrap}
+tbody td{padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+tbody tr:hover{background:var(--row-hover)}
+td.no{font-family:var(--font-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+td.type{font-family:var(--font-mono);font-size:11px}
+.pill{display:inline-block;padding:2px 7px;border-radius:999px;font-size:10.5px;font-family:var(--font-mono);border:1px solid var(--border)}
+.pill.word{color:var(--lvl-a)} .pill.phrase{color:var(--lvl-b)} .pill.sentence{color:var(--lvl-c)}
+td.key{font-family:var(--font-mono);color:var(--muted);font-size:11.5px;max-width:160px}
+td.translation{font-weight:600;min-width:140px}
+td.tip{color:var(--muted);min-width:180px;max-width:260px}
+td.ex{min-width:180px;max-width:280px}
+td.num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap}
+td.tags{color:var(--muted);font-size:11.5px;max-width:160px}
+
+.empty{padding:48px 16px;text-align:center;color:var(--muted);font-family:var(--font-display);font-size:16px}
+.loading{padding:48px 16px;text-align:center;color:var(--muted)}
+.foot{color:var(--muted);font-size:11.5px;text-align:center;padding-top:6px}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Golden Set</h1>
+      <div class="sub">Classic CEFR · 6 languages · A1.1–C2.2 · 48 entries per category · <a href="./" style="color:var(--accent)">← Europa Linguarum Viva</a> · <a href="cefr.html" style="color:var(--accent)">CEFR</a></div>
+    </div>
+    <span class="lock-note">© Dr. Ahmet Akan — All rights reserved</span>
+  </header>
+
+  <nav class="langrow" id="langrow" aria-label="Language"></nav>
+  <nav class="blockgrid" id="blockgrid" aria-label="CEFR block"></nav>
+
+  <div class="panels">
+    <aside class="rail">
+      <div class="rail-head"><h2>Categories</h2><span class="count" id="cat-count"></span></div>
+      <ul class="cat-list" id="cat-list"></ul>
+    </aside>
+    <section class="main">
+      <div class="main-head">
+        <div>
+          <h2 id="cat-title">—</h2>
+          <span class="key" id="cat-key"></span>
+        </div>
+        <div class="search">
+          <input id="search" type="search" placeholder="Search entries…" aria-label="Search entries">
+        </div>
+      </div>
+      <div class="tablebox" id="tablebox"><div class="empty">Choose a language and a category.</div></div>
+    </section>
+  </div>
+  <div class="foot">Golden Set · 48,384 entries · 6 languages × 12 blocks<br>© 2026 Dr. Ahmet Akan — Alle Rechte vorbehalten / All rights reserved. No reproduction without written permission.</div>
+</div>
+
+<script>
+const LANGS = [
+  ["de","Deutsch"], ["es","Español"], ["fr","Français"],
+  ["it","Italiano"], ["tr","Türkçe"], ["el","Ελληνικά"]
+];
+const BLOCKS = ["A1.1","A1.2","A2.1","A2.2","B1.1","B1.2","B2.1","B2.2","C1.1","C1.2","C2.1","C2.2"];
+const LEVEL_VAR = {A:"--lvl-a", B:"--lvl-b", C:"--lvl-c"};
+
+let state = { lang: "de", block: "A1.1", catIndex: 0, index: null, dataCache: {}, query: "" };
+
+function levelOf(block){ return block[0]; }
+
+async function loadIndex(){
+  const res = await fetch("golden-set/index.json");
+  state.index = await res.json();
+}
+
+async function loadLangData(lang){
+  if (state.dataCache[lang]) return state.dataCache[lang];
+  const res = await fetch(`golden-set/data-${lang}.json`);
+  const json = await res.json();
+  state.dataCache[lang] = json;
+  return json;
+}
+
+function renderLangRow(){
+  const el = document.getElementById("langrow");
+  el.innerHTML = "";
+  for (const [code, name] of LANGS){
+    const b = document.createElement("button");
+    b.className = "langbtn";
+    b.setAttribute("aria-pressed", String(code === state.lang));
+    b.innerHTML = `${name}<span class="code">${code}</span>`;
+    b.addEventListener("click", () => { state.lang = code; state.catIndex = 0; onSelectionChange(); });
+    el.appendChild(b);
+  }
+}
+
+function renderBlockGrid(){
+  const el = document.getElementById("blockgrid");
+  el.innerHTML = "";
+  for (const block of BLOCKS){
+    const b = document.createElement("button");
+    b.className = "blockbtn";
+    b.setAttribute("aria-pressed", String(block === state.block));
+    const dotVar = LEVEL_VAR[levelOf(block)];
+    b.innerHTML = `<span class="dot" style="background:var(${dotVar})"></span>${block}`;
+    b.addEventListener("click", () => { state.block = block; state.catIndex = 0; onSelectionChange(); });
+    el.appendChild(b);
+  }
+}
+
+function currentCats(){
+  const idx = state.index?.[state.lang]?.[state.block];
+  return idx || [];
+}
+
+function renderCatList(){
+  const list = document.getElementById("cat-list");
+  const cats = currentCats();
+  document.getElementById("cat-count").textContent = cats.length ? `${cats.length} categories` : "";
+  list.innerHTML = "";
+  cats.forEach((c, i) => {
+    const li = document.createElement("li");
+    li.className = "cat-item";
+    const btn = document.createElement("button");
+    btn.setAttribute("aria-current", String(i === state.catIndex));
+    btn.innerHTML = `<span>${escapeHtml(c.title)}</span><span class="n">${c.n} entries</span>`;
+    btn.addEventListener("click", () => { state.catIndex = i; renderCatList(); renderTable(); });
+    li.appendChild(btn);
+    list.appendChild(li);
+  });
+}
+
+function escapeHtml(s){
+  return String(s ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+
+async function renderTable(){
+  const box = document.getElementById("tablebox");
+  const cats = currentCats();
+  const catMeta = cats[state.catIndex];
+  if (!catMeta){
+    document.getElementById("cat-title").textContent = "—";
+    document.getElementById("cat-key").textContent = "";
+    box.innerHTML = `<div class="empty">No categories in this block.</div>`;
+    return;
+  }
+  document.getElementById("cat-title").textContent = catMeta.title;
+  document.getElementById("cat-key").textContent = catMeta.key || "";
+  box.innerHTML = `<div class="loading">Loading…</div>`;
+
+  const langData = await loadLangData(state.lang);
+  const fullCat = (langData[state.block] || []).find(c => c.key === catMeta.key) ||
+                  (langData[state.block] || [])[state.catIndex];
+  if (!fullCat){
+    box.innerHTML = `<div class="empty">Data not found.</div>`;
+    return;
+  }
+  const q = state.query.trim().toLowerCase();
+  let rows = fullCat.rows;
+  if (q){
+    rows = rows.filter(r =>
+      [r.translation, r.tip, r.exampleEN, r.exampleTGT, r.key, r.tags].some(v => String(v||"").toLowerCase().includes(q))
+    );
+  }
+  const langLabel = LANGS.find(l => l[0] === state.lang)?.[1] || state.lang.toUpperCase();
+  const html = [
+    `<table><thead><tr>`,
+    `<th>No</th><th>Type</th><th>Key</th><th>Translation (${escapeHtml(langLabel)})</th>`,
+    `<th>Note</th><th>Example (EN)</th><th>Example (${escapeHtml(langLabel)})</th>`,
+    `<th>Level</th><th>Freq.</th><th>Tags</th>`,
+    `</tr></thead><tbody>`
+  ];
+  for (const r of rows){
+    html.push(
+      `<tr>`,
+      `<td class="no">${r.no}</td>`,
+      `<td class="type"><span class="pill ${escapeHtml(r.type)}">${escapeHtml(r.type)}</span></td>`,
+      `<td class="key">${escapeHtml(r.key)}</td>`,
+      `<td class="translation">${escapeHtml(r.translation)}</td>`,
+      `<td class="tip">${escapeHtml(r.tip)}</td>`,
+      `<td class="ex">${escapeHtml(r.exampleEN)}</td>`,
+      `<td class="ex">${escapeHtml(r.exampleTGT)}</td>`,
+      `<td class="num">${escapeHtml(r.difficulty)}</td>`,
+      `<td class="num">${escapeHtml(r.frequency)}</td>`,
+      `<td class="tags">${escapeHtml(r.tags)}</td>`,
+      `</tr>`
+    );
+  }
+  if (!rows.length) html.push(`<tr><td colspan="10" class="empty">No matching entries.</td></tr>`);
+  html.push(`</tbody></table>`);
+  box.innerHTML = html.join("");
+}
+
+function onSelectionChange(){
+  renderLangRow();
+  renderBlockGrid();
+  renderCatList();
+  renderTable();
+}
+
+document.getElementById("search").addEventListener("input", (e) => {
+  state.query = e.target.value;
+  renderTable();
+});
+
+(async function init(){
+  try {
+    await loadIndex();
+  } catch (e) {
+    document.getElementById("tablebox").innerHTML = `<div class="empty">Could not load the index.</div>`;
+    return;
+  }
+  onSelectionChange();
+})();
+</script>
+
+</body></html>
