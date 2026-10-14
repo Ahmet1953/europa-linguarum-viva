@@ -80,7 +80,6 @@ td.no{font-family:var(--font-mono);color:var(--muted);font-variant-numeric:tabul
 td.type{font-family:var(--font-mono);font-size:11px}
 .pill{display:inline-block;padding:2px 7px;border-radius:999px;font-size:10.5px;font-family:var(--font-mono);border:1px solid var(--border)}
 .pill.word{color:var(--lvl-a)} .pill.phrase{color:var(--lvl-b)} .pill.sentence{color:var(--lvl-c)}
-td.key{font-family:var(--font-mono);color:var(--muted);font-size:11.5px;max-width:160px;overflow-wrap:anywhere;word-break:break-word}
 td.translation{font-weight:600;min-width:140px}
 td.tip{color:var(--muted);min-width:180px;max-width:260px}
 td.ex{min-width:180px;max-width:280px}
@@ -228,13 +227,13 @@ async function renderTable(){
   let rows = fullCat.rows;
   if (q){
     rows = rows.filter(r =>
-      [r.translation, r.tip, r.exampleEN, r.exampleTGT, r.key, r.tags].some(v => String(v||"").toLowerCase().includes(q))
+      [r.translation, r.tip, r.exampleEN, r.exampleTGT, r.tags].some(v => String(v||"").toLowerCase().includes(q))
     );
   }
   const langLabel = LANGS.find(l => l[0] === state.lang)?.[1] || state.lang.toUpperCase();
   const html = [
     `<table><thead><tr>`,
-    `<th>No</th><th>Type</th><th>Key</th><th>Translation (${escapeHtml(langLabel)})</th>`,
+    `<th>No</th><th>Type</th><th>Translation (${escapeHtml(langLabel)})</th>`,
     `<th>Note</th><th>Example (EN)</th><th>Example (${escapeHtml(langLabel)})</th>`,
     `<th>Level</th><th>Freq.</th><th>Tags</th>`,
     `</tr></thead><tbody>`
@@ -244,7 +243,6 @@ async function renderTable(){
       `<tr>`,
       `<td class="no">${r.no}</td>`,
       `<td class="type"><span class="pill ${escapeHtml(r.type)}">${escapeHtml(r.type)}</span></td>`,
-      `<td class="key">${escapeHtml(r.key)}</td>`,
       `<td class="translation">${escapeHtml(r.translation)}</td>`,
       `<td class="tip">${escapeHtml(r.tip)}</td>`,
       `<td class="ex">${escapeHtml(r.exampleEN)}</td>`,
@@ -255,7 +253,7 @@ async function renderTable(){
       `</tr>`
     );
   }
-  if (!rows.length) html.push(`<tr><td colspan="10" class="empty">No matching entries.</td></tr>`);
+  if (!rows.length) html.push(`<tr><td colspan="9" class="empty">No matching entries.</td></tr>`);
   html.push(`</tbody></table>`);
   box.innerHTML = html.join("");
 }
