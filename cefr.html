@@ -51,6 +51,7 @@ li.sep{border-top:1px dashed var(--line);margin-top:4px}
 .proto{display:inline-block;font:500 10.5px/1 "IBM Plex Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--night);background:var(--teal);border-radius:4px;padding:4px 6px;vertical-align:middle;margin-left:10px}
 @media (max-width:1000px){.page{grid-template-columns:1fr}.mapcol{display:none}}
 @media (max-width:760px){.pair{grid-template-columns:1fr}h1{margin-top:32px}}
+.klangs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}.klangs:empty{display:none}.klangs button{font:600 13px/1 "IBM Plex Mono",monospace;letter-spacing:.06em;padding:9px 14px;border:1px solid var(--line);border-radius:999px;color:var(--gold);background:none;cursor:pointer}.klangs button[aria-pressed=true]{background:var(--gold);color:var(--night);border-color:var(--gold)}
 .cb{font:inherit;color:inherit;background:none;border:0;padding:0;text-align:left;cursor:pointer;width:100%}.cb:hover{color:var(--gold-hi);text-decoration:underline}
 dialog{width:min(1400px,96vw);max-height:92vh;padding:0;border:1px solid var(--line);border-radius:14px;background:#0a1630;color:var(--ivory);overflow:hidden}dialog[open]{display:flex;flex-direction:column}dialog::backdrop{background:rgba(2,6,14,.75)}
 .dh{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:14px 18px;border-bottom:1px solid var(--line)}.dh h3{margin:0;font-weight:500;font-size:24px}.dh .sub{font:400 11.5px/1 "IBM Plex Mono",monospace;color:var(--mute)}
@@ -81,6 +82,7 @@ dialog{width:min(1400px,96vw);max-height:92vh;padding:0;border:1px solid var(--l
   <span><i class="dot d-planned"></i><b data-i="lp"></b></span>
   <span><b class="star">★</b><b data-i="lc"></b></span>
 </div>
+<div class="klangs" id="klangs"></div>
 <div id="levels"></div>
 <p class="foot" data-i="foot"></p>
 <p class="foot">→ <a href="golden-set.html" style="color:var(--gold-hi)">Golden Set</a> · © 2026 Dr. Ahmet Akan — Alle Rechte vorbehalten / All rights reserved.</p>
@@ -109,17 +111,16 @@ const GL=[["de","Deutsch"],["es","Español"],["fr","Français"],["it","Italiano"
 const gcache={};
 async function gdata(c){return gcache[c]||(gcache[c]=await (await fetch("golden-set/data-"+c+".json")).json());}
 function buildBlocks(){
-  if(tab===2){const nz=x=>x.toLowerCase().replace(/[^a-z0-9]+/g,"");
-    return DATA.map(b=>{const m={};((G&&G.de[b.id])||[]).forEach(c=>m[nz(c.title)]=c.key);
-      return Object.assign({},b,{cats:b.cats.map(c=>Object.assign({},c,{key:m[nz(c.name)]}))});});}
+  if(tab===2) return DATA;
   if(!G) return [];
-  return Object.keys(G.de).map(id=>({id,cats:G.de[id].map((c,i)=>({n:i+1,name:c.title,key:c.key,st:"final"}))}));
+  return Object.keys(G[clang]).map(id=>({id,cats:G[clang][id].map((c,i)=>({n:i+1,name:c.title,key:c.key,st:"final"}))}));
 }
 function render(l){
   const t=T[l];document.documentElement.lang=l;
   document.querySelectorAll("[data-i]").forEach(e=>{e.textContent=t[e.dataset.i];});
   document.querySelectorAll("[data-l]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===l));
   document.querySelectorAll(".tab").forEach(b=>{const on=+b.dataset.tab===tab;b.classList.toggle("on",on);b.setAttribute("aria-selected",on);});
+  document.getElementById("klangs").innerHTML=tab===1?GL.map(([c,n])=>`<button data-c="${c}" aria-pressed="${c===clang}">${n}</button>`).join(""):"";
   const blocks=buildBlocks();
   if(!blocks.length){document.getElementById("levels").innerHTML='<p class="foot">Loading…</p>';return;}
   const by={};blocks.forEach(b=>(by[b.id.slice(0,2)]??=[]).push(b));
@@ -139,20 +140,20 @@ async function openCat(){
   const dlg=document.getElementById("dlg"),box=document.getElementById("dbody");
   document.getElementById("dtitle").textContent=cur.t;
   document.getElementById("dsub").textContent=cur.b+" · "+cur.k;
-  document.getElementById("dlangs").innerHTML=GL.map(([c,n])=>`<button class="dl" aria-pressed="${c===clang}" data-c="${c}">${n}</button>`).join("");
+  document.getElementById("dlangs").innerHTML=`<button class="dl" aria-pressed="true" disabled>${(GL.find(x=>x[0]===clang)||[])[1]||clang}</button>`;
   if(!dlg.open) dlg.showModal();
   box.innerHTML='<p class="foot">Loading…</p>';
   let d;try{d=await gdata(clang);}catch(e){box.innerHTML='<p class="foot">Could not load the data.</p>';return;}
   const cat=(d[cur.b]||[]).find(c=>c.key===cur.k);
-  if(!cat){box.innerHTML='<p class="foot">Data not found.</p>';return;}
   const nm=(GL.find(x=>x[0]===clang)||[])[1]||clang,E=s=>esc(String(s??""));
+  if(!cat){box.innerHTML='<p class="foot">This category is not part of the '+nm+' set (the '+nm+' set uses a different category list).</p>';return;}
   box.innerHTML=`<table><thead><tr><th>No</th><th>Type</th><th>Key</th><th>Translation (${nm})</th><th>Note</th><th>Example (EN)</th><th>Example (${nm})</th><th>Level</th><th>Freq.</th><th>Tags</th></tr></thead><tbody>`+
    cat.rows.map(r=>`<tr><td class="no">${r.no}</td><td><span class="pill ${E(r.type)}">${E(r.type)}</span></td><td class="k">${E(r.key).replace(/_/g,"_<wbr>")}</td><td class="tr">${E(r.translation)}</td><td>${E(r.tip)}</td><td>${E(r.exampleEN)}</td><td>${E(r.exampleTGT)}</td><td class="nw">${E(r.difficulty)}</td><td class="nw">${E(r.frequency)}</td><td class="tg">${E(r.tags)}</td></tr>`).join("")+`</tbody></table>`;
 }
 document.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>render(lang=b.dataset.l));
 document.querySelectorAll(".tab").forEach((b,i)=>{b.dataset.tab=i+1;b.onclick=()=>{if(b.disabled)return;tab=i+1;render(lang);};});
 document.getElementById("levels").addEventListener("click",e=>{const b=e.target.closest(".cb");if(!b)return;cur={b:b.dataset.b,k:b.dataset.k,t:b.dataset.t};openCat();});
-document.getElementById("dlangs").addEventListener("click",e=>{const b=e.target.closest(".dl");if(!b)return;clang=b.dataset.c;openCat();});
+document.getElementById("klangs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;clang=b.dataset.c;render(lang);});
 document.getElementById("dclose").onclick=()=>document.getElementById("dlg").close();
 document.getElementById("dlg").addEventListener("click",e=>{if(e.target.id==="dlg")e.target.close();});
 render(lang);
