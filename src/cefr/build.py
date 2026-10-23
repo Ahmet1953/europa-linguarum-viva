@@ -39,6 +39,9 @@ for b in blocks:
     for n, name in b["core"] + b["extra"]:
         st = "final" if (b["id"], n) in FINAL else "review" if (b["id"], n) in REVIEW else "planned"
         cats.append({"n": n, "name": name, "core": n <= 10, "st": st})
+    if b["id"] not in ("A1.1", "A1.2"):  # A2.1-C2.2: approved list (Akan, 2026-10-23), see klasik2-list.json
+        names = json.loads(Path(__file__).with_name("klasik2-list.json").read_text())["blocks"][b["id"]]
+        cats = [{"n": i + 1, "name": nm, "core": i < 10, "st": "planned"} for i, nm in enumerate(names)]
     data.append({"id": b["id"], "cats": cats})
 
 LEVELS = {"A1": ("Breakthrough", "Einstieg"), "A2": ("Waystage", "Grundlegende Kenntnisse"),

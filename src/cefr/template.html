@@ -52,6 +52,7 @@ li.sep{border-top:1px dashed var(--line);margin-top:4px}
 @media (max-width:1000px){.page{grid-template-columns:1fr}.mapcol{display:none}}
 @media (max-width:760px){.pair{grid-template-columns:1fr}h1{margin-top:32px}}
 .klangs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}.klangs:empty{display:none}.klangs button{font:600 13px/1 "IBM Plex Mono",monospace;letter-spacing:.06em;padding:9px 14px;border:1px solid var(--line);border-radius:999px;color:var(--gold);background:none;cursor:pointer}.klangs button[aria-pressed=true]{background:var(--gold);color:var(--night);border-color:var(--gold)}
+.block.soon{opacity:.6}.block.soon .bhead{cursor:default}.block.soon .bhead::after{content:""}
 .cb{font:inherit;color:inherit;background:none;border:0;padding:0;text-align:left;cursor:pointer;width:100%}.cb:hover{color:var(--gold-hi);text-decoration:underline}
 dialog{width:min(1400px,96vw);max-height:92vh;padding:0;border:1px solid var(--line);border-radius:14px;background:#0a1630;color:var(--ivory);overflow:hidden}dialog[open]{display:flex;flex-direction:column}dialog::backdrop{background:rgba(2,6,14,.75)}
 .dh{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:14px 18px;border-bottom:1px solid var(--line)}.dh h3{margin:0;font-weight:500;font-size:24px}.dh .sub{font:400 11.5px/1 "IBM Plex Mono",monospace;color:var(--mute)}
@@ -97,12 +98,12 @@ const T={
  en:{proto:"Prototype",lead:"The Common European Framework of Reference organises language learning into six levels. Our German course divides each level into two blocks: 12 blocks, each with its own set of topic categories. The first ten categories of every block are shared by all six course languages; the rest are chosen for each language.",
   t1:"Klasik CEFR 1",t2:"Klasik CEFR 2",t3:"Klasik-Modern CEFR",t4:"Digital First CEFR",soon:"in preparation",
   lf:"Completed",lr:"In review",lp:"Planned",lc:"Shared core (all six languages)",
-  core:"Shared core",extra:"German-specific",cats:"categories",done:"completed",
+  core:"Shared core",extra:"Additional categories",cats:"categories",done:"completed",
   foot:"Course language: German. Each category contains 48 entries (22 words, 12 phrases, 14 sentences), each checked by hand and by an independent second review before completion."},
  de:{proto:"Prototyp",lead:"Der Gemeinsame Europäische Referenzrahmen gliedert das Sprachenlernen in sechs Niveaus. Unser Deutschkurs teilt jedes Niveau in zwei Blöcke: 12 Blöcke mit jeweils eigenen Themenkategorien. Die ersten zehn Kategorien jedes Blocks sind in allen sechs Kurssprachen gleich, die übrigen werden je Sprache gewählt.",
   t1:"Klasik CEFR 1",t2:"Klasik CEFR 2",t3:"Klasik-Modern CEFR",t4:"Digital First CEFR",soon:"in Vorbereitung",
   lf:"Abgeschlossen",lr:"In Prüfung",lp:"Geplant",lc:"Gemeinsamer Kern (alle sechs Sprachen)",
-  core:"Gemeinsamer Kern",extra:"Deutsch-spezifisch",cats:"Kategorien",done:"abgeschlossen",
+  core:"Gemeinsamer Kern",extra:"Weitere Kategorien",cats:"Kategorien",done:"abgeschlossen",
   foot:"Kurssprache: Deutsch. Jede Kategorie umfasst 48 Einträge (22 Wörter, 12 Wendungen, 14 Sätze), die vor dem Abschluss von Hand und durch eine unabhängige Zweitprüfung kontrolliert werden."}
 };
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -129,6 +130,7 @@ function render(l){
     const head=li===0?`KLASIK CEFR ${tab}<em>${lv} · ${esc(nm)}</em>`:`${lv}<em>${esc(nm)}</em>`;
     return `<section class="level"><h2>${head}</h2><div class="pair">${by[lv].map(b=>{
       const f=b.cats.filter(c=>c.st==="final").length,r=b.cats.filter(c=>c.st==="review").length,n=b.cats.length;
+      if(!n) return `<div class="block soon"><div class="bhead"><span class="bid">${b.id}</span><span class="bmeta">${t.soon}</span></div></div>`;
       const row=c=>`<li class="${c.st}"><span class="n">${c.n}</span>${c.key?`<button class="t cb" data-b="${b.id}" data-k="${esc(c.key)}" data-t="${esc(c.name)}">${esc(c.name)}</button>`:`<span class="t">${esc(c.name)}</span>`}<i class="dot d-${c.st}" title="${t["l"+c.st[0]]}"></i></li>`;
       const body=tab===1?`<ol>${b.cats.map(row).join("")}</ol>`:
       `<div class="grp"><span class="star">★</span> ${t.core}</div><ol>${b.cats.filter(c=>c.core).map(row).join("")}</ol>
