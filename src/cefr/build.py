@@ -21,7 +21,7 @@ for line in src.splitlines():
         continue
     if line.startswith("**Çekirdek 10"):
         section = "core"; continue
-    if line.startswith("**Almanca'ya özel"):
+    if line.startswith("**Almanca'ya özel") or line.startswith("**Ek "):
         section = "extra"; continue
     m = re.match(r"^(\d+)\. (.+)$", line)
     if m and section:
