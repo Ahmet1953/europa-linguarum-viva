@@ -57,35 +57,35 @@ header.top .sub{color:var(--muted);font-size:13px}
 .rail-head .count{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
 .cat-list{list-style:none;margin:0;padding:4px;max-height:560px;overflow:auto}
 .cat-item{border-radius:8px}
-.cat-item button{width:100%;text-align:left;background:none;border:0;padding:9px 10px;cursor:pointer;color:var(--fg);font-family:var(--font-body);font-size:13.5px;border-radius:8px;display:flex;flex-direction:column;gap:2px}
+.cat-item button{width:100%;text-align:left;background:none;border:0;padding:9px 10px;cursor:pointer;color:var(--fg);font-family:var(--font-body);font-size:16px;border-radius:8px;display:flex;flex-direction:column;gap:2px}
 .cat-item button:hover{background:var(--row-hover)}
 .cat-item button[aria-current="true"]{background:var(--accent);color:var(--accent-fg)}
-.cat-item .n{font-family:var(--font-mono);font-size:11px;color:var(--muted)}
+.cat-item .n{font-family:var(--font-mono);font-size:12.5px;color:var(--muted)}
 .cat-item button[aria-current="true"] .n{color:var(--accent-fg);opacity:.8}
 
 .main{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
 .main-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px}
-.main-head h2{font-size:19px;font-weight:700}
-.main-head .key{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+.main-head h2{font-size:22px;font-weight:700}
+.main-head .key{font-family:var(--font-mono);font-size:13.5px;color:var(--muted)}
 .search{display:flex;gap:8px;align-items:center}
-.search input{font-family:var(--font-body);font-size:13.5px;border:1px solid var(--border);background:var(--surface);color:var(--fg);border-radius:8px;padding:7px 10px;width:220px;min-width:0}
+.search input{font-family:var(--font-body);font-size:15px;border:1px solid var(--border);background:var(--surface);color:var(--fg);border-radius:8px;padding:7px 10px;width:220px;min-width:0}
 .search input:focus{outline:2px solid var(--accent);outline-offset:1px}
 
 .tablebox{background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow:auto;max-height:70vh}
-table{border-collapse:collapse;width:100%;font-size:13px}
-thead th{position:sticky;top:0;background:var(--surface-2);text-align:left;padding:9px 10px;font-weight:600;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--border);white-space:nowrap}
+table{border-collapse:collapse;width:100%;font-size:15.5px}
+thead th{position:sticky;top:0;background:var(--surface-2);text-align:left;padding:9px 10px;font-weight:600;color:var(--muted);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--border);white-space:nowrap}
 tbody td{padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top}
 tbody tr:hover{background:var(--row-hover)}
 td.no{font-family:var(--font-mono);color:var(--muted);font-variant-numeric:tabular-nums}
-td.type{font-family:var(--font-mono);font-size:11px}
-.pill{display:inline-block;padding:2px 7px;border-radius:999px;font-size:10.5px;font-family:var(--font-mono);border:1px solid var(--border)}
+td.type{font-family:var(--font-mono);font-size:12.5px}
+.pill{display:inline-block;padding:2px 7px;border-radius:999px;font-size:12px;font-family:var(--font-mono);border:1px solid var(--border)}
 .pill.word{color:var(--lvl-a)} .pill.phrase{color:var(--lvl-b)} .pill.sentence{color:var(--lvl-c)}
-td.key{font-family:var(--font-mono);color:var(--muted);font-size:11.5px;width:200px;min-width:150px;max-width:220px;overflow-wrap:break-word}
+td.key{font-family:var(--font-mono);color:var(--muted);font-size:13px;width:200px;min-width:150px;max-width:220px;overflow-wrap:break-word}
 td.translation{font-weight:600;min-width:140px}
 td.tip{color:var(--muted);min-width:180px;max-width:260px}
 td.ex{min-width:180px;max-width:280px}
 td.num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap}
-td.tags{color:var(--muted);font-size:11.5px;max-width:160px}
+td.tags{color:var(--muted);font-size:13px;max-width:160px}
 
 .empty{padding:48px 16px;text-align:center;color:var(--muted);font-family:var(--font-display);font-size:16px}
 .loading{padding:48px 16px;text-align:center;color:var(--muted)}
